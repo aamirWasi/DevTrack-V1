@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "DevTrack.KeyboardMouseActivityWorker": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
