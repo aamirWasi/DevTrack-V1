@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "DevTrack.RunningProgramWorker": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

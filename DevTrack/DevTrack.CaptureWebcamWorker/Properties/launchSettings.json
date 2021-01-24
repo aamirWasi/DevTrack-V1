@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "DevTrack.CaptureWebcamWorker": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
