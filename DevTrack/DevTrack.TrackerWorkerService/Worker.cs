@@ -4,7 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DevTrack.KeyboardMouseActivityWorker
+namespace DevTrack.TrackerWorkerService
 {
     public class Worker : BackgroundService
     {
