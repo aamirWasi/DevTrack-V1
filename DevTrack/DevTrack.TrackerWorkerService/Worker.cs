@@ -22,8 +22,6 @@ namespace DevTrack.TrackerWorkerService
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                //DevTrack.Foundation.Services.WebCamCaptureService webCamCapture = new Foundation.Services.WebCamCaptureService();
-                //webCamCapture.Capture();
 
                 _webCamCaptureService.Capture();
 

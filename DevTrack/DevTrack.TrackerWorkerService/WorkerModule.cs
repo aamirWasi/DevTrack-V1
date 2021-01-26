@@ -9,8 +9,6 @@ namespace DevTrack.TrackerWorkerService
         {
             builder.RegisterType<TrackerService>().As<ITrackerService>().SingleInstance();
 
-            builder.RegisterType<WebCamCaptureService>().As<IWebCamCaptureService>().InstancePerLifetimeScope();
-
             base.Load(builder);
         }
     }
