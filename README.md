@@ -1,0 +1,1 @@
+Finding a way to identify what program user currently selected as active.
