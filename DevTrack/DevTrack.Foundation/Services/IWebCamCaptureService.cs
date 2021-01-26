@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DevTrack.Foundation.Services
 {
-    interface IWebCamCaptureService
+    public interface IWebCamCaptureService
     {
         public void Capture();
     }

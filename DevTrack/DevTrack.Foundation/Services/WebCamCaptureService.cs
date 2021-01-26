@@ -8,7 +8,7 @@ using System.IO;
 
 namespace DevTrack.Foundation.Services
 {
-    class WebCamCaptureService : IWebCamCaptureService
+    public class WebCamCaptureService : IWebCamCaptureService
     {
         Camera cam = new Camera();
         Image img;
