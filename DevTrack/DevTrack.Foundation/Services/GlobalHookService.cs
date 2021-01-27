@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace DevTrack.Foundation.Services
 {
@@ -134,9 +135,23 @@ namespace DevTrack.Foundation.Services
         }
 
         #endregion
-        
-        #region Methods
 
+        #region Constructor
+
+        protected GlobalHookService()
+        {
+            Application.ApplicationExit += Application_ApplicationExit;
+        }
+
+        #endregion
+        #region Methods
+        protected void Application_ApplicationExit(object sender, EventArgs e)
+        {
+            if (_isStarted)
+            {
+                Stop();
+            }
+        }
         public void Start()
         {
             if (!_isStarted && _hookType != 0)

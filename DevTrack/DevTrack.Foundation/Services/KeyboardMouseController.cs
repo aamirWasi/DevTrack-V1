@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using Serilog;
 
 namespace DevTrack.Foundation.Services
 {
@@ -19,6 +20,7 @@ namespace DevTrack.Foundation.Services
         public void TrackKeyboardMouse()
         {
             _keyboardTrack.KeyboardTrack();
+            _mouseTrack.MouseTrack();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run();

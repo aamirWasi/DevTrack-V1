@@ -13,9 +13,11 @@ namespace DevTrack.Foundation.Services
         {
             KeyDown += keyboardHook_KeyDown;
             KeyPress += keyboardHook_KeyPress;
-            
+
             Start();
         }
+
+        private int _countKeyPress = 0;
 
         #region Events
 
@@ -122,8 +124,8 @@ namespace DevTrack.Foundation.Services
 
         private void AddKeyboardEvent(string eventType, string keyCode, string keyChar, string shift, string alt, string control)
         {
-            //Console.WriteLine($"{keyChar}");
-            Log.Information($"{keyChar}");
+            _countKeyPress += 1;
+            Log.Information($"{keyChar} - {_countKeyPress}");
         }
 
         #endregion
