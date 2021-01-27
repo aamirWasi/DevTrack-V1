@@ -1,6 +1,7 @@
 using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DevTrack.Foundation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,6 +12,8 @@ namespace DevTrack.TrackerWorkerService
 {
     public class Program
     {
+        private static string _connectionString;
+        private static string _migrationAssemblyName;
         private static IConfiguration _configuration;
 
         public static void Main(string[] args)
@@ -18,7 +21,11 @@ namespace DevTrack.TrackerWorkerService
             _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", false)
                 .AddEnvironmentVariables()
                 .Build();
-            
+
+            _connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+            _migrationAssemblyName = typeof(Worker).Assembly.FullName;
+
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
@@ -47,6 +54,7 @@ namespace DevTrack.TrackerWorkerService
                 .UseSerilog()
                 .ConfigureContainer<ContainerBuilder>(builder => {
                     builder.RegisterModule(new WorkerModule());
+                    builder.RegisterModule(new FoundationModule(_connectionString,_migrationAssemblyName));
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
