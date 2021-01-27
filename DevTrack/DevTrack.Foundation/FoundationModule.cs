@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DevTrack.Foundation.Services;
 
 namespace DevTrack.Foundation
 {

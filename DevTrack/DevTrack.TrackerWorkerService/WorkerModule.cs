@@ -10,6 +10,13 @@ namespace DevTrack.TrackerWorkerService
             builder.RegisterType<TrackerService>().As<ITrackerService>()
                 .SingleInstance();
 
+            builder.RegisterType<KeyboardTrackService>().As<IKeyboardTrackService>()
+                .SingleInstance();
+            builder.RegisterType<MouseTrackService>().As<IMouseTrackService>()
+                .SingleInstance();
+            builder.RegisterType<KeyboardMouseController>().As<IKeyboardMouseController>()
+                .SingleInstance();
+
             base.Load(builder);
         }
     }
