@@ -14,10 +14,13 @@ namespace DevTrack.Foundation
             _migrationAssemblyName = migrationAssemblyName;
         }
 
+
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<SnapShotService>().As<ISnapShotService>().InstancePerLifetimeScope();
             builder.RegisterType<LoggerInputService>().As<ILoggerInputService>().InstancePerLifetimeScope();
+            builder.RegisterType<RunningProgramService>().As<IRunningProgramService>()
+                .InstancePerLifetimeScope();
             base.Load(builder);
         }
     }
