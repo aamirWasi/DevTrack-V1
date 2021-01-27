@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.Threading;
-using System.IO;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
-using System.Drawing.Imaging;
 
 namespace DevTrack.Foundation.Services
 {
