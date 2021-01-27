@@ -2,67 +2,41 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
-using DarrenLee.Media;
 using System.Threading;
 using System.IO;
+using OpenCvSharp;
+using OpenCvSharp.Extensions;
+using System.Drawing.Imaging;
 
 namespace DevTrack.Foundation.Services
 {
     public class WebCamCaptureService : IWebCamCaptureService
     {
+        VideoCapture capture;
+        Mat frame;
+        Bitmap image;
 
-        Camera cam = new Camera();
-        Image img;
-
-        public WebCamCaptureService()
+        public Image WebCamCapture()
         {
-            GetInfo();
-            cam.OnFrameArrived += cam_OnFrameArrived;
-        }
+            capture = new VideoCapture(0);
+            capture.Open(0);
 
-        private void cam_OnFrameArrived(object sourse, FrameArrivedEventArgs e)
-        {
-            img = e.GetFrame();
-        }
-
-        private void GetInfo()
-        {
-            var camInfo = cam.GetCameraSources();
-            var camResulation = cam.GetSupportedResolutions();
-        }
-
-        public void Capture()
-        {
-            cam.Start();
-            Console.WriteLine("Camera On");
-            Thread.Sleep(3000);
-
-            try
-            {
-                if (!Directory.Exists(@"C:\camTest"))
-                {
-                    Directory.CreateDirectory(@"C:\camTest");
-                    Console.WriteLine("Directory created!");
-                }
-
-                string path = @"C:\camTest\";
-                string FileName = DateTime.Now.ToString("dd-MM-yyyy hh-mm-ss-tt");
-
-                img.Save(path + FileName + ".jpg");
-
-                //cam.Capture(path + FileName);
-
-                Console.WriteLine("Image Captured");
+            frame = new Mat();
+            capture.Read(frame);
+            Thread.Sleep(2000);
+            image = BitmapConverter.ToBitmap(frame);
+            Bitmap snapshot = new Bitmap(image);
 
 
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            //---Save Image for Testing purpose ----------///
+            //string path = @"C:\camTest\";
+            //string FileName = DateTime.Now.ToString("dd-MM-yyyy hh-mm-ss-tt");
+            //snapshot.Save(string.Format(path + FileName + ".jpg"));
 
-            cam.Stop();
-            Console.WriteLine("Camera stopped");
+
+            capture.Release();
+
+            return image;
         }
 
         

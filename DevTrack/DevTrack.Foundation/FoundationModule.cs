@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using DevTrack.Foundation.Services;
+//using DevTrack.Foundation.Services;
 
 namespace DevTrack.Foundation
 {
@@ -14,9 +14,10 @@ namespace DevTrack.Foundation
             _migrationAssemblyName = migrationAssemblyName;
         }
 
+
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<WebCamCaptureService>().As<IWebCamCaptureService>().InstancePerLifetimeScope();
+            
             base.Load(builder);
         }
     }
