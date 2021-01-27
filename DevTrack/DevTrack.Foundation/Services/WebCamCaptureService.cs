@@ -10,6 +10,7 @@ namespace DevTrack.Foundation.Services
 {
     public class WebCamCaptureService : IWebCamCaptureService
     {
+
         Camera cam = new Camera();
         Image img;
 
@@ -47,9 +48,9 @@ namespace DevTrack.Foundation.Services
                 string path = @"C:\camTest\";
                 string FileName = DateTime.Now.ToString("dd-MM-yyyy hh-mm-ss-tt");
 
-                //img.Save(path + FileName);
+                img.Save(path + FileName + ".jpg");
 
-                cam.Capture(path + FileName);
+                //cam.Capture(path + FileName);
 
                 Console.WriteLine("Image Captured");
 
@@ -63,5 +64,7 @@ namespace DevTrack.Foundation.Services
             cam.Stop();
             Console.WriteLine("Camera stopped");
         }
+
+        
     }
 }
