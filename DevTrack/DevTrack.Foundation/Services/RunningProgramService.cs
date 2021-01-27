@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace DevTrack.Foundation.Services
 {
@@ -15,7 +13,8 @@ namespace DevTrack.Foundation.Services
             {
                 if (procList[i].MainWindowHandle != IntPtr.Zero)
                 {
-                    Console.WriteLine(procList[i].ProcessName);
+                    var ProgramsList = procList[i].ProcessName;
+                    //Console.WriteLine(procList[i].ProcessName);
                 }
             }
         }
