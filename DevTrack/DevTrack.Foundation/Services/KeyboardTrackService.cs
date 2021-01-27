@@ -11,7 +11,6 @@ namespace DevTrack.Foundation.Services
     {
         public void KeyboardTrack()
         {
-            KeyDown += keyboardHook_KeyDown;
             KeyPress += keyboardHook_KeyPress;
 
             Start();
@@ -109,19 +108,6 @@ namespace DevTrack.Foundation.Services
                 ""
             );
         }
-
-        private void keyboardHook_KeyDown(object sender, KeyEventArgs e)
-        {
-            AddKeyboardEvent(
-                "KeyDown",
-                e.KeyCode.ToString(),
-                "",
-                e.Shift.ToString(),
-                e.Alt.ToString(),
-                e.Control.ToString()
-            );
-        }
-
         private void AddKeyboardEvent(string eventType, string keyCode, string keyChar, string shift, string alt, string control)
         {
             _countKeyPress += 1;

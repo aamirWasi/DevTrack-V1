@@ -1,14 +1,217 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using Serilog;
 
 namespace DevTrack.Foundation.Services
 {
-    public class MouseTrackService : IMouseTrackService
+    public class MouseTrackService : GlobalHookService, IMouseTrackService
     {
         public void MouseTrack()
         {
-            Console.WriteLine("");
+            MouseMove += mouseHook_MouseMove;
+            MouseDown += mouseHook_MouseDown;
+            MouseWheel += mouseHook_MouseWheel;
+            Start();
+            SetXYLabel(MouseSimulatorService.X, MouseSimulatorService.Y);
         }
+
+        private int _countClick = 0;
+
+        #region MouseEventType Enum
+
+        private enum MouseEventType
+        {
+            None,
+            MouseDown,
+            MouseUp,
+            DoubleClick,
+            MouseWheel,
+            MouseMove
+        }
+
+        #endregion
+
+        #region Events
+
+        public event MouseEventHandler MouseDown;
+        public event MouseEventHandler MouseUp;
+        public event MouseEventHandler MouseMove;
+        public event MouseEventHandler MouseWheel;
+
+        public event EventHandler Click;
+        public event EventHandler DoubleClick;
+
+        #endregion
+
+        #region Constructor
+
+        public MouseTrackService()
+        {
+
+            _hookType = WH_MOUSE_LL;
+
+        }
+
+        #endregion
+
+        #region Methods
+
+        protected override int HookCallbackProcedure(int nCode, int wParam, IntPtr lParam)
+        {
+            if (nCode <= -1 || (MouseDown == null && MouseUp == null && MouseMove == null)) return CallNextHookEx(_handleToHook, nCode, wParam, lParam);
+            MouseLLHookStruct mouseHookStruct = (MouseLLHookStruct)Marshal.PtrToStructure(lParam, typeof(MouseLLHookStruct));
+
+            MouseButtons button = GetButton(wParam);
+            MouseEventType eventType = GetEventType(wParam);
+
+            MouseEventArgs e = new MouseEventArgs(
+                button,
+                (eventType == MouseEventType.DoubleClick ? 2 : 1),
+                mouseHookStruct.pt.x,
+                mouseHookStruct.pt.y,
+                (eventType == MouseEventType.MouseWheel ? (short)((mouseHookStruct.mouseData >> 16) & 0xffff) : 0));
+
+            // Prevent multiple Right Click events (this probably happens for popup menus)
+            if (button == MouseButtons.Right && mouseHookStruct.flags != 0)
+            {
+                eventType = MouseEventType.None;
+            }
+
+            switch (eventType)
+            {
+                case MouseEventType.MouseDown:
+                    if (MouseDown != null)
+                    {
+                        MouseDown(this, e);
+                    }
+                    break;
+                case MouseEventType.MouseUp:
+                    if (Click != null)
+                    {
+                        Click(this, new EventArgs());
+                    }
+                    if (MouseUp != null)
+                    {
+                        MouseUp(this, e);
+                    }
+                    break;
+                case MouseEventType.DoubleClick:
+                    if (DoubleClick != null)
+                    {
+                        DoubleClick(this, new EventArgs());
+                    }
+                    break;
+                case MouseEventType.MouseWheel:
+                    if (MouseWheel != null)
+                    {
+                        MouseWheel(this, e);
+                    }
+                    break;
+                case MouseEventType.MouseMove:
+                    if (MouseMove != null)
+                    {
+                        MouseMove(this, e);
+                    }
+                    break;
+            }
+
+            return CallNextHookEx(_handleToHook, nCode, wParam, lParam);
+
+        }
+
+        private static MouseButtons GetButton(Int32 wParam)
+        {
+
+            switch (wParam)
+            {
+
+                case WM_LBUTTONDOWN:
+                case WM_LBUTTONUP:
+                case WM_LBUTTONDBLCLK:
+                    return MouseButtons.Left;
+                case WM_RBUTTONDOWN:
+                case WM_RBUTTONUP:
+                case WM_RBUTTONDBLCLK:
+                    return MouseButtons.Right;
+                case WM_MBUTTONDOWN:
+                case WM_MBUTTONUP:
+                case WM_MBUTTONDBLCLK:
+                    return MouseButtons.Middle;
+                default:
+                    return MouseButtons.None;
+
+            }
+
+        }
+
+        private static MouseEventType GetEventType(Int32 wParam)
+        {
+
+            switch (wParam)
+            {
+
+                case WM_LBUTTONDOWN:
+                case WM_RBUTTONDOWN:
+                case WM_MBUTTONDOWN:
+                    return MouseEventType.MouseDown;
+                case WM_LBUTTONUP:
+                case WM_RBUTTONUP:
+                case WM_MBUTTONUP:
+                    return MouseEventType.MouseUp;
+                case WM_LBUTTONDBLCLK:
+                case WM_RBUTTONDBLCLK:
+                case WM_MBUTTONDBLCLK:
+                    return MouseEventType.DoubleClick;
+                case WM_MOUSEWHEEL:
+                    return MouseEventType.MouseWheel;
+                case WM_MOUSEMOVE:
+                    return MouseEventType.MouseMove;
+                default:
+                    return MouseEventType.None;
+
+            }
+        }
+
+        private void mouseHook_MouseWheel(object sender, MouseEventArgs e)
+        {
+            AddMouseEvent(
+                "MouseWheel",
+                "",
+                "",
+                "",
+                e.Delta.ToString(CultureInfo.InvariantCulture)
+            );
+        }
+        private void mouseHook_MouseDown(object sender, MouseEventArgs e)
+        {
+            AddMouseEvent(
+                "MouseDown",
+                e.Button.ToString(),
+                e.X.ToString(CultureInfo.InvariantCulture),
+                e.Y.ToString(CultureInfo.InvariantCulture),
+                ""
+            );
+        }
+
+        private void mouseHook_MouseMove(object sender, MouseEventArgs e)
+        {
+            SetXYLabel(e.X, e.Y);
+        }
+
+        private void SetXYLabel(int x, int y)
+        {
+            Log.Information(String.Format("X={0}, y={1}", x, y));
+        }
+
+        private void AddMouseEvent(string eventType, string button, string x, string y, string delta)
+        {
+            _countClick += 1;
+            Log.Information($"{button} - {_countClick}");
+        }
+
+        #endregion
+
     }
 }
