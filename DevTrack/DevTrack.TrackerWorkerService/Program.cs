@@ -12,18 +12,13 @@ namespace DevTrack.TrackerWorkerService
 {
     public class Program
     {
-        private static string _connectionString;
-        private static string _migrationAssemblyName;
         private static IConfiguration _configuration;
+
         public static void Main(string[] args)
         {
             _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", false)
                 .AddEnvironmentVariables()
                 .Build();
-
-            _connectionString = _configuration.GetConnectionString("DefaultConnection");
-
-            _migrationAssemblyName = typeof(Worker).Assembly.FullName;
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -31,20 +26,14 @@ namespace DevTrack.TrackerWorkerService
                 .Enrich.FromLogContext()
                 .ReadFrom.Configuration(_configuration)
                 .CreateLogger();
-
             try
             {
-                Log.Information("Application starting up...");
-                CreateHostBuilder(args).ConfigureServices((hostContext, services) =>
-                {
-                    var connectionStringName = "DefaultConnection";
-                    var connectionString = _configuration.GetConnectionString(connectionStringName);
-                    var migrationAssemblyName = typeof(Worker).Assembly.FullName;
-                }).Build().Run();
+                Log.Information("Application Starting up");
+                CreateHostBuilder(args).Build().Run();
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex.Message, "Application startup is failed");
+                Log.Fatal(ex, "Application start-up failed");
             }
             finally
             {
@@ -54,12 +43,11 @@ namespace DevTrack.TrackerWorkerService
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-            .UseWindowsService()
-            .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-            .UseSerilog()
+                .UseWindowsService()
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .UseSerilog()
                 .ConfigureContainer<ContainerBuilder>(builder => {
                     builder.RegisterModule(new WorkerModule());
-                    builder.RegisterModule(new FoundationModule(_connectionString, _migrationAssemblyName));
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
