@@ -48,6 +48,7 @@ namespace DevTrack.TrackerWorkerService
                 .UseSerilog()
                 .ConfigureContainer<ContainerBuilder>(builder => {
                     builder.RegisterModule(new WorkerModule());
+                    builder.RegisterModule(new FoundationModule());
                 })
                 .ConfigureServices((hostContext, services) =>
                 {

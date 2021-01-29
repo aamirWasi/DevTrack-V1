@@ -10,10 +10,12 @@ namespace DevTrack.TrackerWorkerService
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
+        private readonly ITrackerService _trackerService;
 
-        public Worker(ILogger<Worker> logger)
+        public Worker(ILogger<Worker> logger, ITrackerService trackerService)
         {
             _logger = logger;
+            _trackerService = trackerService;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
