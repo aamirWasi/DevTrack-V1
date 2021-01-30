@@ -1,7 +1,9 @@
-﻿namespace DevTrack.Foundation.Services
+﻿using DevTrack.Foundation.BusinessObjects;
+
+namespace DevTrack.Foundation.Services
 {
     public interface ISnapShotService
     {
-        void SnapshotCapturer();
+        void SnapshotCapturer(SnapshotImage image);
     }
 }
