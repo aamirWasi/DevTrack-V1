@@ -41,7 +41,7 @@ namespace DevTrack.Foundation.BusinessObjects
             var imageDirectory = "ScreenShotReceiver";
             var newPath = Path.Combine(path, imageDirectory);
             bool exists = Directory.Exists(newPath);
-            string imgName = GetImage();
+            string imgName = DateTime.Now.ToString("(dd_MMMM_hh_mm_ss_tt)");
             if (!exists)
             {
                 Directory.CreateDirectory(newPath);
@@ -50,11 +50,6 @@ namespace DevTrack.Foundation.BusinessObjects
                       @"\Snapshot" + "_" + imgName
                       + ".jpeg";
             _image.Save(FilePath);
-        }
-
-        private static string GetImage()
-        {
-            return DateTime.Now.ToString("(dd_MMMM_hh_mm_ss_tt)");
         }
     }
 }
