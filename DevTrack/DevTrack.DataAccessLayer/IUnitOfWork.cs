@@ -2,7 +2,8 @@
 
 namespace DevTrack.DataAccessLayer
 {
-    public class Class1
+    public interface IUnitOfWork : IDisposable
     {
+        void Save();
     }
 }
