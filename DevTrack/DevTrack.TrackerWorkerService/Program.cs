@@ -13,12 +13,17 @@ namespace DevTrack.TrackerWorkerService
     public class Program
     {
         private static IConfiguration _configuration;
+        private static string _connectionString;
+        private static string _migrationAssemblyName;
 
         public static void Main(string[] args)
         {
             _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", false)
                 .AddEnvironmentVariables()
                 .Build();
+
+            _connectionString = _configuration.GetConnectionString("DefaultConnection");
+            _migrationAssemblyName = typeof(Worker).Assembly.FullName;
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -48,7 +53,7 @@ namespace DevTrack.TrackerWorkerService
                 .UseSerilog()
                 .ConfigureContainer<ContainerBuilder>(builder => {
                     builder.RegisterModule(new WorkerModule());
-                    builder.RegisterModule(new FoundationModule());
+                    builder.RegisterModule(new FoundationModule(_connectionString,_migrationAssemblyName));
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
