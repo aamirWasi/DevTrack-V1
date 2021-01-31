@@ -15,7 +15,7 @@ namespace DevTrack.Foundation.Services
 
         public void Track()
         {
-            throw new NotImplementedException();
+            _snapShotService.SnapshotCapturer();
         }
     }
 }
