@@ -2,6 +2,8 @@ using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using DevTrack.Foundation;
+using DevTrack.Foundation.Contexts;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,7 +24,7 @@ namespace DevTrack.TrackerWorkerService
                 .AddEnvironmentVariables()
                 .Build();
 
-            _connectionString = _configuration.GetConnectionString("DefaultConnection");
+            _connectionString = _configuration.GetConnectionString("SqliteConnection");
             _migrationAssemblyName = typeof(Worker).Assembly.FullName;
 
             Log.Logger = new LoggerConfiguration()
@@ -36,7 +38,7 @@ namespace DevTrack.TrackerWorkerService
                 Log.Information("Application starting up...");
                 CreateHostBuilder(args).ConfigureServices((hostContext, services) =>
                 {
-                    var connectionStringName = "DefaultConnection";
+                    var connectionStringName = "SqliteConnection";
                     var connectionString = _configuration.GetConnectionString(connectionStringName);
                     var migrationAssemblyName = typeof(Worker).Assembly.FullName;
                 }).Build().Run();
@@ -63,6 +65,7 @@ namespace DevTrack.TrackerWorkerService
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddHostedService<Worker>();
+                    services.AddDbContext<DevTrackContext>();
                 });
     }
 }
