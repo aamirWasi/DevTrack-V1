@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace WorkerServiceDemo
+namespace DevTrack.Foundation.Services
 {
     public class ActiveWindowsService : IActiveWindowsService
     {
@@ -15,7 +15,7 @@ namespace WorkerServiceDemo
 
         public string windowLable;
 
-         public string GetActiveWindow()
+        public string GetActiveWindow()
         {
             const int nChars = 256;
             int handle = 0;
@@ -25,9 +25,7 @@ namespace WorkerServiceDemo
 
             if (GetWindowText(handle, Buff, nChars) > 0)
             {
-                //this.captionWindowLabel.Text = Buff.ToString();
-                 windowLable = Buff.ToString();
-                //this.IDWindowLabel.Text = handle.ToString();
+                windowLable = Buff.ToString();
                 var idWindowLabel = handle.ToString();
             }
 
