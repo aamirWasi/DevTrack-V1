@@ -18,4 +18,8 @@
     <ProjectReference Include="..\DevTrack.DataAccessLayer\DevTrack.DataAccessLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="BusinessObjects\" />
+  </ItemGroup>
+
 </Project>
