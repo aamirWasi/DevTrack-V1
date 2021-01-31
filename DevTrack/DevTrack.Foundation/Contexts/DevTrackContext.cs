@@ -19,9 +19,6 @@ namespace DevTrack.Foundation.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //if (!optionsBuilder.IsConfigured)
-            //    optionsBuilder.UseSqlServer(_connectionString, m => m.MigrationsAssembly(_migrationAssemblyName));
-
             if (!optionsBuilder.IsConfigured)
                 optionsBuilder.UseSqlite(ConnectionString(), m => m.MigrationsAssembly("DevTrack.TrackerWorkerService"));
 

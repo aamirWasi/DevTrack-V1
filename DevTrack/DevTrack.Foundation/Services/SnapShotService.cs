@@ -34,6 +34,7 @@ namespace DevTrack.Foundation.Services
             };
 
             _snapshotUnitOfWork.SnapshotRepository.Add(imageEntity);
+            _snapshotUnitOfWork.Save();
         }
 
         private (Image image, string fileLoaction) GenerateSnapshot()
