@@ -65,7 +65,7 @@ namespace DevTrack.Foundation.Tests.Services
             _snapshotRepositoryMock.Setup(x => x.Add(It.Is<EO.SnapshotImage>(y => y.FilePath == imageEntity.FilePath))).Verifiable();
             _snapshotUnitOfWorkMock.Setup(x => x.Save()).Verifiable();
             //act
-            _snapshotService.SnapshotCapturer(image);
+            _snapshotService.SnapshotCapturer();
 
             //assert
             this.ShouldSatisfyAllConditions(

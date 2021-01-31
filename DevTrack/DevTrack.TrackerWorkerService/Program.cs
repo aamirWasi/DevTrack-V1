@@ -33,8 +33,13 @@ namespace DevTrack.TrackerWorkerService
                 .CreateLogger();
             try
             {
-                Log.Information("Application Starting up");
-                CreateHostBuilder(args).Build().Run();
+                Log.Information("Application starting up...");
+                CreateHostBuilder(args).ConfigureServices((hostContext, services) =>
+                {
+                    var connectionStringName = "DefaultConnection";
+                    var connectionString = _configuration.GetConnectionString(connectionStringName);
+                    var migrationAssemblyName = typeof(Worker).Assembly.FullName;
+                }).Build().Run();
             }
             catch (Exception ex)
             {
