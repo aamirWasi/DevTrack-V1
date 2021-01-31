@@ -4,7 +4,7 @@ using DevTrack.Foundation.Entities;
 
 namespace DevTrack.Foundation.Repositories
 {
-    public interface ISnapshotRepository : IRepository<SnapshotImage, int,ScreenCaptureContext>
+    public interface ISnapshotRepository : IRepository<SnapshotImage, int,DevTrackContext>
     {
 
     }

@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace DevTrack.Foundation.Contexts
 {
-    public class ScreenCaptureContext : DbContext
+    public class DevTrackContext : DbContext
     {
         public DbSet<SnapshotImage> SnapshotImages { get; set; }
 
         private readonly string _connectionString;
         private readonly string _migrationAssemblyName;
 
-        public ScreenCaptureContext(string connectionString, string migrationAssemblyName)
+        public DevTrackContext(string connectionString, string migrationAssemblyName)
         {
             _connectionString = connectionString;
             _migrationAssemblyName = migrationAssemblyName;

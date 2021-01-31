@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace DevTrack.Foundation.Repositories
 {
-    public class SnapshotRepository : Repository<SnapshotImage, int, ScreenCaptureContext>, ISnapshotRepository
+    public class SnapshotRepository : Repository<SnapshotImage, int, DevTrackContext>, ISnapshotRepository
     {
-        public SnapshotRepository(ScreenCaptureContext shoppingContext) : base(shoppingContext)
+        public SnapshotRepository(DevTrackContext shoppingContext) : base(shoppingContext)
         {
 
         }

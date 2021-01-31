@@ -19,7 +19,7 @@ namespace DevTrack.Foundation
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ScreenCaptureContext>()
+            builder.RegisterType<DevTrackContext>()
                 .WithParameter("connectionString", _connectionString)
                 .WithParameter("migrationAssemblyName", _migrationAssemblyName)
                 .InstancePerLifetimeScope();

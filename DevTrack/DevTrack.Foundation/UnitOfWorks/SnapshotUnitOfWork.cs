@@ -11,7 +11,7 @@ namespace DevTrack.Foundation.UnitOfWorks
 {
     public class SnapshotUnitOfWork : UnitOfWork, ISnapshotUnitOfWork
     {
-        public SnapshotUnitOfWork(ScreenCaptureContext screenCapturerContext, ISnapshotRepository snapshotRepository) : base(screenCapturerContext)
+        public SnapshotUnitOfWork(DevTrackContext screenCapturerContext, ISnapshotRepository snapshotRepository) : base(screenCapturerContext)
         {
             SnapshotRepository = snapshotRepository;
         }
