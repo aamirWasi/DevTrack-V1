@@ -21,7 +21,7 @@ namespace DevTrack.Foundation.Services
 
         public void Track()
         {
-
+            _snapShotService.SnapshotCapturer();
         }
     }
 }
