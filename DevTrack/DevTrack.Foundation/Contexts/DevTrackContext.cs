@@ -29,7 +29,6 @@ namespace DevTrack.Foundation.Contexts
         {
             base.OnModelCreating(modelBuilder);
         }
-
         private static string ConnectionString()
         {
             var connection = new ConfigurationBuilder().AddJsonFile("appsettings.json", false)

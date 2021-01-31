@@ -25,7 +25,7 @@ namespace DevTrack.TrackerWorkerService
                 .Build();
 
             _connectionString = _configuration.GetConnectionString("SqliteConnection");
-            _migrationAssemblyName = typeof(Worker).Assembly.FullName;
+            _migrationAssemblyName = typeof(Worker).Assembly.GetName().Name;
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -40,7 +40,7 @@ namespace DevTrack.TrackerWorkerService
                 {
                     var connectionStringName = "SqliteConnection";
                     var connectionString = _configuration.GetConnectionString(connectionStringName);
-                    var migrationAssemblyName = typeof(Worker).Assembly.FullName;
+                    var migrationAssemblyName = typeof(Worker).Assembly.GetName().Name;
                 }).Build().Run();
             }
             catch (Exception ex)
