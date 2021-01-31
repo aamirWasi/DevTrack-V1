@@ -1,4 +1,6 @@
-﻿namespace DevTrack.Foundation.Services
+﻿using System.Collections.Generic;
+
+namespace DevTrack.Foundation.Services
 {
     public interface IRunningProgramService
     {

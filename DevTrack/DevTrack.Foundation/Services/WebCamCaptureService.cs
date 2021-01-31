@@ -12,7 +12,7 @@ namespace DevTrack.Foundation.Services
         Mat frame;
         Bitmap image;
 
-        public Image WebCamCapture()
+        public void WebCamCapture()
         {
             capture = new VideoCapture(0);
             capture.Open(0);
@@ -25,14 +25,13 @@ namespace DevTrack.Foundation.Services
 
 
             //---Save Image for Testing purpose ----------///
-            //string path = @"C:\camTest\";
-            //string FileName = DateTime.Now.ToString("dd-MM-yyyy hh-mm-ss-tt");
-            //snapshot.Save(string.Format(path + FileName + ".jpg"));
+            string path = @"C:\camTest\";
+            string FileName = DateTime.Now.ToString("dd-MM-yyyy hh-mm-ss-tt");
+            snapshot.Save(string.Format(path + FileName + ".jpg"));
 
 
             capture.Release();
 
-            return image;
         }
 
         

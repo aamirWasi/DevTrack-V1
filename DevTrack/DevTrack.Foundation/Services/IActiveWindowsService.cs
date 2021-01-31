@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WorkerServiceDemo
+namespace DevTrack.Foundation.Services
 {
     public interface IActiveWindowsService
     {

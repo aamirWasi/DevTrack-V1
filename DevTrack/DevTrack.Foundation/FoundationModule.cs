@@ -29,6 +29,10 @@ namespace DevTrack.Foundation
             builder.RegisterType<LoggerInputService>().As<ILoggerInputService>().InstancePerLifetimeScope();
             builder.RegisterType<RunningProgramService>().As<IRunningProgramService>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<WebCamCaptureService>().As<IWebCamCaptureService>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<ActiveWindowsService>().As<IActiveWindowsService>()
+                .InstancePerLifetimeScope();
             base.Load(builder);
         }
     }
