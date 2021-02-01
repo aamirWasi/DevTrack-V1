@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Threading;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
@@ -11,6 +12,7 @@ namespace DevTrack.Foundation.Services
         private VideoCapture _capture;
         private Mat _frame;
         private Bitmap _image;
+        private string _FullImagePath;
 
         public string WebCamCapture()
         {
@@ -25,14 +27,24 @@ namespace DevTrack.Foundation.Services
             Bitmap snapshot = new Bitmap(_image);
 
             //---Save Image ----------///
-            string path = @"C:\camTest\";
-            string FileName = DateTime.Now.ToString("dd-MM-yyyy hh-mm-ss-tt");
-            snapshot.Save(string.Format(path + FileName + ".jpg"));
 
+            string Folder = string.Format(Directory.GetCurrentDirectory() + @"\WebCamCapture");
+
+            if (!Directory.Exists(Folder))
+            {
+                Directory.CreateDirectory(Folder);
+                Console.WriteLine("Directory created!");
+            }
+
+            string FileName = DateTime.Now.ToString("dd-MM-yyyy hh-mm-ss-tt");
+
+            _FullImagePath = string.Format(Folder + "\\" + FileName + ".jpg");
+
+            snapshot.Save(string.Format(_FullImagePath));
 
             _capture.Release();
 
-            return path;
+            return _FullImagePath;
 
         }
 
