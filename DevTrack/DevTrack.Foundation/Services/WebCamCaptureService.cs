@@ -11,7 +11,6 @@ namespace DevTrack.Foundation.Services
     {
         private VideoCapture _capture;
         private Mat _frame;
-        private Bitmap _image;
         private string _FullImagePath;
 
         public string WebCamCapture()
@@ -23,8 +22,8 @@ namespace DevTrack.Foundation.Services
 
             Thread.Sleep(2000);
             
-            _image = BitmapConverter.ToBitmap(_frame);
-            Bitmap snapshot = new Bitmap(_image);
+            Bitmap image = BitmapConverter.ToBitmap(_frame);
+
 
             //---Save Image ----------///
 
@@ -39,7 +38,7 @@ namespace DevTrack.Foundation.Services
 
             _FullImagePath = string.Format(Folder + "\\" + FileName + ".jpg");
 
-            snapshot.Save(string.Format(_FullImagePath));
+            image.Save(string.Format(_FullImagePath));
 
             _capture.Release();
 
