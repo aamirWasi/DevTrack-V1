@@ -8,29 +8,29 @@ namespace DevTrack.Foundation.Services
 {
     public class WebCamCaptureService : IWebCamCaptureService
     {
-        VideoCapture capture;
-        Mat frame;
-        Bitmap image;
+        private VideoCapture _capture;
+        private Mat _frame;
+        private Bitmap _image;
 
         public string WebCamCapture()
         {
-            capture = new VideoCapture(0);
-            capture.Open(0);
+            _capture = new VideoCapture(0);
+            _capture.Open(0);
+            _frame = new Mat();
+            _capture.Read(_frame);
 
-            frame = new Mat();
-            capture.Read(frame);
             Thread.Sleep(2000);
-            image = BitmapConverter.ToBitmap(frame);
-            Bitmap snapshot = new Bitmap(image);
+            
+            _image = BitmapConverter.ToBitmap(_frame);
+            Bitmap snapshot = new Bitmap(_image);
 
-
-            //---Save Image for Testing purpose ----------///
+            //---Save Image ----------///
             string path = @"C:\camTest\";
             string FileName = DateTime.Now.ToString("dd-MM-yyyy hh-mm-ss-tt");
             snapshot.Save(string.Format(path + FileName + ".jpg"));
 
 
-            capture.Release();
+            _capture.Release();
 
             return path;
 
