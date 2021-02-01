@@ -7,6 +7,6 @@ namespace DevTrack.Foundation.Services
 {
     public interface IWebCamCaptureService
     {
-        public void WebCamCapture();
+        public string WebCamCapture();
     }
 }

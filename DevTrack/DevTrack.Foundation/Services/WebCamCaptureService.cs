@@ -12,7 +12,7 @@ namespace DevTrack.Foundation.Services
         Mat frame;
         Bitmap image;
 
-        public void WebCamCapture()
+        public string WebCamCapture()
         {
             capture = new VideoCapture(0);
             capture.Open(0);
@@ -31,6 +31,8 @@ namespace DevTrack.Foundation.Services
 
 
             capture.Release();
+
+            return path;
 
         }
 
