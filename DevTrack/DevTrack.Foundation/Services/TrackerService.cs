@@ -9,9 +9,9 @@ namespace DevTrack.Foundation.Services
         private readonly ISnapShotService _snapShotService;
         private readonly IWebCamCaptureService _webCamCaptureService;
         private readonly IRunningProgramService _runningProgramService;
-        private readonly IActiveWindowsService _activeWindowsService;
+        private readonly IActiveProgramService _activeWindowsService;
 
-        public TrackerService(ISnapShotService snapShotService, IWebCamCaptureService webCamCaptureService, IRunningProgramService runningProgramService, IActiveWindowsService activeWindowsService)
+        public TrackerService(ISnapShotService snapShotService, IWebCamCaptureService webCamCaptureService, IRunningProgramService runningProgramService, IActiveProgramService activeWindowsService)
         {
             _snapShotService = snapShotService;
             _webCamCaptureService = webCamCaptureService;
@@ -21,7 +21,8 @@ namespace DevTrack.Foundation.Services
 
         public void Track()
         {
-            _snapShotService.SnapshotCapturer();
+            //_snapShotService.SnapshotCapturer();
+            _activeWindowsService.SaveActiveProgram();
         }
     }
 }

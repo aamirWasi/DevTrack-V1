@@ -4,8 +4,8 @@ using System.Text;
 
 namespace DevTrack.Foundation.Services
 {
-    public interface IActiveWindowsService
+    public interface IActiveProgramService
     {
-       public string GetActiveWindow();
+        void SaveActiveProgram(); 
     }
 }
