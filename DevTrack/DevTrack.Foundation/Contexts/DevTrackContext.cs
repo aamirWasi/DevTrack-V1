@@ -1,10 +1,6 @@
 ﻿using DevTrack.Foundation.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace DevTrack.Foundation.Contexts
 {
@@ -24,13 +20,21 @@ namespace DevTrack.Foundation.Contexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-                optionsBuilder.UseSqlServer(_connectionString, m => m.MigrationsAssembly(_migrationAssemblyName));
+                optionsBuilder.UseSqlite(ConnectionString(), m => m.MigrationsAssembly("DevTrack.TrackerWorkerService"));
+
             base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+        }
+        private static string ConnectionString()
+        {
+            var connection = new ConfigurationBuilder().AddJsonFile("appsettings.json", false)
+                .AddEnvironmentVariables()
+                .Build();
+            return connection.GetConnectionString("SqliteConnection");
         }
     }
 }
