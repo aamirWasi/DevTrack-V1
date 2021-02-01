@@ -17,7 +17,7 @@ namespace DevTrack.Foundation.Services
             ServerTime = new ServerTime();
         }
 
-        public (IAdapter image, string fileLoaction) GenerateSnapshot2()
+        public (IAdapter image, string fileLoaction) GenerateSnapshot()
         {
             IAdapter _image;
             float dpiX, dpiY;

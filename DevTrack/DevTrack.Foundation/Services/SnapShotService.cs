@@ -23,7 +23,7 @@ namespace DevTrack.Foundation.Services
      
         public void SnapshotCapturer()
         {
-            var snapshot = _image.GenerateSnapshot2();
+            var snapshot = _image.GenerateSnapshot();
             var image = snapshot.image;
             if (image == null)
                 throw new InvalidOperationException("Image information is missing");
