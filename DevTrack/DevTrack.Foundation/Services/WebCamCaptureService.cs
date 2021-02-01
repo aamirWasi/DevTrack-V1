@@ -33,7 +33,6 @@ namespace DevTrack.Foundation.Services
             if (!Directory.Exists(Folder))
             {
                 Directory.CreateDirectory(Folder);
-                Console.WriteLine("Directory created!");
             }
 
             string FileName = DateTime.Now.ToString("dd-MM-yyyy hh-mm-ss-tt");
@@ -45,7 +44,6 @@ namespace DevTrack.Foundation.Services
             _capture.Release();
 
             return _FullImagePath;
-
         }
 
         
