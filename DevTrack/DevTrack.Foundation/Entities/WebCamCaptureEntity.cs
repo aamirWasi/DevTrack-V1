@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DevTrack.Foundation.Entities
 {
-    class WebCamCaptureEntity : IEntity<int>
+    public class WebCamCaptureEntity : IEntity<int>
     {
         public int Id { get; set; }
 
