@@ -5,7 +5,7 @@ namespace DevTrack.Foundation.Services
 {
     public class RunningProgramService : IRunningProgramService
     {
-        public void GetProcesses()
+        public void GetCurrentlyRunningPrograms()
         {
             Process[] procList = Process.GetProcesses();
 
