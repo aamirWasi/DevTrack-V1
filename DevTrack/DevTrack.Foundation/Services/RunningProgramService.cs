@@ -1,22 +1,48 @@
-﻿using System;
+﻿using DevTrack.Foundation.UnitOfWorks;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using EO = DevTrack.Foundation.Entities;
 
 namespace DevTrack.Foundation.Services
 {
     public class RunningProgramService : IRunningProgramService
     {
-        public void GetCurrentlyRunningPrograms()
-        {
-            Process[] procList = Process.GetProcesses();
+        private readonly IRunningProgramUnitOfWork _runningProgramUnitOfWork;
 
+        public RunningProgramService(IRunningProgramUnitOfWork runningProgramUnitOfWork)
+        {
+            _runningProgramUnitOfWork = runningProgramUnitOfWork;
+        }
+
+        public void AddCurrentlyRunningPrograms()
+        {
+            var RunningApps = GetRunningProgramsList();
+
+            var RunningAppsEntity = new EO.RunningProgram
+            {
+                DateTime = DateTime.Now,
+                RunningApplications = RunningApps,
+            };
+
+            _runningProgramUnitOfWork.RunningProgramRepository.Add(RunningAppsEntity);
+            _runningProgramUnitOfWork.Save();
+        }
+
+        private List<string> GetRunningProgramsList()
+        {
+            var Applist = new List<string>();
+
+            Process[] procList = Process.GetProcesses();
             for (int i = 0; i < procList.Length; i++)
             {
                 if (procList[i].MainWindowHandle != IntPtr.Zero)
                 {
-                    var ProgramsList = procList[i].ProcessName;
-                    //Console.WriteLine(procList[i].ProcessName);
+                    Applist.Add(procList[i].ProcessName);
+                    //var ProgramsList = procList[i].ProcessName;
                 }
             }
+            return Applist;
         }
     }
 }

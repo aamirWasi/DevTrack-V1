@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace DevTrack.Foundation.Services
+﻿namespace DevTrack.Foundation.Services
 {
     public interface IRunningProgramService
     {
-        void GetCurrentlyRunningPrograms();
+        void AddCurrentlyRunningPrograms();
     }
 }
