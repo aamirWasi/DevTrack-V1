@@ -4,9 +4,9 @@ using DevTrack.Foundation.Entities;
 
 namespace DevTrack.Foundation.Repositories
 {
-    public class WebCamCaptureRepository : Repository<SnapshotImage, int, DevTrackContext>, IWebCamCaptureRepository
+    public class WebCamCaptureRepository : Repository<SnapshotImage, int, DevTrackContext>
     {
-        public WebCamCaptureRepository(DevTrackContext WebCanContext) : base(WebCanContext)
+        public WebCamCaptureRepository(DevTrackContext WebCamContext) : base(WebCamContext)
         {
 
         }
