@@ -1,119 +1,64 @@
-﻿using Serilog;
-using System;
-using System.Globalization;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 namespace DevTrack.Foundation.Services
 {
-    public class KeyboardTrackService : GlobalHookService, IKeyboardTrackService
+    public class KeyboardTrackService : IKeyboardTrackService
     {
         public void KeyboardTrack()
         {
-            KeyPress += keyboardHook_KeyPress;
-
             Start();
         }
+        private const int WH_KEYBOARD_LL = 13;
+        private const int WM_KEYDOWN = 0x0100;
+        private static LowLevelKeyboardProc _proc = HookCallback;
+        private static IntPtr _hookID = IntPtr.Zero;
 
-        private int _countKeyPress = 0;
-
-        #region Events
-
-        public event KeyEventHandler KeyDown;
-        public event KeyPressEventHandler KeyPress;
-
-        #endregion
-
-        #region Constructor
-
-        public KeyboardTrackService()
+        public static void Start()
         {
-            _hookType = WH_KEYBOARD_LL;
+            _hookID = SetHook(_proc);
+            Application.Run();
+            UnhookWindowsHookEx(_hookID);
         }
 
-        #endregion
-
-        #region Methods
-
-        protected override int HookCallbackProcedure(int nCode, int wParam, IntPtr lParam)
+        private static IntPtr SetHook(LowLevelKeyboardProc proc)
         {
-            bool handled = false;
+            using var curProcess = Process.GetCurrentProcess();
+            using var curModule = curProcess.MainModule;
+            return SetWindowsHookEx(WH_KEYBOARD_LL, proc,
+                GetModuleHandle(curModule?.ModuleName), 0);
+        }
 
-            if (nCode <= -1 || (KeyDown == null && KeyPress == null)) return CallNextHookEx(_handleToHook, nCode, wParam, lParam);
-            var keyboardHookStruct = (KeyboardHookStruct)Marshal.PtrToStructure(lParam, typeof(KeyboardHookStruct));
+        private delegate IntPtr LowLevelKeyboardProc(
+            int nCode, IntPtr wParam, IntPtr lParam);
 
-            // Is Control being held down?
-            bool control = ((GetKeyState(VK_LCONTROL) & 0x80) != 0) ||
-                           ((GetKeyState(VK_RCONTROL) & 0x80) != 0);
-
-            // Is Shift being held down?
-            bool shift = ((GetKeyState(VK_LSHIFT) & 0x80) != 0) ||
-                         ((GetKeyState(VK_RSHIFT) & 0x80) != 0);
-
-            // Is Alt being held down?
-            bool alt = ((GetKeyState(VK_LALT) & 0x80) != 0) ||
-                       ((GetKeyState(VK_RALT) & 0x80) != 0);
-
-            // Is CapsLock on?
-            bool capslock = (GetKeyState(VK_CAPITAL) != 0);
-
-            // Create event using keycode and control/shift/alt values found above
-            var e = new KeyEventArgs(
-                (Keys)(
-                    keyboardHookStruct.vkCode |
-                    (control ? (int)Keys.Control : 0) |
-                    (shift ? (int)Keys.Shift : 0) |
-                    (alt ? (int)Keys.Alt : 0)
-                    ));
-
-            // Handle KeyDown and KeyUp events
-            switch (wParam)
+        private static IntPtr HookCallback(
+            int nCode, IntPtr wParam, IntPtr lParam)
+        {
+            if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
             {
-                case WM_KEYDOWN:
-                case WM_SYSKEYDOWN:
-                    if (KeyDown != null)
-                    {
-                        KeyDown(this, e);
-                        handled = e.Handled;
-                    }
-                    break;
+                int vkCode = Marshal.ReadInt32(lParam);
+                Console.WriteLine((Keys)vkCode);
             }
-
-            // Handle KeyPress event
-            if (wParam != WM_KEYDOWN || handled || e.SuppressKeyPress || KeyPress == null) return handled ? 1 : CallNextHookEx(_handleToHook, nCode, wParam, lParam);
-            var keyState = new byte[256];
-            var inBuffer = new byte[2];
-            GetKeyboardState(keyState);
-
-            if (ToAscii(keyboardHookStruct.vkCode, keyboardHookStruct.scanCode, keyState, inBuffer, keyboardHookStruct.flags) != 1) return CallNextHookEx(_handleToHook, nCode, wParam, lParam);
-            var key = (char)inBuffer[0];
-            if ((capslock ^ shift) && Char.IsLetter(key))
-                key = Char.ToUpper(key);
-            var e2 = new KeyPressEventArgs(key);
-            KeyPress(this, e2);
-            handled = e.Handled;
-
-            return handled ? 1 : CallNextHookEx(_handleToHook, nCode, wParam, lParam);
+            return CallNextHookEx(_hookID, nCode, wParam, lParam);
         }
 
-        private void keyboardHook_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            AddKeyboardEvent(
-                "KeyPress",
-                "",
-                e.KeyChar.ToString(CultureInfo.InvariantCulture),
-                "",
-                "",
-                ""
-            );
-        }
-        private void AddKeyboardEvent(string eventType, string keyCode, string keyChar, string shift, string alt, string control)
-        {
-            _countKeyPress += 1;
-            Log.Information($"{keyChar} - {_countKeyPress}");
-        }
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr SetWindowsHookEx(int idHook,
+            LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
 
-        #endregion
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool UnhookWindowsHookEx(IntPtr hhk);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode,
+            IntPtr wParam, IntPtr lParam);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr GetModuleHandle(string lpModuleName);
+
     }
 }

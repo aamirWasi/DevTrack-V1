@@ -33,6 +33,8 @@ namespace DevTrack.Foundation
                 .InstancePerLifetimeScope();
             builder.RegisterType<ActiveWindowsService>().As<IActiveWindowsService>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<KeyboardTrackService>().As<IKeyboardTrackService>()
+                .InstancePerLifetimeScope();
             base.Load(builder);
         }
     }
