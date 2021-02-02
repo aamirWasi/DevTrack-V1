@@ -7,7 +7,7 @@ namespace DevTrack.Foundation.Contexts
     public class DevTrackContext : DbContext
     {
         public DbSet<SnapshotImage> SnapshotImages { get; set; }
-        public DbSet<WebCamCaptureEntity> webCamCaptureEntities { get; set; }
+        public DbSet<WebCamCaptureEntity> WebCamCapture { get; set; }
 
         private readonly string _connectionString;
         private readonly string _migrationAssemblyName;
