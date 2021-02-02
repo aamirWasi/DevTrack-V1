@@ -7,6 +7,7 @@ namespace DevTrack.Foundation.Contexts
     public class DevTrackContext : DbContext
     {
         public DbSet<SnapshotImage> SnapshotImages { get; set; }
+        public DbSet<RunningProgram> RunningPrograms { get; set; }
 
         private readonly string _connectionString;
         private readonly string _migrationAssemblyName;
@@ -27,6 +28,9 @@ namespace DevTrack.Foundation.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<RunningProgram>()
+            //    .HasKey(e => e.Id);
+
             base.OnModelCreating(modelBuilder);
         }
         private static string ConnectionString()
