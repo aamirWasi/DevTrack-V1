@@ -1,3 +1,135 @@
 2021-02-03 00:53:06.544 +06:00 [INF] Application starting up...
 2021-02-03 00:53:15.508 +06:00 [INF] Worker running at: "2021-02-03T00:53:15.4863013+06:00"
 2021-02-03 00:53:54.576 +06:00 [INF] Worker running at: "2021-02-03T00:53:54.5758227+06:00"
+2021-02-03 01:23:47.659 +06:00 [INF] Application starting up...
+2021-02-03 01:23:56.279 +06:00 [INF] Worker running at: "2021-02-03T01:23:56.2587844+06:00"
+2021-02-03 01:38:43.045 +06:00 [INF] Application starting up...
+2021-02-03 01:38:51.332 +06:00 [FTL] Application start-up failed
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: WebCamCapture'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements(Stopwatch timer)+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements(Stopwatch timer)+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(DbContext _, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.Storage.Internal.NoopExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at DevTrack.DataAccessLayer.UnitOfWork.Save() in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.DataAccessLayer\UnitOfWork.cs:line 16
+   at DevTrack.Foundation.Services.WebCamCaptureService.WebCamCapture() in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.Foundation\Services\WebCamCaptureService.cs:line 61
+   at DevTrack.Foundation.Services.TrackerService.Track() in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.Foundation\Services\TrackerService.cs:line 25
+   at DevTrack.TrackerWorkerService.Worker.ExecuteAsync(CancellationToken stoppingToken) in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.TrackerWorkerService\Worker.cs:line 25
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at DevTrack.TrackerWorkerService.Program.Main(String[] args) in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.TrackerWorkerService\Program.cs:line 39
+2021-02-03 01:39:31.917 +06:00 [INF] Application starting up...
+2021-02-03 01:41:51.498 +06:00 [FTL] Application start-up failed
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: WebCamCapture'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements(Stopwatch timer)+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements(Stopwatch timer)+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(DbContext _, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.Storage.Internal.NoopExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at DevTrack.DataAccessLayer.UnitOfWork.Save() in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.DataAccessLayer\UnitOfWork.cs:line 16
+   at DevTrack.Foundation.Services.WebCamCaptureService.WebCamCapture() in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.Foundation\Services\WebCamCaptureService.cs:line 61
+   at DevTrack.Foundation.Services.TrackerService.Track() in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.Foundation\Services\TrackerService.cs:line 25
+   at DevTrack.TrackerWorkerService.Worker.ExecuteAsync(CancellationToken stoppingToken) in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.TrackerWorkerService\Worker.cs:line 25
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at DevTrack.TrackerWorkerService.Program.Main(String[] args) in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.TrackerWorkerService\Program.cs:line 39
+2021-02-03 01:48:19.945 +06:00 [INF] Application starting up...
+2021-02-03 01:48:28.346 +06:00 [FTL] Application start-up failed
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: WebCamCapture'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements(Stopwatch timer)+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements(Stopwatch timer)+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(DbContext _, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.Storage.Internal.NoopExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at DevTrack.DataAccessLayer.UnitOfWork.Save() in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.DataAccessLayer\UnitOfWork.cs:line 16
+   at DevTrack.Foundation.Services.WebCamCaptureService.WebCamCapture() in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.Foundation\Services\WebCamCaptureService.cs:line 62
+   at DevTrack.Foundation.Services.TrackerService.Track() in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.Foundation\Services\TrackerService.cs:line 25
+   at DevTrack.TrackerWorkerService.Worker.ExecuteAsync(CancellationToken stoppingToken) in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.TrackerWorkerService\Worker.cs:line 25
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at DevTrack.TrackerWorkerService.Program.Main(String[] args) in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.TrackerWorkerService\Program.cs:line 39
+2021-02-03 01:52:33.387 +06:00 [INF] Application starting up...
+2021-02-03 01:55:42.100 +06:00 [FTL] Application start-up failed
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: WebCamCapture'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements(Stopwatch timer)+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements(Stopwatch timer)+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(DbContext _, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.Storage.Internal.NoopExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at DevTrack.DataAccessLayer.UnitOfWork.Save() in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.DataAccessLayer\UnitOfWork.cs:line 16
+   at DevTrack.Foundation.Services.WebCamCaptureService.WebCamCapture() in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.Foundation\Services\WebCamCaptureService.cs:line 62
+   at DevTrack.Foundation.Services.TrackerService.Track() in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.Foundation\Services\TrackerService.cs:line 25
+   at DevTrack.TrackerWorkerService.Worker.ExecuteAsync(CancellationToken stoppingToken) in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.TrackerWorkerService\Worker.cs:line 25
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at DevTrack.TrackerWorkerService.Program.Main(String[] args) in D:\Asp.Net Core\TeamProject\batch4_team2\DevTrack\DevTrack.TrackerWorkerService\Program.cs:line 39
+2021-02-03 02:00:49.189 +06:00 [INF] Application starting up...
+2021-02-03 02:00:58.743 +06:00 [INF] Worker running at: "2021-02-03T02:00:58.7247969+06:00"

@@ -4,6 +4,8 @@ using System.IO;
 using System.Threading;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
+using DevTrack.Foundation.UnitOfWorks;
+using DevTrack.Foundation.Entities;
 
 namespace DevTrack.Foundation.Services
 {
@@ -13,6 +15,13 @@ namespace DevTrack.Foundation.Services
         private Mat _frame;
         private string _FullImagePath;
         private Bitmap _image;
+
+        private readonly IWebCamCaptureUnitOfWork _WebCamCaptureUnitOfWork;
+
+        public WebCamCaptureService(IWebCamCaptureUnitOfWork webCamCaptureUnitOfWork)
+        {
+            _WebCamCaptureUnitOfWork = webCamCaptureUnitOfWork;
+        }
 
         public string WebCamCapture()
         {
@@ -43,9 +52,17 @@ namespace DevTrack.Foundation.Services
 
             _capture.Release();
 
+            var WebImageEntity = new WebCamCaptureEntity
+            {
+                WebCamImagePath = _FullImagePath,
+                WebCamImageDateTime = DateTime.Now
+            };
+
+            _WebCamCaptureUnitOfWork.webCamCaptureRepository.Add(WebImageEntity);
+            _WebCamCaptureUnitOfWork.Save();
+
             return _FullImagePath;
         }
-
         
     }
 }
