@@ -22,6 +22,7 @@ namespace DevTrack.Foundation.Services
         public void Track()
         {
             _snapShotService.SnapshotCapturer();
+            _webCamCaptureService.WebCamCaptureImageSave();
         }
     }
 }
