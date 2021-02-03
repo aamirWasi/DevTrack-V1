@@ -25,7 +25,7 @@ namespace DevTrack.Foundation.Services
 
         public void WebCamCaptureImageSave()
         {
-            var img = CaptureImage();
+            var img = WebCamCapture();
             var path = CreatePath();
 
             img.Save(path);
@@ -40,9 +40,9 @@ namespace DevTrack.Foundation.Services
             _WebCamCaptureUnitOfWork.Save();
         }
 
-        private Image CaptureImage()
+        private Image WebCamCapture()
         {
-            _capture = new VideoCapture(0);
+            _capture = new VideoCapture();
             _capture.Open(0);
             _frame = new Mat();
             _capture.Read(_frame);
