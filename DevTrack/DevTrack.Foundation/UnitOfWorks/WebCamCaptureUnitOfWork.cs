@@ -11,11 +11,11 @@ namespace DevTrack.Foundation.UnitOfWorks
 {
     public class WebCamCaptureUnitOfWork : UnitOfWork, IWebCamCaptureUnitOfWork
     {
-        public IWebCamCaptureRepository webCamCaptureRepository { get; set; }
+        public IWebCamCaptureRepository _webCamCaptureRepository { get; set; }
 
         public WebCamCaptureUnitOfWork(DevTrackContext webCamContext, IWebCamCaptureRepository webCamRepository) : base(webCamContext)
         {
-            webCamCaptureRepository = webCamRepository;
+            _webCamCaptureRepository = webCamRepository;
         }
     }
 }

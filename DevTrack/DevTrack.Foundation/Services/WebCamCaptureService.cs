@@ -23,7 +23,7 @@ namespace DevTrack.Foundation.Services
             _WebCamCaptureUnitOfWork = webCamCaptureUnitOfWork;
         }
 
-        public string WebCamCapture()
+        public void WebCamCaptureImageSave()
         {
             _capture = new VideoCapture(0);
             _capture.Open(0);
@@ -58,10 +58,9 @@ namespace DevTrack.Foundation.Services
                 WebCamImageDateTime = DateTime.Now
             };
 
-            _WebCamCaptureUnitOfWork.webCamCaptureRepository.Add(WebImageEntity);
+            _WebCamCaptureUnitOfWork._webCamCaptureRepository.Add(WebImageEntity);
             _WebCamCaptureUnitOfWork.Save();
 
-            return _FullImagePath;
         }
         
     }
