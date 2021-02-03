@@ -26,7 +26,9 @@ namespace DevTrack.Foundation
             builder.RegisterType<SnapshotRepository>().As<ISnapshotRepository>().InstancePerLifetimeScope();
             builder.RegisterType<SnapshotUnitOfWork>().As<ISnapshotUnitOfWork>().InstancePerLifetimeScope();
             builder.RegisterType<SnapShotService>().As<ISnapShotService>().InstancePerLifetimeScope();
-            builder.RegisterType<LoggerInputService>().As<ILoggerInputService>().InstancePerLifetimeScope();
+            builder.RegisterType<ServerTime>().As<IServerTime>().InstancePerLifetimeScope();
+            builder.RegisterType<BitMapAdapter>().As<IBitMapAdapter>().InstancePerLifetimeScope();
+            builder.RegisterType<Adapter>().As<IAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<RunningProgramService>().As<IRunningProgramService>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<WebCamCaptureService>().As<IWebCamCaptureService>()
