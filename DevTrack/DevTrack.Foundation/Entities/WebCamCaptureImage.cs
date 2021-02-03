@@ -3,7 +3,7 @@ using System;
 
 namespace DevTrack.Foundation.Entities
 {
-    public class WebCamCaptureEntity : IEntity<int>
+    public class WebCamCaptureImage : IEntity<int>
     {
         public int Id { get; set; }
 

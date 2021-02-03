@@ -52,7 +52,7 @@ namespace DevTrack.Foundation.Services
 
             _capture.Release();
 
-            var WebImageEntity = new WebCamCaptureEntity
+            var WebImageEntity = new WebCamCaptureImage
             {
                 WebCamImagePath = _FullImagePath,
                 WebCamImageDateTime = DateTime.Now

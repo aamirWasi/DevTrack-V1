@@ -4,7 +4,7 @@ using DevTrack.Foundation.Entities;
 
 namespace DevTrack.Foundation.Repositories
 {
-    public interface IWebCamCaptureRepository : IRepository<WebCamCaptureEntity, int, DevTrackContext>
+    public interface IWebCamCaptureRepository : IRepository<WebCamCaptureImage, int, DevTrackContext>
     {
 
     }
