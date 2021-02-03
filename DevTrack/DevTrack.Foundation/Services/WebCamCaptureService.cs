@@ -25,15 +25,39 @@ namespace DevTrack.Foundation.Services
 
         public void WebCamCaptureImageSave()
         {
+            var img = CaptureImage();
+            var path = CreatePath();
+
+            img.Save(path);
+
+            var WebImageEntity = new WebCamCaptureImage
+            {
+                WebCamImagePath = path,
+                WebCamImageDateTime = DateTime.Now
+            };
+
+            _WebCamCaptureUnitOfWork._webCamCaptureRepository.Add(WebImageEntity);
+            _WebCamCaptureUnitOfWork.Save();
+        }
+
+        private Image CaptureImage()
+        {
             _capture = new VideoCapture(0);
             _capture.Open(0);
             _frame = new Mat();
             _capture.Read(_frame);
 
             Thread.Sleep(2000);
-            
+
             _image = BitmapConverter.ToBitmap(_frame);
 
+            _capture.Release();
+
+            return _image;
+        }
+
+        private string CreatePath()
+        {
             string Folder = string.Format(Directory.GetCurrentDirectory() + @"\WebCamCapture");
 
             if (!Directory.Exists(Folder))
@@ -45,19 +69,7 @@ namespace DevTrack.Foundation.Services
 
             _FullImagePath = string.Format(Folder + "\\" + FileName + ".jpg");
 
-            _image.Save(string.Format(_FullImagePath));
-
-            _capture.Release();
-
-            var WebImageEntity = new WebCamCaptureImage
-            {
-                WebCamImagePath = _FullImagePath,
-                WebCamImageDateTime = DateTime.Now
-            };
-
-            _WebCamCaptureUnitOfWork._webCamCaptureRepository.Add(WebImageEntity);
-            _WebCamCaptureUnitOfWork.Save();
-
+            return _FullImagePath;
         }
         
     }
