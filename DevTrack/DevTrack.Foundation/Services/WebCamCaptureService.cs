@@ -34,9 +34,6 @@ namespace DevTrack.Foundation.Services
             
             _image = BitmapConverter.ToBitmap(_frame);
 
-
-            //---Save Image ----------///
-
             string Folder = string.Format(Directory.GetCurrentDirectory() + @"\WebCamCapture");
 
             if (!Directory.Exists(Folder))
