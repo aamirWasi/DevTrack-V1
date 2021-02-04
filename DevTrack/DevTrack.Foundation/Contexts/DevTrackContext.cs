@@ -8,6 +8,8 @@ namespace DevTrack.Foundation.Contexts
     {
         public DbSet<SnapshotImage> SnapshotImages { get; set; }
         public DbSet<RunningProgram> RunningPrograms { get; set; }
+        public DbSet<WebCamCaptureImage> WebCamCapture { get; set; }
+
 
         private readonly string _connectionString;
         private readonly string _migrationAssemblyName;
