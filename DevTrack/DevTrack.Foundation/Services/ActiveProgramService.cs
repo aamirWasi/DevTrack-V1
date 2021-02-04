@@ -9,22 +9,19 @@ namespace DevTrack.Foundation.Services
 {
     public class ActiveProgramService : IActiveProgramService
     {
-        [DllImport("user32.dll")]
-        static extern int GetForegroundWindow();
-
-        [DllImport("user32.dll")]
-        static extern int GetWindowText(int hWnd, StringBuilder text, int count);
 
         private readonly IActiveProgramUnitOfWork _activeProgramUnitOfWork;
+        private readonly IActiveProgramAdapter _activeProgramAdapter;
 
-        public ActiveProgramService(IActiveProgramUnitOfWork activeProgramUnitOfWork)
+        public ActiveProgramService(IActiveProgramUnitOfWork activeProgramUnitOfWork,IActiveProgramAdapter activeProgramAdapter)
         {
             _activeProgramUnitOfWork = activeProgramUnitOfWork;
+            _activeProgramAdapter = activeProgramAdapter;
         }
 
         public void SaveActiveProgram()
         {
-            var programName = GetActiveProgramName();
+            var programName = _activeProgramAdapter.GetActiveProgramName();
             
             if (string.IsNullOrWhiteSpace(programName))
                 throw new InvalidOperationException("Program name is missing");
@@ -39,22 +36,6 @@ namespace DevTrack.Foundation.Services
             _activeProgramUnitOfWork.Save();
         }
 
-        private string GetActiveProgramName()
-        {
-            var programName = "";
-            const int nChars = 256;
-            int handle = 0;
-            StringBuilder Buff = new StringBuilder(nChars);
-
-            handle = GetForegroundWindow();
-
-            if (GetWindowText(handle, Buff, nChars) > 0)
-            {
-                programName = Buff.ToString();
-                //var idWindowLabel = handle.ToString();
-            }
-
-            return programName;
-        }
+        
     }
 }

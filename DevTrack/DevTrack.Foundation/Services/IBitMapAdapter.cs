@@ -2,6 +2,6 @@
 {
     public interface IBitMapAdapter
     {
-        (IAdapter image, string fileLoaction) GenerateSnapshot();
+        (ISnapShotAdapter image, string fileLoaction) GenerateSnapshot();
     }
 }

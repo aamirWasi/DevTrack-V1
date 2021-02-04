@@ -17,9 +17,9 @@ namespace DevTrack.Foundation.Services
             ServerTime = new ServerTime();
         }
 
-        public (IAdapter image, string fileLoaction) GenerateSnapshot()
+        public (ISnapShotAdapter image, string fileLoaction) GenerateSnapshot()
         {
-            IAdapter _image;
+            ISnapShotAdapter _image;
             float dpiX, dpiY;
 
             using (Graphics graphics = Graphics.FromHwnd(IntPtr.Zero))
@@ -40,7 +40,7 @@ namespace DevTrack.Foundation.Services
             FilePath = newPath +
                       @"\Snapshot" + "_" + imgName
                       + ".jpeg";
-            _image = new Adapter(Width, Height);
+            _image = new SnapShotAdapter(Width, Height);
             var s = new Size(Width, Height);
             var imageGraphics = Graphics.FromImage(_image.Image);
             imageGraphics.CopyFromScreen(0, 0, 0, 0, s);

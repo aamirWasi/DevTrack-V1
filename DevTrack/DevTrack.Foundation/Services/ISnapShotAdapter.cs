@@ -2,7 +2,7 @@
 
 namespace DevTrack.Foundation.Services
 {
-    public interface IAdapter
+    public interface ISnapShotAdapter
     {
         int Width { get; }
         int Height { get; }

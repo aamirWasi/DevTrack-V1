@@ -2,7 +2,7 @@
 
 namespace DevTrack.Foundation.Services
 {
-    public class Adapter : IAdapter
+    public class SnapShotAdapter : ISnapShotAdapter
     {
         public int Width { get; set; }
         public string FilePath { get; set; }
@@ -11,7 +11,7 @@ namespace DevTrack.Foundation.Services
 
         private Image _bitMap;
 
-        public Adapter(int width, int height)
+        public SnapShotAdapter(int width, int height)
         {
             _bitMap = new Bitmap(width, height);
             Image = _bitMap;
