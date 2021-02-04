@@ -2,6 +2,7 @@
 using DevTrack.Foundation.Contexts;
 using DevTrack.Foundation.Repositories;
 using DevTrack.Foundation.Services;
+using DevTrack.Foundation.Services.Adapters;
 using DevTrack.Foundation.UnitOfWorks;
 
 namespace DevTrack.Foundation

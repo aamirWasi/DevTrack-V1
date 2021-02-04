@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace DevTrack.Foundation.Services
+namespace DevTrack.Foundation.Services.Adapters
 {
     public class ActiveProgramAdapter : IActiveProgramAdapter
     {

@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.IO;
 
-namespace DevTrack.Foundation.Services
+namespace DevTrack.Foundation.Services.Adapters
 {
     public class BitMapAdapter : IBitMapAdapter
     {

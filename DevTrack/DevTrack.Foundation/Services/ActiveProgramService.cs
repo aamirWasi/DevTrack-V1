@@ -1,4 +1,5 @@
 ﻿using DevTrack.Foundation.Entities;
+using DevTrack.Foundation.Services.Adapters;
 using DevTrack.Foundation.UnitOfWorks;
 using System;
 using System.Collections.Generic;

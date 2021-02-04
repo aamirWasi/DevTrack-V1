@@ -2,6 +2,7 @@
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.Repositories;
 using DevTrack.Foundation.Services;
+using DevTrack.Foundation.Services.Adapters;
 using DevTrack.Foundation.UnitOfWorks;
 using Moq;
 using NUnit.Framework;
