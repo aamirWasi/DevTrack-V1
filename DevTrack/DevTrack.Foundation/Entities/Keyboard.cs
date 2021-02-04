@@ -1,11 +1,13 @@
 ﻿using DevTrack.DataAccessLayer;
 using System;
+using System.Collections.Generic;
+using System.Text;
+
 namespace DevTrack.Foundation.Entities
 {
     public class Keyboard : IEntity<Guid>
     {
         public Guid Id { get; set; }
-        public int TotalKeyHits { get; set; }
 
         #region Functional Keys
         public int Escape { get; set; }
