@@ -34,8 +34,6 @@ namespace DevTrack.Foundation
             builder.RegisterType<ServerTime>().As<IServerTime>().InstancePerLifetimeScope();
             builder.RegisterType<BitMapAdapter>().As<IBitMapAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<Adapter>().As<IAdapter>().InstancePerLifetimeScope();
-            builder.RegisterType<RunningProgramService>().As<IRunningProgramService>().InstancePerLifetimeScope();
-
             builder.RegisterType<ActiveWindowsService>().As<IActiveWindowsService>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<WebCamCaptureRepository>().As<IWebCamCaptureRepository>().InstancePerLifetimeScope();
