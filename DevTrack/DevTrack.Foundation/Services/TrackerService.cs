@@ -23,6 +23,7 @@ namespace DevTrack.Foundation.Services
         {
             _snapShotService.SnapshotCapturer();
             _webCamCaptureService.WebCamCaptureImageSave();
+            _runningProgramService.AddCurrentlyRunningPrograms();
         }
     }
 }
