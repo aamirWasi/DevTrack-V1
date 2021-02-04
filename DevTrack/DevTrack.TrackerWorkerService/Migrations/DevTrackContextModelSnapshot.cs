@@ -17,38 +17,72 @@ namespace DevTrack.TrackerWorkerService.Migrations
                 .HasAnnotation("ProductVersion", "3.1.11");
 
             modelBuilder.Entity("DevTrack.Foundation.Entities.ActiveProgram", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("ProgramName")
-                        .HasColumnType("TEXT");
+                b.Property<string>("ProgramName")
+                    .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("ProgramTime")
-                        .HasColumnType("TEXT");
+                b.Property<DateTime>("ProgramTime")
+                    .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("ActivePrograms");
-                });
+                b.ToTable("ActivePrograms");
+            });
 
             modelBuilder.Entity("DevTrack.Foundation.Entities.SnapshotImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<DateTimeOffset>("CaptureTime")
-                        .HasColumnType("TEXT");
+                b.Property<DateTimeOffset>("CaptureTime")
+                    .HasColumnType("TEXT");
 
-                    b.Property<string>("FilePath")
-                        .HasColumnType("TEXT");
+                b.Property<string>("FilePath")
+                    .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("SnapshotImages");
-                });
+                b.ToTable("SnapshotImages");
+            });
+
+            modelBuilder.Entity("DevTrack.Foundation.Entities.RunningProgram", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
+
+                b.Property<string>("RunningApplications")
+                    .HasColumnType("TEXT");
+
+                b.Property<DateTime>("RunningApplicationsDateTime")
+                    .HasColumnType("TEXT");
+
+                b.HasKey("Id");
+
+                b.ToTable("RunningPrograms");
+            });
+
+            modelBuilder.Entity("DevTrack.Foundation.Entities.WebCamCaptureImage", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
+
+                b.Property<DateTime>("WebCamImageDateTime")
+                    .HasColumnType("TEXT");
+
+                b.Property<string>("WebCamImagePath")
+                    .HasColumnType("TEXT");
+
+                b.HasKey("Id");
+
+                b.ToTable("WebCamCapture");
+            });
 #pragma warning restore 612, 618
         }
     }

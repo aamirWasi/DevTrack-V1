@@ -23,20 +23,34 @@ namespace DevTrack.Foundation
                 .WithParameter("connectionString", _connectionString)
                 .WithParameter("migrationAssemblyName", _migrationAssemblyName)
                 .InstancePerLifetimeScope();
+            
             builder.RegisterType<SnapshotRepository>().As<ISnapshotRepository>().InstancePerLifetimeScope();
             builder.RegisterType<SnapshotUnitOfWork>().As<ISnapshotUnitOfWork>().InstancePerLifetimeScope();
             builder.RegisterType<SnapShotService>().As<ISnapShotService>().InstancePerLifetimeScope();
+
             builder.RegisterType<LoggerInputService>().As<ILoggerInputService>().InstancePerLifetimeScope();
+
             builder.RegisterType<RunningProgramService>().As<IRunningProgramService>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<RunningProgramRepository>().As<IRunningProgramRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<RunningProgramUnitOfWork>().As<IRunningProgramUnitOfWork>().InstancePerLifetimeScope();
+
             builder.RegisterType<WebCamCaptureService>().As<IWebCamCaptureService>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<WebCamCaptureRepository>().As<IWebCamCaptureRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<WebCamCaptureUnitOfWork>().As<IWebCamCaptureUnitOfWork>().InstancePerLifetimeScope();
+
             builder.RegisterType<ActiveProgramRepository>().As<IActiveProgramRepository>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<ActiveProgramUnitOfWork>().As<IActiveProgramUnitOfWork>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<ActiveProgramService>().As<IActiveProgramService>()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<ServerTime>().As<IServerTime>().InstancePerLifetimeScope();
+            builder.RegisterType<BitMapAdapter>().As<IBitMapAdapter>().InstancePerLifetimeScope();
+            builder.RegisterType<Adapter>().As<IAdapter>().InstancePerLifetimeScope();
+            
             base.Load(builder);
         }
     }
