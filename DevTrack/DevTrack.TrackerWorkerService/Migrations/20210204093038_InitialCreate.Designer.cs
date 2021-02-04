@@ -9,14 +9,48 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevTrack.TrackerWorkerService.Migrations
 {
     [DbContext(typeof(DevTrackContext))]
-    [Migration("20210202172144_WebCamCapture")]
-    partial class WebCamCapture
+    [Migration("20210204093038_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.11");
+
+            modelBuilder.Entity("DevTrack.Foundation.Entities.ActiveProgram", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ProgramName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ProgramTime")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ActivePrograms");
+                });
+
+            modelBuilder.Entity("DevTrack.Foundation.Entities.RunningProgram", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("RunningApplications")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("RunningApplicationsDateTime")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RunningPrograms");
+                });
 
             modelBuilder.Entity("DevTrack.Foundation.Entities.SnapshotImage", b =>
                 {
@@ -35,7 +69,7 @@ namespace DevTrack.TrackerWorkerService.Migrations
                     b.ToTable("SnapshotImages");
                 });
 
-            modelBuilder.Entity("DevTrack.Foundation.Entities.WebCamCaptureEntity", b =>
+            modelBuilder.Entity("DevTrack.Foundation.Entities.WebCamCaptureImage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

@@ -16,6 +16,23 @@ namespace DevTrack.TrackerWorkerService.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.11");
 
+            modelBuilder.Entity("DevTrack.Foundation.Entities.ActiveProgram", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ProgramName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ProgramTime")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ActivePrograms");
+                });
+
             modelBuilder.Entity("DevTrack.Foundation.Entities.RunningProgram", b =>
                 {
                     b.Property<int>("Id")
