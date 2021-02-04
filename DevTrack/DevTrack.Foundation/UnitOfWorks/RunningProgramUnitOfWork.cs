@@ -7,7 +7,7 @@ namespace DevTrack.Foundation.UnitOfWorks
 {
     public class RunningProgramUnitOfWork : UnitOfWork, IRunningProgramUnitOfWork
     {
-        public IRunningProgramRepository RunningProgramRepository { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IRunningProgramRepository RunningProgramRepository { get; set; }
         public RunningProgramUnitOfWork(DevTrackContext devTrackContext, IRunningProgramRepository runningProgramRepository)
             : base(devTrackContext)
         {

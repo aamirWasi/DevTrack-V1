@@ -8,6 +8,6 @@ namespace DevTrack.Foundation.Entities
     {
         public int Id { get; set; }
         public IList<String> RunningApplications { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime RunningApplicationsDateTime { get; set; }
     }
 }
