@@ -2,6 +2,7 @@
 using DevTrack.Foundation.Contexts;
 using DevTrack.Foundation.Repositories;
 using DevTrack.Foundation.Services;
+using DevTrack.Foundation.Services.Adapters;
 using DevTrack.Foundation.UnitOfWorks;
 
 namespace DevTrack.Foundation
@@ -49,7 +50,8 @@ namespace DevTrack.Foundation
 
             builder.RegisterType<ServerTime>().As<IServerTime>().InstancePerLifetimeScope();
             builder.RegisterType<BitMapAdapter>().As<IBitMapAdapter>().InstancePerLifetimeScope();
-            builder.RegisterType<Adapter>().As<IAdapter>().InstancePerLifetimeScope();
+            builder.RegisterType<SnapShotAdapter>().As<ISnapShotAdapter>().InstancePerLifetimeScope();
+            builder.RegisterType<ActiveProgramAdapter>().As<IActiveProgramAdapter>().InstancePerLifetimeScope();
             
             base.Load(builder);
         }

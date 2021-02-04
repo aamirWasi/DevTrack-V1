@@ -1,8 +1,8 @@
 ﻿using System.Drawing;
 
-namespace DevTrack.Foundation.Services
+namespace DevTrack.Foundation.Services.Adapters
 {
-    public interface IAdapter
+    public interface ISnapShotAdapter
     {
         int Width { get; }
         int Height { get; }
