@@ -16,6 +16,23 @@ namespace DevTrack.TrackerWorkerService.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.11");
 
+            modelBuilder.Entity("DevTrack.Foundation.Entities.RunningProgram", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("RunningApplications")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("RunningApplicationsDateTime")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RunningPrograms");
+                });
+
             modelBuilder.Entity("DevTrack.Foundation.Entities.SnapshotImage", b =>
                 {
                     b.Property<int>("Id")
@@ -31,6 +48,23 @@ namespace DevTrack.TrackerWorkerService.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SnapshotImages");
+                });
+
+            modelBuilder.Entity("DevTrack.Foundation.Entities.WebCamCaptureImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("WebCamImageDateTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("WebCamImagePath")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WebCamCapture");
                 });
 #pragma warning restore 612, 618
         }

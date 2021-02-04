@@ -17,12 +17,12 @@ namespace DevTrack.Foundation.Services
 
         public void AddCurrentlyRunningPrograms()
         {
-            var RunningApps = GetRunningProgramsList();
+            var RunningApps = String.Join(",", GetRunningProgramsList().ToArray());
 
             var RunningAppsEntity = new EO.RunningProgram
             {
-                DateTime = DateTime.Now,
                 RunningApplications = RunningApps,
+                RunningApplicationsDateTime = DateTime.Now,
             };
 
             _runningProgramUnitOfWork.RunningProgramRepository.Add(RunningAppsEntity);
