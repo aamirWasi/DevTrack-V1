@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevTrack.TrackerWorkerService.Migrations
 {
     [DbContext(typeof(DevTrackContext))]
-    [Migration("20210201164731_ActiveProgramEntityAdd")]
-    partial class ActiveProgramEntityAdd
+    [Migration("20210204093038_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,6 +35,23 @@ namespace DevTrack.TrackerWorkerService.Migrations
                     b.ToTable("ActivePrograms");
                 });
 
+            modelBuilder.Entity("DevTrack.Foundation.Entities.RunningProgram", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("RunningApplications")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("RunningApplicationsDateTime")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RunningPrograms");
+                });
+
             modelBuilder.Entity("DevTrack.Foundation.Entities.SnapshotImage", b =>
                 {
                     b.Property<int>("Id")
@@ -50,6 +67,23 @@ namespace DevTrack.TrackerWorkerService.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SnapshotImages");
+                });
+
+            modelBuilder.Entity("DevTrack.Foundation.Entities.WebCamCaptureImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("WebCamImageDateTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("WebCamImagePath")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WebCamCapture");
                 });
 #pragma warning restore 612, 618
         }
