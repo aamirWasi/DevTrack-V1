@@ -1,35 +1,40 @@
-﻿namespace DevTrack.Foundation.Services
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace DevTrack.Foundation.Services
 {
     public class TrackerService : ITrackerService
     {
         private readonly ISnapShotService _snapShotService;
         private readonly IWebCamCaptureService _webCamCaptureService;
         private readonly IRunningProgramService _runningProgramService;
-        private readonly IActiveWindowsService _activeWindowsService;
+        private readonly IActiveProgramService _activeProgramService;
+        private readonly IKeyboardTrackService _keyboardTrackService;
         private readonly IMouseTrackService _mouseTrackService;
-        private readonly IKeyboardTrackService _keyboardTrack;
 
         public TrackerService(
             ISnapShotService snapShotService,
             IWebCamCaptureService webCamCaptureService,
             IRunningProgramService runningProgramService,
-            IActiveWindowsService activeWindowsService,
+            IActiveProgramService activeProgramService,
             IKeyboardTrackService keyboardTrackService,
             IMouseTrackService mouseTrackService)
         {
             _snapShotService = snapShotService;
             _webCamCaptureService = webCamCaptureService;
             _runningProgramService = runningProgramService;
-            _activeWindowsService = activeWindowsService;
+            _activeProgramService = activeProgramService;
+            _keyboardTrackService = keyboardTrackService;
             _mouseTrackService = mouseTrackService;
-            _keyboardTrack = keyboardTrackService;
         }
 
         public void Track()
         {
+            //_activeProgramService.SaveActiveProgram();
             //_snapShotService.SnapshotCapturer();
-            //_keyboardTrack.KeyboardTrack();
-            _mouseTrackService.MouseTrack();
+            //_webCamCaptureService.WebCamCaptureImageSave();
+            //_runningProgramService.AddCurrentlyRunningPrograms();
         }
     }
 }

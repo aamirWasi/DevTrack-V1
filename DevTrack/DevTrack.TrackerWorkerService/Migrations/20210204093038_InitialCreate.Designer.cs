@@ -3,14 +3,16 @@ using System;
 using DevTrack.Foundation.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DevTrack.TrackerWorkerService.Migrations
 {
     [DbContext(typeof(DevTrackContext))]
-    partial class DevTrackContextModelSnapshot : ModelSnapshot
+    [Migration("20210204093038_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
