@@ -35,6 +35,8 @@ namespace DevTrack.Foundation
                 .InstancePerLifetimeScope();
             builder.RegisterType<KeyboardTrackService>().As<IKeyboardTrackService>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<MouseTrackService>().As<IMouseTrackService>()
+                .InstancePerLifetimeScope();
             base.Load(builder);
         }
     }

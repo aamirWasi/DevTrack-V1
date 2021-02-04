@@ -1,217 +1,93 @@
 ﻿using System;
-using System.Globalization;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Serilog;
 
 namespace DevTrack.Foundation.Services
 {
-    public class MouseTrackService : GlobalHookService, IMouseTrackService
+    public class MouseTrackService : IMouseTrackService
     {
         public void MouseTrack()
         {
-            MouseMove += mouseHook_MouseMove;
-            MouseDown += mouseHook_MouseDown;
-            MouseWheel += mouseHook_MouseWheel;
             Start();
-            SetXYLabel(MouseSimulatorService.X, MouseSimulatorService.Y);
+        }
+        private static readonly LowLevelMouseProc _proc = HookCallback;
+        protected static IntPtr _hookId = IntPtr.Zero;
+        protected const int WM_MOUSE_LL = 14;
+        protected const int WM_LBUTTONDOWN = 0x201;
+        protected const int WM_RBUTTONDOWN = 0x204;
+        protected const int WM_MBUTTONDOWN = 0x207;
+        protected const int WM_LBUTTONDBLCLK = 0x203;
+        protected const int WM_RBUTTONDBLCLK = 0x206;
+        protected const int WM_MBUTTONDBLCLK = 0x209;
+        protected const int WM_MOUSEWHEEL = 0x020A;
+
+        public static void Start()
+        {
+            _hookId = SetHook(_proc);
+            Application.Run();
+            UnhookWindowsHookEx(_hookId);
         }
 
-        private int _countClick = 0;
-
-        #region MouseEventType Enum
-
-        private enum MouseEventType
+        private static IntPtr SetHook(LowLevelMouseProc proc)
         {
-            None,
-            MouseDown,
-            MouseUp,
-            DoubleClick,
-            MouseWheel,
-            MouseMove
+            using var curProcess = Process.GetCurrentProcess();
+            using var curModule = curProcess.MainModule;
+            return SetWindowsHookEx(WM_MOUSE_LL, proc,
+                GetModuleHandle(curModule?.ModuleName), 0);
         }
 
-        #endregion
+        private delegate IntPtr LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);
 
-        #region Events
-
-        public event MouseEventHandler MouseDown;
-        public event MouseEventHandler MouseUp;
-        public event MouseEventHandler MouseMove;
-        public event MouseEventHandler MouseWheel;
-
-        public event EventHandler Click;
-        public event EventHandler DoubleClick;
-
-        #endregion
-
-        #region Constructor
-
-        public MouseTrackService()
+        private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
-
-            _hookType = WH_MOUSE_LL;
-
-        }
-
-        #endregion
-
-        #region Methods
-
-        protected override int HookCallbackProcedure(int nCode, int wParam, IntPtr lParam)
-        {
-            if (nCode <= -1 || (MouseDown == null && MouseUp == null && MouseMove == null)) return CallNextHookEx(_handleToHook, nCode, wParam, lParam);
-            MouseLLHookStruct mouseHookStruct = (MouseLLHookStruct)Marshal.PtrToStructure(lParam, typeof(MouseLLHookStruct));
-
-            MouseButtons button = GetButton(wParam);
-            MouseEventType eventType = GetEventType(wParam);
-
-            MouseEventArgs e = new MouseEventArgs(
-                button,
-                (eventType == MouseEventType.DoubleClick ? 2 : 1),
-                mouseHookStruct.pt.x,
-                mouseHookStruct.pt.y,
-                (eventType == MouseEventType.MouseWheel ? (short)((mouseHookStruct.mouseData >> 16) & 0xffff) : 0));
-
-            // Prevent multiple Right Click events (this probably happens for popup menus)
-            if (button == MouseButtons.Right && mouseHookStruct.flags != 0)
+            switch (wParam.ToInt32())
             {
-                eventType = MouseEventType.None;
-            }
-
-            switch (eventType)
-            {
-                case MouseEventType.MouseDown:
-                    if (MouseDown != null)
-                    {
-                        MouseDown(this, e);
-                    }
-                    break;
-                case MouseEventType.MouseUp:
-                    if (Click != null)
-                    {
-                        Click(this, new EventArgs());
-                    }
-                    if (MouseUp != null)
-                    {
-                        MouseUp(this, e);
-                    }
-                    break;
-                case MouseEventType.DoubleClick:
-                    if (DoubleClick != null)
-                    {
-                        DoubleClick(this, new EventArgs());
-                    }
-                    break;
-                case MouseEventType.MouseWheel:
-                    if (MouseWheel != null)
-                    {
-                        MouseWheel(this, e);
-                    }
-                    break;
-                case MouseEventType.MouseMove:
-                    if (MouseMove != null)
-                    {
-                        MouseMove(this, e);
-                    }
-                    break;
-            }
-
-            return CallNextHookEx(_handleToHook, nCode, wParam, lParam);
-
-        }
-
-        private static MouseButtons GetButton(Int32 wParam)
-        {
-
-            switch (wParam)
-            {
-
                 case WM_LBUTTONDOWN:
-                case WM_LBUTTONUP:
+                    {
+                        Console.WriteLine("Left Button Clicked");
+                        break;
+                    }
                 case WM_LBUTTONDBLCLK:
-                    return MouseButtons.Left;
+                    {
+                        Console.WriteLine("Left Button Double sClicked");
+                        break;
+                    }
                 case WM_RBUTTONDOWN:
-                case WM_RBUTTONUP:
+                    {
+                        Console.WriteLine("Left Button Double Clicked");
+                        break;
+                    }
                 case WM_RBUTTONDBLCLK:
-                    return MouseButtons.Right;
+                    {
+                        Console.WriteLine("Right Button Double Clicked");
+                        break;
+                    }
                 case WM_MBUTTONDOWN:
-                case WM_MBUTTONUP:
-                case WM_MBUTTONDBLCLK:
-                    return MouseButtons.Middle;
-                default:
-                    return MouseButtons.None;
-
-            }
-
-        }
-
-        private static MouseEventType GetEventType(Int32 wParam)
-        {
-
-            switch (wParam)
-            {
-
-                case WM_LBUTTONDOWN:
-                case WM_RBUTTONDOWN:
-                case WM_MBUTTONDOWN:
-                    return MouseEventType.MouseDown;
-                case WM_LBUTTONUP:
-                case WM_RBUTTONUP:
-                case WM_MBUTTONUP:
-                    return MouseEventType.MouseUp;
-                case WM_LBUTTONDBLCLK:
-                case WM_RBUTTONDBLCLK:
-                case WM_MBUTTONDBLCLK:
-                    return MouseEventType.DoubleClick;
+                    {
+                        Console.WriteLine("Middle Button Clicked");
+                        break;
+                    }
                 case WM_MOUSEWHEEL:
-                    return MouseEventType.MouseWheel;
-                case WM_MOUSEMOVE:
-                    return MouseEventType.MouseMove;
-                default:
-                    return MouseEventType.None;
-
+                    {
+                        Console.WriteLine("Mouse Wheel Button");
+                        break;
+                    }
             }
+            return CallNextHookEx(_hookId, nCode, wParam, lParam);
         }
 
-        private void mouseHook_MouseWheel(object sender, MouseEventArgs e)
-        {
-            AddMouseEvent(
-                "MouseWheel",
-                "",
-                "",
-                "",
-                e.Delta.ToString(CultureInfo.InvariantCulture)
-            );
-        }
-        private void mouseHook_MouseDown(object sender, MouseEventArgs e)
-        {
-            AddMouseEvent(
-                "MouseDown",
-                e.Button.ToString(),
-                e.X.ToString(CultureInfo.InvariantCulture),
-                e.Y.ToString(CultureInfo.InvariantCulture),
-                ""
-            );
-        }
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelMouseProc lpfn, IntPtr hMod, uint dwThreadId);
 
-        private void mouseHook_MouseMove(object sender, MouseEventArgs e)
-        {
-            SetXYLabel(e.X, e.Y);
-        }
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool UnhookWindowsHookEx(IntPtr hhk);
 
-        private void SetXYLabel(int x, int y)
-        {
-            Log.Information(String.Format("X={0}, y={1}", x, y));
-        }
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
-        private void AddMouseEvent(string eventType, string button, string x, string y, string delta)
-        {
-            _countClick += 1;
-            Log.Information($"{button} - {_countClick}");
-        }
-
-        #endregion
-
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr GetModuleHandle(string lpModuleName);
     }
 }

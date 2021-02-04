@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DevTrack.Foundation.Services
+﻿namespace DevTrack.Foundation.Services
 {
     public class TrackerService : ITrackerService
     {
@@ -10,21 +6,30 @@ namespace DevTrack.Foundation.Services
         private readonly IWebCamCaptureService _webCamCaptureService;
         private readonly IRunningProgramService _runningProgramService;
         private readonly IActiveWindowsService _activeWindowsService;
+        private readonly IMouseTrackService _mouseTrackService;
         private readonly IKeyboardTrackService _keyboardTrack;
 
-        public TrackerService(ISnapShotService snapShotService, IWebCamCaptureService webCamCaptureService, IRunningProgramService runningProgramService, IActiveWindowsService activeWindowsService, IKeyboardTrackService keyboardTrack)
+        public TrackerService(
+            ISnapShotService snapShotService,
+            IWebCamCaptureService webCamCaptureService,
+            IRunningProgramService runningProgramService,
+            IActiveWindowsService activeWindowsService,
+            IKeyboardTrackService keyboardTrackService,
+            IMouseTrackService mouseTrackService)
         {
             _snapShotService = snapShotService;
             _webCamCaptureService = webCamCaptureService;
             _runningProgramService = runningProgramService;
             _activeWindowsService = activeWindowsService;
-            _keyboardTrack = keyboardTrack;
+            _mouseTrackService = mouseTrackService;
+            _keyboardTrack = keyboardTrackService;
         }
 
         public void Track()
         {
             //_snapShotService.SnapshotCapturer();
-            _keyboardTrack.KeyboardTrack();
+            //_keyboardTrack.KeyboardTrack();
+            _mouseTrackService.MouseTrack();
         }
     }
 }
