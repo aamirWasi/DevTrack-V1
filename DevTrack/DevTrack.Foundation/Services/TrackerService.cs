@@ -32,6 +32,7 @@ namespace DevTrack.Foundation.Services
         public void Track()
         {
             _keyboardTrackService.KeyboardTrack();
+            _keyboardTrackService.TrackSave();
         }
     }
 }

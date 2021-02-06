@@ -26,6 +26,7 @@ namespace DevTrack.Foundation.Services
             var keyboardEntity = _keyboardBusiness.ConvertTOEntity(_keyboardBusiness);
             _keyboardTrackUnitOfWork.KeyboardTrackRepository.Add(keyboardEntity);
             _keyboardTrackUnitOfWork.Save();
+            _keyboardBusiness = new KeyboardBusinessObject();
         }
 
         private const int WH_KEYBOARD_LL = 13;

@@ -25,7 +25,7 @@ namespace DevTrack.TrackerWorkerService
                 _trackerService.Track();
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 //await Task.Delay(60000, stoppingToken);
-                await Task.Delay((int)TimeSpan.FromMinutes(1).TotalMilliseconds, stoppingToken);
+                await Task.Delay(10000, stoppingToken);
             }
         }
     }
