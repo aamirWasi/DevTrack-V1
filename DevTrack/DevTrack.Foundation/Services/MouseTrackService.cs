@@ -2,15 +2,34 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using DevTrack.Foundation.BusinessObjects;
+using DevTrack.Foundation.UnitOfWorks;
 
 namespace DevTrack.Foundation.Services
 {
     public class MouseTrackService : IMouseTrackService
     {
+        private readonly IMouseTrackUnitOfWork _mouseTrackUnitOfWork;
+        private static MouseBusinessObject _mouseBusiness;
+
+        public MouseTrackService(IMouseTrackUnitOfWork mouseTrackUnitOfWork)
+        {
+            _mouseTrackUnitOfWork = mouseTrackUnitOfWork;
+            _mouseBusiness = new MouseBusinessObject();
+        }
         public void MouseTrack()
         {
             Start();
         }
+
+        public void TrackSave()
+        {
+            var mouseEntity = _mouseBusiness.ConvertToEntity(_mouseBusiness);
+            _mouseTrackUnitOfWork.MouseTrackRepository.Add(mouseEntity);
+            _mouseTrackUnitOfWork.Save();
+            _mouseBusiness = new MouseBusinessObject();
+        }
+
         private static readonly LowLevelMouseProc _proc = HookCallback;
         protected static IntPtr _hookId = IntPtr.Zero;
         protected const int WM_MOUSE_LL = 14;
@@ -41,36 +60,42 @@ namespace DevTrack.Foundation.Services
 
         private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
+            _mouseBusiness.TotalClicks++;
             switch (wParam.ToInt32())
             {
                 case WM_LBUTTONDOWN:
                     {
-                        Console.WriteLine("Left Button Clicked");
+                        _mouseBusiness.LeftButtonClick++;
                         break;
                     }
                 case WM_LBUTTONDBLCLK:
                     {
-                        Console.WriteLine("Left Button Double sClicked");
+                        _mouseBusiness.LeftButtonDoubleClick++;
                         break;
                     }
                 case WM_RBUTTONDOWN:
                     {
-                        Console.WriteLine("Left Button Double Clicked");
+                        _mouseBusiness.RightButtonClick++;
                         break;
                     }
                 case WM_RBUTTONDBLCLK:
                     {
-                        Console.WriteLine("Right Button Double Clicked");
+                        _mouseBusiness.RightButtonDoubleClick++;
                         break;
                     }
                 case WM_MBUTTONDOWN:
                     {
-                        Console.WriteLine("Middle Button Clicked");
+                        _mouseBusiness.MiddleButtonClick++;
+                        break;
+                    }
+                case WM_MBUTTONDBLCLK:
+                    {
+                        _mouseBusiness.MiddleButtonDoubleClick++;
                         break;
                     }
                 case WM_MOUSEWHEEL:
                     {
-                        Console.WriteLine("Mouse Wheel Button");
+                        _mouseBusiness.MouseWheel++;
                         break;
                     }
             }
