@@ -1,10 +1,11 @@
-﻿using DevTrack.DataAccessLayer;
+﻿using System;
 
-namespace DevTrack.Foundation.Entities
+namespace DevTrack.Foundation.BusinessObjects
 {
-    public class Keyboard : IEntity<int>
+    public class KeyboardBusinessObject
     {
-        public int Id { get; set; }
+
+        public Guid Id { get; set; }
         public int TotalKeyHits { get; set; }
 
         #region Functional Keys
@@ -112,7 +113,7 @@ namespace DevTrack.Foundation.Entities
         #endregion
 
         #region Alphabet Key
-        
+
 
         public int A { get; set; }
         public int B { get; set; }

@@ -48,6 +48,10 @@ namespace DevTrack.Foundation
             builder.RegisterType<ActiveProgramService>().As<IActiveProgramService>()
                 .InstancePerLifetimeScope();
 
+
+            builder.RegisterType<KeyboardTrackRepository>().As<IKeyboardTrackRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<IKeyboardTrackUnitOfWork>().As<IKeyboardTrackUnitOfWork>().InstancePerLifetimeScope();
+
             builder.RegisterType<ServerTime>().As<IServerTime>().InstancePerLifetimeScope();
             builder.RegisterType<BitMapAdapter>().As<IBitMapAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<SnapShotAdapter>().As<ISnapShotAdapter>().InstancePerLifetimeScope();
