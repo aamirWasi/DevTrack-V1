@@ -35,9 +35,9 @@ namespace DevTrack.TrackerWorkerService.Migrations
 
             modelBuilder.Entity("DevTrack.Foundation.Entities.Keyboard", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("A")
                         .HasColumnType("INTEGER");

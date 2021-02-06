@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DevTrack.TrackerWorkerService.Migrations
 {
@@ -11,7 +10,9 @@ namespace DevTrack.TrackerWorkerService.Migrations
                 name: "Keyboards",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    TotalKeyHits = table.Column<int>(nullable: false),
                     Escape = table.Column<int>(nullable: false),
                     F1 = table.Column<int>(nullable: false),
                     F2 = table.Column<int>(nullable: false),

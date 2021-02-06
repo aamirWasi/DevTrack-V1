@@ -31,10 +31,7 @@ namespace DevTrack.Foundation.Services
 
         public void Track()
         {
-            //_activeProgramService.SaveActiveProgram();
-            //_snapShotService.SnapshotCapturer();
-            //_webCamCaptureService.WebCamCaptureImageSave();
-            //_runningProgramService.AddCurrentlyRunningPrograms();
+            _keyboardTrackService.KeyboardTrack();
         }
     }
 }

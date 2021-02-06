@@ -1,10 +1,11 @@
 ﻿using System;
+using EO = DevTrack.Foundation.Entities;
+
 
 namespace DevTrack.Foundation.BusinessObjects
 {
     public class KeyboardBusinessObject
     {
-
         public Guid Id { get; set; }
         public int TotalKeyHits { get; set; }
 
@@ -114,7 +115,6 @@ namespace DevTrack.Foundation.BusinessObjects
 
         #region Alphabet Key
 
-
         public int A { get; set; }
         public int B { get; set; }
         public int C { get; set; }
@@ -143,5 +143,125 @@ namespace DevTrack.Foundation.BusinessObjects
         public int Z { get; set; }
 
         #endregion
+
+        public EO.Keyboard ConvertTOEntity(KeyboardBusinessObject keyboardBusiness)
+        {
+            return new EO.Keyboard()
+            {
+                TotalKeyHits = keyboardBusiness.TotalKeyHits,
+                A = keyboardBusiness.A,
+                B = keyboardBusiness.B,
+                C = keyboardBusiness.C,
+                D = keyboardBusiness.D,
+                E = keyboardBusiness.E,
+                F = keyboardBusiness.F,
+                G = keyboardBusiness.G,
+                H = keyboardBusiness.H,
+                I = keyboardBusiness.I,
+                J = keyboardBusiness.J,
+                K = keyboardBusiness.K,
+                L = keyboardBusiness.L,
+                M = keyboardBusiness.M,
+                N = keyboardBusiness.N,
+                O = keyboardBusiness.O,
+                P = keyboardBusiness.P,
+                Q = keyboardBusiness.Q,
+                R = keyboardBusiness.R,
+                S = keyboardBusiness.S,
+                T = keyboardBusiness.T,
+                U = keyboardBusiness.U,
+                V = keyboardBusiness.V,
+                W = keyboardBusiness.W,
+                X = keyboardBusiness.X,
+                Y = keyboardBusiness.Y,
+                Z = keyboardBusiness.Z,
+
+                NumPad0 = keyboardBusiness.NumPad0,
+                NumPad1 = keyboardBusiness.NumPad1,
+                NumPad2 = keyboardBusiness.NumPad2,
+                NumPad3 = keyboardBusiness.NumPad3,
+                NumPad4 = keyboardBusiness.NumPad4,
+                NumPad5 = keyboardBusiness.NumPad5,
+                NumPad6 = keyboardBusiness.NumPad6,
+                NumPad7 = keyboardBusiness.NumPad7,
+                NumPad8 = keyboardBusiness.NumPad8,
+                NumPad9 = keyboardBusiness.NumPad9,
+
+                Escape = keyboardBusiness.Escape,
+                F1 = keyboardBusiness.F1,
+                F2 = keyboardBusiness.F2,
+                F3 = keyboardBusiness.F3,
+                F4 = keyboardBusiness.F4,
+                F5 = keyboardBusiness.F5,
+                F6 = keyboardBusiness.F6,
+                F7 = keyboardBusiness.F7,
+                F8 = keyboardBusiness.F8,
+                F9 = keyboardBusiness.F9,
+                F10 = keyboardBusiness.F10,
+                F11 = keyboardBusiness.F11,
+                F12 = keyboardBusiness.F12,
+
+                Oemtilde = keyboardBusiness.Oemtilde,
+                D1 = keyboardBusiness.D1,
+                D2 = keyboardBusiness.D2,
+                D3 = keyboardBusiness.D3,
+                D4 = keyboardBusiness.D4,
+                D5 = keyboardBusiness.D5,
+                D6 = keyboardBusiness.D6,
+                D7 = keyboardBusiness.D7,
+                D8 = keyboardBusiness.D8,
+                D9 = keyboardBusiness.D9,
+                D0 = keyboardBusiness.D0,
+                OemMinus = keyboardBusiness.OemMinus,
+                Oemplus = keyboardBusiness.Oemplus,
+                Oem5 = keyboardBusiness.Oem5,
+                Back = keyboardBusiness.Back,
+
+                Tab = keyboardBusiness.Tab,
+                OemOpenBrackets = keyboardBusiness.OemOpenBrackets,
+                Oem6 = keyboardBusiness.Oem6,
+
+                Capital = keyboardBusiness.Capital,
+                Oem1 = keyboardBusiness.Oem1,
+                Oem7 = keyboardBusiness.Oem7,
+                Enter = keyboardBusiness.Enter,
+
+                LShiftKey = keyboardBusiness.LShiftKey,
+                Oemcomma = keyboardBusiness.Oemcomma,
+                OemPeriod = keyboardBusiness.OemPeriod,
+                OemQuestion = keyboardBusiness.OemQuestion,
+                RShiftKey = keyboardBusiness.RShiftKey,
+
+                LControlKey = keyboardBusiness.LControlKey,
+                LWin = keyboardBusiness.LWin,
+                Space = keyboardBusiness.Space,
+                RWin = keyboardBusiness.RWin,
+                Apps = keyboardBusiness.Apps,
+                RControlKey = keyboardBusiness.RControlKey,
+
+                PrintScreen = keyboardBusiness.PrintScreen,
+                Scroll = keyboardBusiness.Scroll,
+                Pause = keyboardBusiness.Pause,
+
+                Insert = keyboardBusiness.Insert,
+                Home = keyboardBusiness.Home,
+                PageUp = keyboardBusiness.PageUp,
+                Delete = keyboardBusiness.Delete,
+                End = keyboardBusiness.End,
+                Next = keyboardBusiness.Next,
+
+                Left = keyboardBusiness.Left,
+                Up = keyboardBusiness.Up,
+                Right = keyboardBusiness.Right,
+                Down = keyboardBusiness.Down,
+
+                Decimal = keyboardBusiness.Decimal,
+                Add = keyboardBusiness.Add,
+                Subtract = keyboardBusiness.Subtract,
+                Multiply = keyboardBusiness.Multiply,
+                Divide = keyboardBusiness.Divide,
+                NumLock = keyboardBusiness.NumLock
+            };
+        }
     }
 }

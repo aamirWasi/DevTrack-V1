@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevTrack.TrackerWorkerService.Migrations
 {
     [DbContext(typeof(DevTrackContext))]
-    [Migration("20210204171136_KeyboardModified And MouseInitialized")]
-    partial class KeyboardModifiedAndMouseInitialized
+    [Migration("20210206170038_KeyboardTableInitialized")]
+    partial class KeyboardTableInitialized
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,9 +37,9 @@ namespace DevTrack.TrackerWorkerService.Migrations
 
             modelBuilder.Entity("DevTrack.Foundation.Entities.Keyboard", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("A")
                         .HasColumnType("INTEGER");
