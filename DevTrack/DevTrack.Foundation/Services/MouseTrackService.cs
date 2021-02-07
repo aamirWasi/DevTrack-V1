@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 using DevTrack.Foundation.BusinessObjects;
 using DevTrack.Foundation.UnitOfWorks;
@@ -11,22 +12,11 @@ namespace DevTrack.Foundation.Services
     {
         private readonly IMouseTrackUnitOfWork _mouseTrackUnitOfWork;
         private static MouseBusinessObject _mouseBusiness;
+        private bool _firstTime = true;
 
         public MouseTrackService(IMouseTrackUnitOfWork mouseTrackUnitOfWork)
         {
             _mouseTrackUnitOfWork = mouseTrackUnitOfWork;
-            _mouseBusiness = new MouseBusinessObject();
-        }
-        public void MouseTrack()
-        {
-            Start();
-        }
-
-        public void TrackSave()
-        {
-            var mouseEntity = _mouseBusiness.ConvertToEntity(_mouseBusiness);
-            _mouseTrackUnitOfWork.MouseTrackRepository.Add(mouseEntity);
-            _mouseTrackUnitOfWork.Save();
             _mouseBusiness = new MouseBusinessObject();
         }
 
@@ -40,8 +30,21 @@ namespace DevTrack.Foundation.Services
         protected const int WM_RBUTTONDBLCLK = 0x206;
         protected const int WM_MBUTTONDBLCLK = 0x209;
         protected const int WM_MOUSEWHEEL = 0x020A;
+        
+        public void MouseTrackSave()
+        {
+            if (_firstTime)
+            {
+                _firstTime = false;
+                return;
+            }
+            var mouseEntity = _mouseBusiness.ConvertToEntity(_mouseBusiness);
+            _mouseTrackUnitOfWork.MouseTrackRepository.Add(mouseEntity);
+            _mouseTrackUnitOfWork.Save();
+            _mouseBusiness = new MouseBusinessObject();
+        }
 
-        public static void Start()
+        public void Track()
         {
             _hookId = SetHook(_proc);
             Application.Run();
@@ -52,8 +55,7 @@ namespace DevTrack.Foundation.Services
         {
             using var curProcess = Process.GetCurrentProcess();
             using var curModule = curProcess.MainModule;
-            return SetWindowsHookEx(WM_MOUSE_LL, proc,
-                GetModuleHandle(curModule?.ModuleName), 0);
+            return SetWindowsHookEx(WM_MOUSE_LL, proc, GetModuleHandle(curModule?.ModuleName), 0);
         }
 
         private delegate IntPtr LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);
@@ -63,41 +65,13 @@ namespace DevTrack.Foundation.Services
             _mouseBusiness.TotalClicks++;
             switch (wParam.ToInt32())
             {
-                case WM_LBUTTONDOWN:
-                    {
-                        _mouseBusiness.LeftButtonClick++;
-                        break;
-                    }
-                case WM_LBUTTONDBLCLK:
-                    {
-                        _mouseBusiness.LeftButtonDoubleClick++;
-                        break;
-                    }
-                case WM_RBUTTONDOWN:
-                    {
-                        _mouseBusiness.RightButtonClick++;
-                        break;
-                    }
-                case WM_RBUTTONDBLCLK:
-                    {
-                        _mouseBusiness.RightButtonDoubleClick++;
-                        break;
-                    }
-                case WM_MBUTTONDOWN:
-                    {
-                        _mouseBusiness.MiddleButtonClick++;
-                        break;
-                    }
-                case WM_MBUTTONDBLCLK:
-                    {
-                        _mouseBusiness.MiddleButtonDoubleClick++;
-                        break;
-                    }
-                case WM_MOUSEWHEEL:
-                    {
-                        _mouseBusiness.MouseWheel++;
-                        break;
-                    }
+                case WM_LBUTTONDOWN: _mouseBusiness.LeftButtonClick++; break;
+                case WM_LBUTTONDBLCLK: _mouseBusiness.LeftButtonDoubleClick++; break;
+                case WM_RBUTTONDOWN: _mouseBusiness.RightButtonClick++; break;
+                case WM_RBUTTONDBLCLK: _mouseBusiness.RightButtonDoubleClick++; break;
+                case WM_MBUTTONDOWN: _mouseBusiness.MiddleButtonClick++; break;
+                case WM_MBUTTONDBLCLK: _mouseBusiness.MiddleButtonDoubleClick++; break;
+                case WM_MOUSEWHEEL: _mouseBusiness.MouseWheel++; break;
             }
             return CallNextHookEx(_hookId, nCode, wParam, lParam);
         }
