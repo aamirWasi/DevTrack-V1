@@ -7,7 +7,6 @@ namespace DevTrack.Foundation.Services
     {
         private readonly IKeyboardTrackUnitOfWork _keyboardTrackUnitOfWork;
         private readonly IKeyboardTrackAdapter _keyboardTrackAdapter;
-        private bool _firstTime = true;
         public KeyboardTrackService(
             IKeyboardTrackUnitOfWork keyboardTrackUnitOfWork,
             IKeyboardTrackAdapter keyboardTrackAdapter)
@@ -18,12 +17,6 @@ namespace DevTrack.Foundation.Services
         
         public void KeyboardTrackSave()
         {
-            if (_firstTime)
-            {
-                _firstTime = false;
-                return;
-            }
-
             var keyboardEntity = _keyboardTrackAdapter.KeyboardEntity();
             _keyboardTrackUnitOfWork.KeyboardTrackRepository.Add(keyboardEntity);
             _keyboardTrackUnitOfWork.Save();
