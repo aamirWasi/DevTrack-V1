@@ -28,7 +28,7 @@ namespace DevTrack.Foundation.Adapters
             UnhookWindowsHookEx(_hookID);
         }
 
-        Keyboard IKeyboardTrackAdapter.KeyboardEntity()
+        public Keyboard KeyboardEntity()
         {
             var entity = _keyboardBusiness.ConvertTOEntity(_keyboardBusiness);
             _keyboardBusiness = new KeyboardBusinessObject();

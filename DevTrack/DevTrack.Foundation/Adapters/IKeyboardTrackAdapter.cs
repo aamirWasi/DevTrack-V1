@@ -5,6 +5,6 @@ namespace DevTrack.Foundation.Adapters
     public interface IKeyboardTrackAdapter
     {
         void KeyboardTrack();
-        internal Keyboard KeyboardEntity();
+        Keyboard KeyboardEntity();
     }
 }

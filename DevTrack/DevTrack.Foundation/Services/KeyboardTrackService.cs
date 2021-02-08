@@ -15,7 +15,7 @@ namespace DevTrack.Foundation.Services
             _keyboardTrackUnitOfWork = keyboardTrackUnitOfWork;
             _keyboardTrackAdapter = keyboardTrackAdapter;
         }
-
+        
         public void KeyboardTrackSave()
         {
             if (_firstTime)
@@ -28,6 +28,5 @@ namespace DevTrack.Foundation.Services
             _keyboardTrackUnitOfWork.KeyboardTrackRepository.Add(keyboardEntity);
             _keyboardTrackUnitOfWork.Save();
         }
-
     }
 }

@@ -7,7 +7,7 @@ using DevTrack.Foundation.Entities;
 
 namespace DevTrack.Foundation.Adapters
 {
-    internal class MouseTrackAdapter : IMouseTrackAdapter
+    public class MouseTrackAdapter : IMouseTrackAdapter
     {
 
         private static readonly LowLevelMouseProc _proc = HookCallback;
@@ -34,7 +34,7 @@ namespace DevTrack.Foundation.Adapters
             UnhookWindowsHookEx(_hookId);
         }
 
-        Mouse IMouseTrackAdapter.MouseEntity()
+        public Mouse MouseEntity()
         {
             var entity = _mouseBusiness.ConvertToEntity(_mouseBusiness);
             _mouseBusiness = new MouseBusinessObject();
