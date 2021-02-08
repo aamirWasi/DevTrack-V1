@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using DevTrack.Foundation.Adapters;
 
 namespace DevTrack.TrackerWorkerService
 {
@@ -11,25 +12,25 @@ namespace DevTrack.TrackerWorkerService
     {
         private readonly ILogger<Worker> _logger;
         private readonly ITrackerService _trackerService;
-        private static IKeyboardTrackService _keyboardTrackService;
+        private static IKeyboardTrackAdapter _keyboardTrackAdapter;
         private static IMouseTrackService _mouseTrackService;
 
         public Worker(
             ILogger<Worker> logger,
             ITrackerService trackerService,
-            IKeyboardTrackService keyboardTrackService,
+            IKeyboardTrackAdapter keyboardTrackAdapter,
             IMouseTrackService mouseTrackService)
         {
             _logger = logger;
             _trackerService = trackerService;
-            _keyboardTrackService = keyboardTrackService;
+            _keyboardTrackAdapter = keyboardTrackAdapter;
             _mouseTrackService = mouseTrackService;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var mouseThread = new Thread(_mouseTrackService.Track);
-            var keyboardThread = new Thread(_keyboardTrackService.Track);
+            var keyboardThread = new Thread(_keyboardTrackAdapter.KeyboardTrack);
 
             keyboardThread.Start();
             mouseThread.Start();
