@@ -50,6 +50,7 @@ namespace DevTrack.Foundation
                 .InstancePerLifetimeScope();
 
 
+            builder.RegisterType<KeyboardTrackAdapter>().As<IKeyboardTrackAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<KeyboardTrackService>().As<IKeyboardTrackService>().InstancePerLifetimeScope();
             builder.RegisterType<KeyboardTrackRepository>().As<IKeyboardTrackRepository>().InstancePerLifetimeScope();
             builder.RegisterType<KeyboardTrackUnitOfWork>().As<IKeyboardTrackUnitOfWork>().InstancePerLifetimeScope();
