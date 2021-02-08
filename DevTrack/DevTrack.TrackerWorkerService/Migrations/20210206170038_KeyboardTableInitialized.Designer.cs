@@ -3,14 +3,16 @@ using System;
 using DevTrack.Foundation.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DevTrack.TrackerWorkerService.Migrations
 {
     [DbContext(typeof(DevTrackContext))]
-    partial class DevTrackContextModelSnapshot : ModelSnapshot
+    [Migration("20210206170038_KeyboardTableInitialized")]
+    partial class KeyboardTableInitialized
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -348,41 +350,6 @@ namespace DevTrack.TrackerWorkerService.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Keyboards");
-                });
-
-            modelBuilder.Entity("DevTrack.Foundation.Entities.Mouse", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("LeftButtonClick")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("LeftButtonDoubleClick")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("MiddleButtonClick")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("MiddleButtonDoubleClick")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("MouseWheel")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("RightButtonClick")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("RightButtonDoubleClick")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("TotalClicks")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Mouses");
                 });
 
             modelBuilder.Entity("DevTrack.Foundation.Entities.RunningProgram", b =>

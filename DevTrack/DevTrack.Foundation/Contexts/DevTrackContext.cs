@@ -10,6 +10,8 @@ namespace DevTrack.Foundation.Contexts
         public DbSet<ActiveProgram> ActivePrograms { get; set; }
         public DbSet<RunningProgram> RunningPrograms { get; set; }
         public DbSet<WebCamCaptureImage> WebCamCapture { get; set; }
+        public DbSet<Keyboard> Keyboards { get; set; }
+        public DbSet<Mouse> Mouses { get; set; }
 
         private readonly string _connectionString;
         private readonly string _migrationAssemblyName;

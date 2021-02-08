@@ -2,6 +2,7 @@
 {
     public interface IKeyboardTrackService
     {
-        void KeyboardTrack();
+        void Track();
+        void KeyboardTrackSave();
     }
 }

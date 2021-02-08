@@ -1,0 +1,10 @@
+﻿using DevTrack.DataAccessLayer;
+using DevTrack.Foundation.Repositories;
+
+namespace DevTrack.Foundation.UnitOfWorks
+{
+    public interface IKeyboardTrackUnitOfWork : IUnitOfWork
+    {
+        public IKeyboardTrackRepository KeyboardTrackRepository { get; set; }
+    }
+}

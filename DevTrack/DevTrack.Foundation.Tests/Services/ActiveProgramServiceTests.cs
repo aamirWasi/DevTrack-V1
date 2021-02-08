@@ -10,6 +10,7 @@ using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using DevTrack.Foundation.Adapters;
 
 namespace DevTrack.Foundation.Tests.Services
 {

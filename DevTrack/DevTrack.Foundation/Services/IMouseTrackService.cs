@@ -2,6 +2,7 @@
 {
     public interface IMouseTrackService
     {
-        void MouseTrack();
+        void Track();
+        void MouseTrackSave();
     }
 }

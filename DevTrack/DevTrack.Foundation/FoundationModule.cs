@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DevTrack.Foundation.Adapters;
 using DevTrack.Foundation.Contexts;
 using DevTrack.Foundation.Repositories;
 using DevTrack.Foundation.Services;
@@ -47,6 +48,15 @@ namespace DevTrack.Foundation
                 .InstancePerLifetimeScope();
             builder.RegisterType<ActiveProgramService>().As<IActiveProgramService>()
                 .InstancePerLifetimeScope();
+
+
+            builder.RegisterType<KeyboardTrackService>().As<IKeyboardTrackService>().InstancePerLifetimeScope();
+            builder.RegisterType<KeyboardTrackRepository>().As<IKeyboardTrackRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<KeyboardTrackUnitOfWork>().As<IKeyboardTrackUnitOfWork>().InstancePerLifetimeScope();
+
+            builder.RegisterType<MouseTrackService>().As<IMouseTrackService>().InstancePerLifetimeScope();
+            builder.RegisterType<MouseTrackRepository>().As<IMouseTrackRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<MouseTrackUnitOfWork>().As<IMouseTrackUnitOfWork>().InstancePerLifetimeScope();
 
             builder.RegisterType<ServerTime>().As<IServerTime>().InstancePerLifetimeScope();
             builder.RegisterType<BitMapAdapter>().As<IBitMapAdapter>().InstancePerLifetimeScope();

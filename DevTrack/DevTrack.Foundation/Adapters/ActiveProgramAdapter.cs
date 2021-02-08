@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
+using DevTrack.Foundation.Adapters;
 
 namespace DevTrack.Foundation.Services.Adapters
 {
