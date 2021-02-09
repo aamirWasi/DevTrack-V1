@@ -15,7 +15,7 @@ namespace DevTrack.Foundation.Adapters
         private const int WM_KEYDOWN = 0x0100;
         private static LowLevelKeyboardProc _proc = HookCallback;
         private static IntPtr _hookID = IntPtr.Zero;
-        public bool IsFirst { get; set; } = true;
+        public bool IsFirst { get; set; }
 
         public KeyboardTrackAdapter()
         {

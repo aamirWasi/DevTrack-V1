@@ -1,5 +1,7 @@
 ﻿using Autofac.Extras.Moq;
 using DevTrack.Foundation.Adapters;
+using DevTrack.Foundation.Entities;
+using Moq;
 using NUnit.Framework;
 using Shouldly;
 
@@ -8,8 +10,8 @@ namespace DevTrack.Foundation.Tests.Services
     public class KeyboardTrackAdapterTest
     {
         private AutoMock _mock;
+        private Mock<IKeyboardTrackAdapter> _keyboardTrackAdapterMock;
         private IKeyboardTrackAdapter _keyboardTrackAdapter;
-
 
         [OneTimeSetUp]
         public void ClassTestUp()
@@ -26,12 +28,14 @@ namespace DevTrack.Foundation.Tests.Services
         [SetUp]
         public void Setup()
         {
+            _keyboardTrackAdapterMock = _mock.Mock<IKeyboardTrackAdapter>();
             _keyboardTrackAdapter = _mock.Create<KeyboardTrackAdapter>();
         }
 
         [TearDown]
         public void Clean()
         {
+            _keyboardTrackAdapterMock.Reset();
         }
 
 
@@ -45,7 +49,24 @@ namespace DevTrack.Foundation.Tests.Services
             var result = _keyboardTrackAdapter.KeyboardEntity();
 
             //assert
-           result.ShouldBeNull();
+            result.ShouldBeNull();
         }
+        
+        
+        //[Test]
+        //public void KeyboardEntity_FirstTime_ProvideNull()
+        //{
+        //    //arrange
+        //    Keyboard keyboard = null;
+        //    _keyboardTrackAdapterMock.Setup(x => x.IsFirst)
+        //        .Returns(false);
+
+        //    //act
+        //    _keyboardTrackAdapterMock.Setup(x => x.KeyboardEntity())
+        //        .Returns(keyboard).Verifiable();
+
+        //    //assert
+        //    _keyboardTrackAdapterMock.VerifyAll();
+        //}
     }
 }
