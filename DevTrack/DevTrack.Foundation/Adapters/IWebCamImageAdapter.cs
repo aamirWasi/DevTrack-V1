@@ -4,6 +4,6 @@ namespace DevTrack.Foundation.Adapters
 {
     public interface IWebCamImageAdapter
     {
-        Image WebCamCapture();
+        (Image image, string path) WebCamCapture();
     }
 }

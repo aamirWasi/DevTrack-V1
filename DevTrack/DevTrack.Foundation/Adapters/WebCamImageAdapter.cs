@@ -3,6 +3,7 @@ using OpenCvSharp.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Threading;
 
@@ -13,8 +14,9 @@ namespace DevTrack.Foundation.Adapters
         private VideoCapture _capture;
         private Mat _frame;
         private Bitmap _image;
+        private string _path;
 
-        public Image WebCamCapture()
+        public (Image image, String path) WebCamCapture()
         {
             _capture = new VideoCapture();
             _capture.Open(0);
@@ -25,9 +27,30 @@ namespace DevTrack.Foundation.Adapters
 
             _image = BitmapConverter.ToBitmap(_frame);
 
+            _path = CreatePath();
+
+            _image.Save(_path);
+
             _capture.Release();
 
-            return _image;
+            return (_image, _path);
         }
+
+        private string CreatePath()
+        {
+            string Folder = string.Format(Directory.GetCurrentDirectory() + @"\WebCamCapture");
+
+            if (!Directory.Exists(Folder))
+            {
+                Directory.CreateDirectory(Folder);
+            }
+
+            var FileName = DateTime.Now.ToString("dd-MM-yyyy hh-mm-ss-tt");
+
+            var FullImagePath = string.Format(Folder + "\\" + FileName + ".jpg");
+
+            return FullImagePath;
+        }
+
     }
 }
