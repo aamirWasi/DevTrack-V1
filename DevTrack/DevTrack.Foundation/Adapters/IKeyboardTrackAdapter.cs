@@ -6,5 +6,6 @@ namespace DevTrack.Foundation.Adapters
     {
         void KeyboardTrack();
         Keyboard KeyboardEntity();
+        bool IsFirst { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace DevTrack.Foundation.Adapters
         private const int WM_KEYDOWN = 0x0100;
         private static LowLevelKeyboardProc _proc = HookCallback;
         private static IntPtr _hookID = IntPtr.Zero;
+        public bool IsFirst { get; set; } = true;
 
         public KeyboardTrackAdapter()
         {
@@ -30,6 +31,11 @@ namespace DevTrack.Foundation.Adapters
 
         public Keyboard KeyboardEntity()
         {
+            if (IsFirst)
+            {
+                IsFirst = false;
+                return null;
+            }
             var entity = _keyboardBusiness.ConvertTOEntity(_keyboardBusiness);
             _keyboardBusiness = new KeyboardBusinessObject();
             return entity;
