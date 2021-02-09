@@ -28,7 +28,7 @@ namespace DevTrack.Foundation.Services
             var img = WebCamCapture();
             var path = CreatePath();
 
-            img.Save(path);
+            if(img != null) img.Save(path);
 
             var WebImageEntity = new WebCamCaptureImage
             {
