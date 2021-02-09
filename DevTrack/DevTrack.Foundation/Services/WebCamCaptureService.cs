@@ -40,21 +40,7 @@ namespace DevTrack.Foundation.Services
             _WebCamCaptureUnitOfWork.Save();
         }
 
-        private Image WebCamCapture()
-        {
-            _capture = new VideoCapture();
-            _capture.Open(0);
-            _frame = new Mat();
-            _capture.Read(_frame);
-
-            Thread.Sleep(2000);
-
-            _image = BitmapConverter.ToBitmap(_frame);
-
-            _capture.Release();
-
-            return _image;
-        }
+        
 
         private string CreatePath()
         {
