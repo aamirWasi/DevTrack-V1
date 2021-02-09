@@ -18,6 +18,7 @@ namespace DevTrack.Foundation.Services
         public void KeyboardTrackSave()
         {
             var keyboardEntity = _keyboardTrackAdapter.KeyboardEntity();
+            if (keyboardEntity == null) return;
             _keyboardTrackUnitOfWork.KeyboardTrackRepository.Add(keyboardEntity);
             _keyboardTrackUnitOfWork.Save();
         }
