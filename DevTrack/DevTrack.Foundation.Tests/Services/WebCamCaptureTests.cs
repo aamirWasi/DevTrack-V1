@@ -20,7 +20,7 @@ namespace DevTrack.Foundation.Tests.Services
         private Mock<IWebCamCaptureUnitOfWork> _webCamCaptureUnitOfWorkMock;
         private Mock<IWebCamCaptureRepository> _webCamCaptureRepositoryMock;
         private Mock<IWebCamImageAdapter> _webCamImageAdapterMock;
-        private WebCamCaptureService _webCamCaptureService;
+        private IWebCamCaptureService _webCamCaptureService;
 
         [OneTimeSetUp]
         public void ClassTestUp()
