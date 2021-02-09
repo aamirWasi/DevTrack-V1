@@ -9,6 +9,8 @@ using DevTrack.Foundation.Adapters;
 using Shouldly;
 using Moq;
 using DevTrack.Foundation.Services;
+using System.Drawing;
+using DevTrack.Foundation.Entities;
 
 namespace DevTrack.Foundation.Tests.Services
 {
@@ -50,15 +52,47 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
-        public void WebCamCaptureImageSave_NoImageFound()
+        public void WebCamCaptureImageSave_NoImageFound_ThrowsInvalidOperationException()
         {
             //arrange
-
+            (Image image, string path) obj = (null, null);
+            _webCamImageAdapterMock.Setup(x => x.WebCamCapture()).Returns(obj);
 
             //act
-
+            Should.Throw<InvalidOperationException>(
+                () => _webCamCaptureService.WebCamCaptureImageSave()
+                );
 
             //assert
+            this.ShouldSatisfyAllConditions(
+                () => _webCamImageAdapterMock.VerifyAll()
+                );
+        }
+
+        [Test]
+        public void WebCamCaptureImageSave_ImageFound_ImageSave()
+        {
+            //arrange
+            Image image = new Bitmap(400, 400);
+            const string ImagePath = @"C:\camTest";
+            var imageEntity = new WebCamCaptureImage() { WebCamImageDateTime = DateTime.Now, WebCamImagePath = ImagePath };
+            (Image image, string ImagePath) obj = (image, ImagePath);
+
+            _webCamCaptureUnitOfWorkMock.Setup(x => x._webCamCaptureRepository).Returns(_webCamCaptureRepositoryMock.Object);
+            _webCamImageAdapterMock.Setup(x => x.WebCamCapture()).Returns(obj);
+            _webCamCaptureRepositoryMock.Setup(x => x.Add(It.Is<WebCamCaptureImage>(y => y.WebCamImagePath == imageEntity.WebCamImagePath))).Verifiable();
+            _webCamCaptureUnitOfWorkMock.Setup(x => x.Save()).Verifiable();
+
+            //act
+            _webCamCaptureService.WebCamCaptureImageSave();
+
+            //assert
+            this.ShouldSatisfyAllConditions(
+                () => _webCamImageAdapterMock.VerifyAll()
+                , () => _webCamCaptureUnitOfWorkMock.VerifyAll()
+                , () => _webCamCaptureRepositoryMock.VerifyAll()
+                );
+
 
         }
     }
