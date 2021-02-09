@@ -44,7 +44,9 @@ namespace DevTrack.Foundation.Tests.Services
         [TearDown]
         public void Clean()
         {
-
+            _webCamCaptureRepositoryMock?.Reset();
+            _webCamCaptureUnitOfWorkMock?.Reset();
+            _webCamImageAdapterMock?.Reset();
         }
 
         [Test]
