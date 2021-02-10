@@ -15,7 +15,7 @@ namespace DevTrack.Foundation.Tests.Services
         private AutoMock _mock;
         private Mock<IKeyboardTrackUnitOfWork> _keyboardTrackUnitMock;
         private Mock<IKeyboardTrackRepository> _keyboardTrackRepositoryMock;
-        private Mock<IKeyboardTrackAdapter> _keyboardTrackAdapterMock;
+        private Mock<IKeyboardTrackStartService> _keyboardTrackAdapterMock;
         private IKeyboardTrackService _keyboardTrackService;
 
 
@@ -36,7 +36,7 @@ namespace DevTrack.Foundation.Tests.Services
         {
             _keyboardTrackUnitMock = _mock.Mock<IKeyboardTrackUnitOfWork>();
             _keyboardTrackRepositoryMock = _mock.Mock<IKeyboardTrackRepository>();
-            _keyboardTrackAdapterMock = _mock.Mock<IKeyboardTrackAdapter>();
+            _keyboardTrackAdapterMock = _mock.Mock<IKeyboardTrackStartService>();
             _keyboardTrackService = _mock.Create<KeyboardTrackService>();
         }
 

@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using DevTrack.Foundation.Adapters;
 
 namespace DevTrack.TrackerWorkerService
 {
@@ -12,14 +11,14 @@ namespace DevTrack.TrackerWorkerService
     {
         private readonly ILogger<Worker> _logger;
         private readonly ITrackerService _trackerService;
-        private static IKeyboardTrackAdapter _keyboardTrackAdapter;
-        private static IMouseTrackAdapter _mouseTrackAdapter;
+        private static IKeyboardTrackStartService _keyboardTrackAdapter;
+        private static IMouseTrackStartService _mouseTrackAdapter;
 
         public Worker(
             ILogger<Worker> logger,
             ITrackerService trackerService,
-            IKeyboardTrackAdapter keyboardTrackAdapter,
-            IMouseTrackAdapter mouseTrackAdapter)
+            IKeyboardTrackStartService keyboardTrackAdapter,
+            IMouseTrackStartService mouseTrackAdapter)
         {
             _logger = logger;
             _trackerService = trackerService;

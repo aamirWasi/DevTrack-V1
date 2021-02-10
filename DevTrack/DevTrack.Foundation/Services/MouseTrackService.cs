@@ -1,17 +1,16 @@
-﻿using DevTrack.Foundation.Adapters;
-using DevTrack.Foundation.UnitOfWorks;
+﻿using DevTrack.Foundation.UnitOfWorks;
 
 namespace DevTrack.Foundation.Services
 {
     public class MouseTrackService : IMouseTrackService
     {
         private readonly IMouseTrackUnitOfWork _mouseTrackUnitOfWork;
-        private readonly IMouseTrackAdapter _mouseTrackAdapter;
+        private readonly IMouseTrackStartService _mouseTrackAdapter;
         private bool _firstTime = true;
 
         public MouseTrackService(
             IMouseTrackUnitOfWork mouseTrackUnitOfWork,
-            IMouseTrackAdapter mouseTrackAdapter)
+            IMouseTrackStartService mouseTrackAdapter)
         {
             _mouseTrackUnitOfWork = mouseTrackUnitOfWork;
             _mouseTrackAdapter = mouseTrackAdapter;

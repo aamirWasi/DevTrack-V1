@@ -6,10 +6,10 @@ namespace DevTrack.Foundation.Services
     public class KeyboardTrackService : IKeyboardTrackService
     {
         private readonly IKeyboardTrackUnitOfWork _keyboardTrackUnitOfWork;
-        private readonly IKeyboardTrackAdapter _keyboardTrackAdapter;
+        private readonly IKeyboardTrackStartService _keyboardTrackAdapter;
         public KeyboardTrackService(
             IKeyboardTrackUnitOfWork keyboardTrackUnitOfWork,
-            IKeyboardTrackAdapter keyboardTrackAdapter)
+            IKeyboardTrackStartService keyboardTrackAdapter)
         {
             _keyboardTrackUnitOfWork = keyboardTrackUnitOfWork;
             _keyboardTrackAdapter = keyboardTrackAdapter;
