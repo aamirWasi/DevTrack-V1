@@ -15,7 +15,7 @@ namespace DevTrack.Foundation.Tests.Services
         private AutoMock _mock;
         private Mock<IKeyboardTrackUnitOfWork> _keyboardTrackUnitMock;
         private Mock<IKeyboardTrackRepository> _keyboardTrackRepositoryMock;
-        private Mock<IKeyboardTrackStartService> _keyboardTrackAdapterMock;
+        private Mock<IKeyboardTrackStartService> _keyboardTrackStartService;
         private IKeyboardTrackService _keyboardTrackService;
 
 
@@ -36,7 +36,7 @@ namespace DevTrack.Foundation.Tests.Services
         {
             _keyboardTrackUnitMock = _mock.Mock<IKeyboardTrackUnitOfWork>();
             _keyboardTrackRepositoryMock = _mock.Mock<IKeyboardTrackRepository>();
-            _keyboardTrackAdapterMock = _mock.Mock<IKeyboardTrackStartService>();
+            _keyboardTrackStartService = _mock.Mock<IKeyboardTrackStartService>();
             _keyboardTrackService = _mock.Create<KeyboardTrackService>();
         }
 
@@ -45,7 +45,7 @@ namespace DevTrack.Foundation.Tests.Services
         {
             _keyboardTrackUnitMock?.Reset();
             _keyboardTrackRepositoryMock?.Reset();
-            _keyboardTrackAdapterMock?.Reset();
+            _keyboardTrackStartService?.Reset();
         }
 
 
@@ -56,7 +56,7 @@ namespace DevTrack.Foundation.Tests.Services
             var keyboard = new Keyboard{A = 5, TotalKeyHits = 5};
             //Keyboard keyboard = null;
 
-            _keyboardTrackAdapterMock.Setup(x => x.KeyboardEntity()).Returns(keyboard);
+            _keyboardTrackStartService.Setup(x => x.KeyboardEntity()).Returns(keyboard);
             _keyboardTrackUnitMock.Setup(x => x.KeyboardTrackRepository)
                 .Returns(_keyboardTrackRepositoryMock.Object);
 
@@ -70,7 +70,7 @@ namespace DevTrack.Foundation.Tests.Services
             this.ShouldSatisfyAllConditions(
                 () => _keyboardTrackUnitMock.VerifyAll(),
                 () => _keyboardTrackRepositoryMock.VerifyAll(),
-                () => _keyboardTrackAdapterMock.VerifyAll()
+                () => _keyboardTrackStartService.VerifyAll()
             );
         }
     }
