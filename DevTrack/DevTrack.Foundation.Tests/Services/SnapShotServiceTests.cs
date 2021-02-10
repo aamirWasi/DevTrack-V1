@@ -22,7 +22,7 @@ namespace DevTrack.Foundation.Tests.Services
         private Mock<ISnapshotRepository> _snapshotRepositoryMock;
         private Mock<IBitMapAdapter> _bitMapAdapterMock;
         private Mock<ISnapShotAdapter> _adpaterMock;
-        private SnapShotService _snapshotService;
+        private ISnapShotService _snapshotService;
 
         [OneTimeSetUp]
         public void ClassTestUp()

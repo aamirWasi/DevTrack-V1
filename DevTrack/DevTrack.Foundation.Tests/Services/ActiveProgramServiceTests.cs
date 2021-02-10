@@ -20,7 +20,7 @@ namespace DevTrack.Foundation.Tests.Services
         private Mock<IActiveProgramUnitOfWork> _activeProgramUnitOfWorkMock;
         private Mock<IActiveProgramRepository> _activeProgramRepositoryMock;
         private Mock<IActiveProgramAdapter> _activeProgramAdpaterMock;
-        private ActiveProgramService _activeProgramService;
+        private IActiveProgramService _activeProgramService;
 
         [OneTimeSetUp]
         public void ClassTestUp()
