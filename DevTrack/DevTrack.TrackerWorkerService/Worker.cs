@@ -11,25 +11,25 @@ namespace DevTrack.TrackerWorkerService
     {
         private readonly ILogger<Worker> _logger;
         private readonly ITrackerService _trackerService;
-        private static IKeyboardTrackService _keyboardTrackService;
-        private static IMouseTrackService _mouseTrackService;
+        private static IKeyboardTrackStartService _keyboardTrackStart;
+        private static IMouseTrackStartService _mouseTrackStart;
 
         public Worker(
             ILogger<Worker> logger,
             ITrackerService trackerService,
-            IKeyboardTrackService keyboardTrackService,
-            IMouseTrackService mouseTrackService)
+            IKeyboardTrackStartService keyboardTrackStartService,
+            IMouseTrackStartService mouseTrackStartService)
         {
             _logger = logger;
             _trackerService = trackerService;
-            _keyboardTrackService = keyboardTrackService;
-            _mouseTrackService = mouseTrackService;
+            _keyboardTrackStart = keyboardTrackStartService;
+            _mouseTrackStart = mouseTrackStartService;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var mouseThread = new Thread(_mouseTrackService.Track);
-            var keyboardThread = new Thread(_keyboardTrackService.Track);
+            var mouseThread = new Thread(_mouseTrackStart.MouseTrack);
+            var keyboardThread = new Thread(_keyboardTrackStart.KeyboardTrack);
 
             keyboardThread.Start();
             mouseThread.Start();
