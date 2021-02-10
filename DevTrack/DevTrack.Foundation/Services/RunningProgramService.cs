@@ -23,13 +23,13 @@ namespace DevTrack.Foundation.Services
             if (string.IsNullOrWhiteSpace(runningApps))
                 throw new InvalidOperationException("Program name is not provided");
 
-            var RunningAppsEntity = new EO.RunningProgram
+            var runningAppsEntity = new EO.RunningProgram
             {
                 RunningApplications = runningApps,
                 RunningApplicationsDateTime = DateTime.Now,
             };
 
-            _runningProgramUnitOfWork.RunningProgramRepository.Add(RunningAppsEntity);
+            _runningProgramUnitOfWork.RunningProgramRepository.Add(runningAppsEntity);
             _runningProgramUnitOfWork.Save();
         }
     }
