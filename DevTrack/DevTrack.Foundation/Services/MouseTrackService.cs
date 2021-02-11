@@ -6,7 +6,6 @@ namespace DevTrack.Foundation.Services
     {
         private readonly IMouseTrackUnitOfWork _mouseTrackUnitOfWork;
         private readonly IMouseTrackStartService _mouseTrackAdapter;
-        private bool _firstTime = true;
 
         public MouseTrackService(
             IMouseTrackUnitOfWork mouseTrackUnitOfWork,
@@ -18,13 +17,8 @@ namespace DevTrack.Foundation.Services
 
         public void MouseTrackSave()
         {
-            if (_firstTime)
-            {
-                _firstTime = false;
-                return;
-            }
-
             var mouseEntity = _mouseTrackAdapter.MouseEntity();
+            if (mouseEntity == null) return;
             _mouseTrackUnitOfWork.MouseTrackRepository.Add(mouseEntity);
             _mouseTrackUnitOfWork.Save();
         }

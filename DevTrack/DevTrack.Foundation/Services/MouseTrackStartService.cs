@@ -12,6 +12,8 @@ namespace DevTrack.Foundation.Services
 
         private static readonly LowLevelMouseProc _proc = HookCallback;
         private static MouseBusinessObject _mouseBusiness;
+        private bool _firstTime = true;
+
         protected static IntPtr _hookId = IntPtr.Zero;
         protected const int WM_MOUSE_LL = 14;
         protected const int WM_LBUTTONDOWN = 0x201;
@@ -36,6 +38,11 @@ namespace DevTrack.Foundation.Services
 
         public Mouse MouseEntity()
         {
+            if (_firstTime)
+            {
+                _firstTime = false;
+                return null;
+            }
             var entity = _mouseBusiness.ConvertToEntity(_mouseBusiness);
             _mouseBusiness = new MouseBusinessObject();
             return entity;

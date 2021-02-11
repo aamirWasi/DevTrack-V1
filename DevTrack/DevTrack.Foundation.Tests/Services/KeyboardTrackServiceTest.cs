@@ -1,5 +1,4 @@
 ﻿using Autofac.Extras.Moq;
-using DevTrack.Foundation.Adapters;
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.Repositories;
 using DevTrack.Foundation.Services;
