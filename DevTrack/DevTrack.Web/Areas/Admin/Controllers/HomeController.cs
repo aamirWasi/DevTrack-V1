@@ -15,5 +15,11 @@ namespace DevTrack.Web.Areas.Admin.Controllers
         {
             return View();
         }
+
+        [Authorize(Policy = "RestrictedArea")]
+        public IActionResult Profile()
+        {
+            return View();
+        }
     }
 }

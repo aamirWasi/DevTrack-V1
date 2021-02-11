@@ -71,7 +71,7 @@ namespace DevTrack.Web.Controllers
                     //await _userManager.AddToRoleAsync(user, "SuperAdmin");
                     await _userManager.AddToRoleAsync(user, "Admin");
                     //await _userManager.AddToRoleAsync(user, "Customer");
-                    //await _userManager.AddClaimAsync(user, new Claim("FullName", model.FullName));
+                    await _userManager.AddClaimAsync(user, new Claim("FullName", model.FullName));
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

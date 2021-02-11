@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DevTrack.Membership.BusinessObjects;
 
 namespace DevTrack.Web
 {
@@ -115,6 +116,17 @@ namespace DevTrack.Web
                 }
                 */
                 );
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RestrictedArea", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.Requirements.Add(new FullNameRequirement());
+                });
+            });
+
+            services.AddSingleton<IAuthorizationHandler, FullNameRequirementHandler>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
