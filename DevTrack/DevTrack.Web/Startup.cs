@@ -44,7 +44,7 @@ namespace DevTrack.Web
             var connectionStringName = "DefaultConnection";
             var connectionString = Configuration.GetConnectionString(connectionStringName);
             var migrationAssemblyName = typeof(Startup).Assembly.FullName;
-            builder.RegisterModule(new CoreModule(connectionString, migrationAssemblyName));
+            builder.RegisterModule(new WebModule(connectionString, migrationAssemblyName));
             builder.RegisterModule(new MembershipModule(connectionString, migrationAssemblyName));
         }
 

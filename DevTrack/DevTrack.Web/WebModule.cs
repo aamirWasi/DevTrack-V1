@@ -2,12 +2,12 @@
 
 namespace DevTrack.Web
 {
-    public class CoreModule : Module
+    public class WebModule : Module
     {
         private string _connectionString;
         private string _migrationAssemblyName;
 
-        public CoreModule(string connectionString, string migrationAssemblyName)
+        public WebModule(string connectionString, string migrationAssemblyName)
         {
             _connectionString = connectionString;
             _migrationAssemblyName = migrationAssemblyName;
