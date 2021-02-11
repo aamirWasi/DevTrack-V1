@@ -11,7 +11,7 @@ namespace DevTrack.Foundation.Adapters
             return string.Join(",", GetRunningProgramsList().ToArray());
         }
 
-        private List<string> GetRunningProgramsList()
+        public List<string> GetRunningProgramsList()
         {
             var applist = new List<string>();
 
@@ -24,6 +24,8 @@ namespace DevTrack.Foundation.Adapters
                     //var ProgramsList = procList[i].ProcessName;
                 }
             }
+            applist.Sort();
+
             return applist;
         }
     }

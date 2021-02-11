@@ -67,7 +67,7 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
-        public void AddRunningProgramList_ApplicationsFound_Save()
+        public void AddRunningProgramList_ApplicationsFound_SaveApplications()
         {
             //Arrange 
             string appName = "chrome,Code,devenv,TopTracker";
@@ -92,6 +92,53 @@ namespace DevTrack.Foundation.Tests.Services
                 () => _runningProgramRepositoryMock.VerifyAll(),
                 () => _runningProgramUnitOfWorkMock.VerifyAll()
                 ) ;
+        }
+
+        [Test]
+        public void RunningProgramList_ProgramList_IsUnique()
+        {
+            //Arrange
+            var appList = new RunningProgramAdapter();
+
+            //Act
+            var result = appList.GetRunningProgramsList();
+
+            //Assert
+            Assert.That(result, Is.Unique);
+
+#region R&D
+            //Arrange
+            //var demo = _runningProgramAdapterMock.Setup((System.Linq.Expressions.Expression<Func<IRunningProgramAdapter, System.Collections.Generic.List<string>>>)(x => (System.Collections.Generic.List<string>)x.GetRunningProgramsList())).Verifiable();
+            //var demo = _runningProgramAdapterMock.Setup(x => (System.Collections.Generic.List<string>)x.GetRunningProgramsList()).Verifiable();
+            //_runningProgramAdapterMock.Setup(x => x.GetRunningProgramsList()).Returns(result);
+
+            //Act
+            //Should.Throw<InvalidOperationException>(
+            //    () => _runningProgramService.AddCurrentlyRunningPrograms(),
+            //    () => _runningProgramAdapterMock.GetRunningProgramsList();
+            //    );
+            //_runningProgramAdapterMock.GetRunningProgramsList();
+
+            //Assert
+            //this.ShouldSatisfyAllConditions(
+            //    () => _runningProgramAdapterMock.VerifyAll()
+            //    );
+            //_runningProgramAdapterMock.VerifyAll();
+#endregion
+
+        }
+
+        [Test]
+        public void RunningProgramList_ProgramList_IsOrdered()
+        {
+            //Arrange
+            var appList = new RunningProgramAdapter();
+
+            //Act
+            var result = appList.GetRunningProgramsList();
+
+            //Assert
+            Assert.That(result, Is.Ordered);
         }
     }
 }
