@@ -5,3 +5,5 @@
 **/.Logs
 [Ll]ogs/
 /DevTrack/DevTrack.TrackerWorkerService/*.db
+**/.db-shm
+**/.db-wal

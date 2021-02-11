@@ -50,10 +50,12 @@ namespace DevTrack.Foundation
                 .InstancePerLifetimeScope();
 
 
+            builder.RegisterType<KeyboardTrackStartService>().As<IKeyboardTrackStartService>().InstancePerLifetimeScope();
             builder.RegisterType<KeyboardTrackService>().As<IKeyboardTrackService>().InstancePerLifetimeScope();
             builder.RegisterType<KeyboardTrackRepository>().As<IKeyboardTrackRepository>().InstancePerLifetimeScope();
             builder.RegisterType<KeyboardTrackUnitOfWork>().As<IKeyboardTrackUnitOfWork>().InstancePerLifetimeScope();
 
+            builder.RegisterType<MouseTrackStartService>().As<IMouseTrackStartService>().InstancePerLifetimeScope();
             builder.RegisterType<MouseTrackService>().As<IMouseTrackService>().InstancePerLifetimeScope();
             builder.RegisterType<MouseTrackRepository>().As<IMouseTrackRepository>().InstancePerLifetimeScope();
             builder.RegisterType<MouseTrackUnitOfWork>().As<IMouseTrackUnitOfWork>().InstancePerLifetimeScope();
@@ -62,6 +64,8 @@ namespace DevTrack.Foundation
             builder.RegisterType<BitMapAdapter>().As<IBitMapAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<SnapShotAdapter>().As<ISnapShotAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<ActiveProgramAdapter>().As<IActiveProgramAdapter>().InstancePerLifetimeScope();
+
+            builder.RegisterType<WebCamImageAdapter>().As<IWebCamImageAdapter>().InstancePerLifetimeScope();
             
             base.Load(builder);
         }
