@@ -68,10 +68,10 @@ namespace DevTrack.Web.Controllers
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    await _userManager.AddToRoleAsync(user, "SuperAdmin");
-                    //await _userManager.AddToRoleAsync(user, "Admin");
+                    //await _userManager.AddToRoleAsync(user, "SuperAdmin");
+                    await _userManager.AddToRoleAsync(user, "Admin");
                     //await _userManager.AddToRoleAsync(user, "Customer");
-                    await _userManager.AddClaimAsync(user, new Claim("FullName", model.FullName));
+                    //await _userManager.AddClaimAsync(user, new Claim("FullName", model.FullName));
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
