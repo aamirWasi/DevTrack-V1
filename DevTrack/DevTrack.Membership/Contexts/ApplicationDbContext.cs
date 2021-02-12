@@ -15,5 +15,15 @@ namespace DevTrack.Membership.Contexts
         {
 
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ApplicationRole>().HasData(
+                new ApplicationRole { Id = Guid.NewGuid(), Name = "Admin", NormalizedName = "ADMIN" },
+                new ApplicationRole { Id = Guid.NewGuid(), Name = "Trainer", NormalizedName = "TRAINER" },
+                new ApplicationRole { Id = Guid.NewGuid(), Name = "Student", NormalizedName = "STUDENT" });
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
