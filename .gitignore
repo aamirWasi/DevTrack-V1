@@ -7,3 +7,4 @@
 /DevTrack/DevTrack.TrackerWorkerService/*.db
 **/.db-shm
 **/.db-wal
+/DevTrack/DevTrack.Web/appsettings.json
