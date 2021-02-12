@@ -1,7 +1,6 @@
 ﻿using DevTrack.Foundation.UnitOfWorks;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+using DevTrack.Foundation.Adapters;
 using EO = DevTrack.Foundation.Entities;
 
 namespace DevTrack.Foundation.Services
@@ -9,40 +8,29 @@ namespace DevTrack.Foundation.Services
     public class RunningProgramService : IRunningProgramService
     {
         private readonly IRunningProgramUnitOfWork _runningProgramUnitOfWork;
+        private readonly IRunningProgramAdapter _runningProgramAdpater;
 
-        public RunningProgramService(IRunningProgramUnitOfWork runningProgramUnitOfWork)
+        public RunningProgramService(IRunningProgramUnitOfWork runningProgramUnitOfWork,IRunningProgramAdapter runningProgramAdapter)
         {
             _runningProgramUnitOfWork = runningProgramUnitOfWork;
+            _runningProgramAdpater = runningProgramAdapter;
         }
 
         public void AddCurrentlyRunningPrograms()
         {
-            var RunningApps = String.Join(",", GetRunningProgramsList().ToArray());
+            var runningApps = _runningProgramAdpater.GetRunningPrograms();
 
-            var RunningAppsEntity = new EO.RunningProgram
+            if (string.IsNullOrWhiteSpace(runningApps))
+                throw new InvalidOperationException("Program name is not provided");
+
+            var runningAppsEntity = new EO.RunningProgram
             {
-                RunningApplications = RunningApps,
+                RunningApplications = runningApps,
                 RunningApplicationsDateTime = DateTime.Now,
             };
 
-            _runningProgramUnitOfWork.RunningProgramRepository.Add(RunningAppsEntity);
+            _runningProgramUnitOfWork.RunningProgramRepository.Add(runningAppsEntity);
             _runningProgramUnitOfWork.Save();
-        }
-
-        private List<string> GetRunningProgramsList()
-        {
-            var Applist = new List<string>();
-
-            Process[] procList = Process.GetProcesses();
-            for (int i = 0; i < procList.Length; i++)
-            {
-                if (procList[i].MainWindowHandle != IntPtr.Zero)
-                {
-                    Applist.Add(procList[i].ProcessName);
-                    //var ProgramsList = procList[i].ProcessName;
-                }
-            }
-            return Applist;
         }
     }
 }
