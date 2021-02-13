@@ -9,6 +9,8 @@
   <ItemGroup>
     <Compile Remove="Data\20210212191417_SeedRoles.cs" />
     <Compile Remove="Data\20210212191417_SeedRoles.Designer.cs" />
+    <Compile Remove="Migrations\20210213054939_WebDatabaseInitial.cs" />
+    <Compile Remove="Migrations\20210213054939_WebDatabaseInitial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +31,7 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Data\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>

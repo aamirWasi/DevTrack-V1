@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DevTrack.Web.Migrations
+namespace DevTrack.Web.Data
 {
     public partial class WebDatabaseInitial : Migration
     {
