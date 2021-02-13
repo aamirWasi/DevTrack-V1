@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DevTrack.Foundation\DevTrack.Foundation.csproj" />
     <ProjectReference Include="..\DevTrack.Membership\DevTrack.Membership.csproj" />
   </ItemGroup>
 

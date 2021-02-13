@@ -25,7 +25,12 @@ namespace DevTrack.Foundation
                 .WithParameter("connectionString", _connectionString)
                 .WithParameter("migrationAssemblyName", _migrationAssemblyName)
                 .InstancePerLifetimeScope();
-            
+
+            builder.RegisterType<DevTrackWebContext>()
+                .WithParameter("connectionString", _connectionString)
+                .WithParameter("migrationAssemblyName", _migrationAssemblyName)
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<SnapshotRepository>().As<ISnapshotRepository>().InstancePerLifetimeScope();
             builder.RegisterType<SnapshotUnitOfWork>().As<ISnapshotUnitOfWork>().InstancePerLifetimeScope();
             builder.RegisterType<SnapShotService>().As<ISnapShotService>().InstancePerLifetimeScope();
