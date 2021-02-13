@@ -21,6 +21,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DevTrack.Membership.BusinessObjects;
+using DevTrack.Foundation;
+using DevTrack.Foundation.Contexts;
 
 namespace DevTrack.Web
 {
@@ -45,6 +47,7 @@ namespace DevTrack.Web
             var connectionString = Configuration.GetConnectionString(connectionStringName);
             var migrationAssemblyName = typeof(Startup).Assembly.FullName;
             builder.RegisterModule(new WebModule(connectionString, migrationAssemblyName));
+            builder.RegisterModule(new FoundationModule(connectionString, migrationAssemblyName));
             builder.RegisterModule(new MembershipModule(connectionString, migrationAssemblyName));
         }
 
@@ -57,6 +60,9 @@ namespace DevTrack.Web
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString, m => m.MigrationsAssembly(migrationAssemblyName)));
+
+            services.AddDbContext<DevTrackWebContext>(options =>
+                options.UseSqlServer(connectionString, b => b.MigrationsAssembly(migrationAssemblyName)));
 
             // Identity customization started here
             services
