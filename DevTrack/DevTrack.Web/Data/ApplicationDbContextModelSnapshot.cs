@@ -49,22 +49,22 @@ namespace DevTrack.Web.Data
                     b.HasData(
                         new
                         {
-                            Id = new Guid("647bd95b-115c-4b29-8078-e97919a5d530"),
-                            ConcurrencyStamp = "b6150c18-0979-4ba1-92f7-f984db661661",
+                            Id = new Guid("36c7d5a3-04e8-4c2f-9eb4-254f27a71b0c"),
+                            ConcurrencyStamp = "a3e0ade2-3d2a-4068-b589-6477062ed604",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("93f86480-abc4-486d-9a4a-16c68e15d8dd"),
-                            ConcurrencyStamp = "110df3f9-203f-4dd6-bbc7-e1a639978646",
+                            Id = new Guid("0c8dd35c-c1b8-46e1-9ac7-1a5639d99ba0"),
+                            ConcurrencyStamp = "f084d5a9-e09f-41bb-8308-ec5d63881392",
                             Name = "Trainer",
                             NormalizedName = "TRAINER"
                         },
                         new
                         {
-                            Id = new Guid("e5ee7021-4a67-405f-8bfb-bf6bc996cf5b"),
-                            ConcurrencyStamp = "8f089daf-1e3a-4e95-b507-97dd38390f36",
+                            Id = new Guid("a66e7ff3-9ddf-4fe7-b360-e763a3bb7a16"),
+                            ConcurrencyStamp = "c7696fc8-b8fc-47c0-ad3d-3e083694fc63",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
