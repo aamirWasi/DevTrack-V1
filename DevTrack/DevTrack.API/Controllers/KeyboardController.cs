@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using DevTrack.API.Models;
+using DevTrack.Foundation.Entities;
 
 namespace DevTrack.API.Controllers
 {
@@ -9,9 +11,10 @@ namespace DevTrack.API.Controllers
     {
         // GET: api/<KeyboardController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Keyboard> Get()
         {
-            return new string[] { "value1", "value2" };
+            var model = new KeyboardModel();
+            return model.TrackedData();
         }
 
         // GET api/<KeyboardController>/5

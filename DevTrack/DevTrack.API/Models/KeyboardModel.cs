@@ -1,4 +1,7 @@
-﻿using Autofac;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Autofac;
+using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.Services;
 
 namespace DevTrack.API.Models
@@ -17,6 +20,10 @@ namespace DevTrack.API.Models
             _keyboardTrackService = Startup.AutofacContainer.Resolve<IKeyboardTrackService>();
         }
 
+        public IList<Keyboard> TrackedData()
+        {
+            return _keyboardTrackService.GetKeyboard();
+        }
 
     }
 }
