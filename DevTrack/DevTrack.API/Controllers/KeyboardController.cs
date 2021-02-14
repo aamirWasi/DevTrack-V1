@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using DevTrack.API.Models;
 using DevTrack.Foundation.Entities;
+using Microsoft.AspNetCore.Authorization;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace DevTrack.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "RestrictedAPI")]
     public class KeyboardController : ControllerBase
     {
         // GET: api/<KeyboardController>
@@ -14,7 +18,7 @@ namespace DevTrack.API.Controllers
         public IEnumerable<Keyboard> Get()
         {
             var model = new KeyboardModel();
-            return model.TrackedData();
+            return model.KeyboardHitsList();
         }
 
         // GET api/<KeyboardController>/5

@@ -20,10 +20,9 @@ namespace DevTrack.API.Models
             _keyboardTrackService = Startup.AutofacContainer.Resolve<IKeyboardTrackService>();
         }
 
-        public IList<Keyboard> TrackedData()
+        public IList<Keyboard> KeyboardHitsList()
         {
             return _keyboardTrackService.GetKeyboard();
         }
-
     }
 }
