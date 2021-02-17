@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DevTrack.DataAccessLayer\DevTrack.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\DevTrack.Membership\DevTrack.Membership.csproj" />
   </ItemGroup>
 
 </Project>

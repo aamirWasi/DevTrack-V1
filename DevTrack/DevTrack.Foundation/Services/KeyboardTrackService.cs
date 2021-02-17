@@ -1,4 +1,5 @@
-﻿using DevTrack.Foundation.Adapters;
+﻿using System.Collections.Generic;
+using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.UnitOfWorks;
 
 namespace DevTrack.Foundation.Services
@@ -21,6 +22,11 @@ namespace DevTrack.Foundation.Services
             if (keyboardEntity == null) return;
             _keyboardTrackUnitOfWork.KeyboardTrackRepository.Add(keyboardEntity);
             _keyboardTrackUnitOfWork.Save();
+        }
+
+        public IList<Keyboard> GetKeyboard()
+        {
+            return _keyboardTrackUnitOfWork.KeyboardTrackRepository.GetAll();
         }
     }
 }
