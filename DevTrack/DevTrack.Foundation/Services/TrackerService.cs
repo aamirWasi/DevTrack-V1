@@ -27,7 +27,7 @@
 
         public void Track()
         {
-
+            _snapShotService.SyncSnapShotImages();
         }
     }
 }

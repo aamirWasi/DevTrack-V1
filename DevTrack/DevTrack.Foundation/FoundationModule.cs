@@ -35,12 +35,17 @@ namespace DevTrack.Foundation
             builder.RegisterType<SnapshotUnitOfWork>().As<ISnapshotUnitOfWork>().InstancePerLifetimeScope();
             builder.RegisterType<SnapShotService>().As<ISnapShotService>().InstancePerLifetimeScope();
 
+            builder.RegisterType<SnapshotWebRepository>().As<ISnapshotWebRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<SnapshotWebUnitOfWork>().As<ISnapshotWebUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<SnapShotWebService>().As<ISnapShotWebService>().InstancePerLifetimeScope();
+
             builder.RegisterType<LoggerInputService>().As<ILoggerInputService>().InstancePerLifetimeScope();
 
             builder.RegisterType<RunningProgramService>().As<IRunningProgramService>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<RunningProgramRepository>().As<IRunningProgramRepository>().InstancePerLifetimeScope();
             builder.RegisterType<RunningProgramUnitOfWork>().As<IRunningProgramUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<RunningProgramAdapter>().As<IRunningProgramAdapter>().InstancePerLifetimeScope();
 
             builder.RegisterType<WebCamCaptureService>().As<IWebCamCaptureService>()
                 .InstancePerLifetimeScope();
