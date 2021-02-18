@@ -18,6 +18,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using DevTrack.Membership.BusinessObjects;
 using DevTrack.Membership.Services;
+using DevTrack.Foundation.Contexts;
 
 namespace DevTrack.API
 {
@@ -48,6 +49,7 @@ namespace DevTrack.API
             var migrationAssemblyName = typeof(Startup).Assembly.FullName;
 
             builder.RegisterModule(new FoundationModule(connectionString, migrationAssemblyName));
+            builder.RegisterModule(new APIModule(connectionString, migrationAssemblyName, WebHostEnvironment));
             builder.RegisterModule(new MembershipModule(connectionString, migrationAssemblyName));
         }
 
@@ -60,9 +62,8 @@ namespace DevTrack.API
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString, b => b.MigrationsAssembly(migrationAssemblyName)));
-
-            //services.AddDbContext<ShopingContext>(options =>
-            //    options.UseSqlServer(connectionString, b => b.MigrationsAssembly(migrationAssemblyName)));
+            services.AddDbContext<DevTrackWebContext>(options =>
+                options.UseSqlServer(connectionString, b => b.MigrationsAssembly(migrationAssemblyName)));
 
             // Identity customization started here
             services
@@ -138,6 +139,7 @@ namespace DevTrack.API
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseRouting();
 

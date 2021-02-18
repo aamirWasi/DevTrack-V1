@@ -11,7 +11,7 @@ namespace DevTrack.Foundation.Repositories
 {
     public class SnapshotRepository : Repository<SnapshotImage, int, DevTrackContext>, ISnapshotRepository
     {
-        public SnapshotRepository(DevTrackContext shoppingContext) : base(shoppingContext)
+        public SnapshotRepository(DevTrackContext devTrackContext) : base(devTrackContext)
         {
 
         }

@@ -10,8 +10,6 @@ namespace DevTrack.Foundation.Services
 {
     public class SnapShotService : ISnapShotService
     {
-        public string FilePath { get; set; }
-        public DateTimeOffset CaptureTime { get; set; }
 
         private ISnapshotUnitOfWork _snapshotUnitOfWork;
         private IBitMapAdapter _image;
@@ -38,5 +36,33 @@ namespace DevTrack.Foundation.Services
             _snapshotUnitOfWork.SnapshotRepository.Add(imageEntity);
             _snapshotUnitOfWork.Save();
         }
+
+        public void SyncSnapShotImages()
+        {
+            var images = _snapshotUnitOfWork.SnapshotRepository.GetAll();
+            if (images.Count > 0 && images!=null)
+            {
+                foreach (var image in images)
+                {
+                    var imageEntity = new EO.SnapshotImage
+                    {
+                        CaptureTime = image.CaptureTime,
+                        FilePath = image.FilePath
+                    };
+                    //SaveSnapshotInSql(imageEntity);
+                }
+            }
+        }
+
+        //private async void SaveSnapshotInSql(EO.SnapshotImage imageEntity)
+        //{
+        //    var client = new HttpClient();
+        //    client.BaseAddress = new Uri("http://localhost:44305/");
+        //    client.DefaultRequestHeaders.Accept.Clear();
+        //    client.DefaultRequestHeaders.Accept.Add(
+        //    new MediaTypeWithQualityHeaderValue("application/json"));
+
+        //    var response = await client.PostAsJsonAsync("api/SnapShot", imageEntity);
+        //}
     }
 }

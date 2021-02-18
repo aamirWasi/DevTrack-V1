@@ -3,5 +3,6 @@
     public interface ISnapShotService
     {
         void SnapshotCapturer();
+        void SyncSnapShotImages();
     }
 }
