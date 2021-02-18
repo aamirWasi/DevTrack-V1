@@ -6,6 +6,6 @@ namespace DevTrack.Foundation.Services
 {
     public interface IActiveProgramService
     {
-        void SaveActiveProgram(); 
+        void SaveActiveProgramLocalDb();
     }
 }

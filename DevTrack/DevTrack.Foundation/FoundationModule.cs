@@ -54,7 +54,11 @@ namespace DevTrack.Foundation
 
             builder.RegisterType<ActiveProgramRepository>().As<IActiveProgramRepository>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<ActiveProgramWebRepository>().As<IActiveProgramWebRepository>()
+                .InstancePerLifetimeScope();
             builder.RegisterType<ActiveProgramUnitOfWork>().As<IActiveProgramUnitOfWork>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<ActiveProgramWebUnitOfWork>().As<IActiveProgramWebUnitOfWork>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<ActiveProgramService>().As<IActiveProgramService>()
                 .InstancePerLifetimeScope();
