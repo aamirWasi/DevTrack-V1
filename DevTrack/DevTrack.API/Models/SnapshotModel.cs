@@ -22,20 +22,18 @@ namespace DevTrack.API.Models
             _snapShotWebService = Startup.AutofacContainer.Resolve<ISnapShotWebService>();
         }
 
-        public SnapshotModel(ISnapShotWebService snapShotWebService)
-        {
-            _snapShotWebService = snapShotWebService;
-        }
-
         public void SaveSnapshot()
         {
-            var (fileName, filePath) = StoreFile(FilePath);
-
-            _snapShotWebService.SaveSnapShotWebDb(new SnapshotImage
+            if (FilePath != null)
             {
-                FilePath = fileName,
-                CaptureTime = CaptureTime
-            });
+                var (fileName, filePath) = StoreFile(FilePath);
+
+                _snapShotWebService.SaveSnapShotWebDb(new SnapshotImage
+                {
+                    FilePath = filePath,
+                    CaptureTime = CaptureTime
+                });
+            }
         }
     }
 }

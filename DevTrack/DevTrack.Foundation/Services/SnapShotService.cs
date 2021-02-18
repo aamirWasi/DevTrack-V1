@@ -5,6 +5,11 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using DevTrack.Foundation.Services.Adapters;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace DevTrack.Foundation.Services
 {
@@ -49,20 +54,46 @@ namespace DevTrack.Foundation.Services
                         CaptureTime = image.CaptureTime,
                         FilePath = image.FilePath
                     };
-                    //SaveSnapshotInSql(imageEntity);
+                    SaveSnapshotInSql(imageEntity);
                 }
             }
         }
 
+        private void SaveSnapshotInSql(EO.SnapshotImage imageEntity)
+        {
+            const string url = "https://localhost:44332/api/SnapShot";
+            var request = WebRequest.Create(url);
+
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            var requestContent = JsonConvert.SerializeObject(imageEntity);
+            var data = Encoding.UTF8.GetBytes(requestContent);
+            request.ContentLength = data.Length;
+            using (var requestStream = request.GetRequestStream())
+            {
+                requestStream.Write(data, 0, data.Length);
+                requestStream.Flush();
+                using (var response = request.GetResponse())
+                {
+                    using (var streamItem = response.GetResponseStream())
+                    {
+                        using (var reader = new StreamReader(streamItem))
+                        {
+                            var result = reader.ReadToEnd();
+                        }
+                    }
+                }
+            }
+        }
         //private async void SaveSnapshotInSql(EO.SnapshotImage imageEntity)
         //{
         //    var client = new HttpClient();
-        //    client.BaseAddress = new Uri("http://localhost:44305/");
+        //    client.BaseAddress = new Uri("http://localhost:44332/");
         //    client.DefaultRequestHeaders.Accept.Clear();
         //    client.DefaultRequestHeaders.Accept.Add(
         //    new MediaTypeWithQualityHeaderValue("application/json"));
 
-        //    var response = await client.PostAsJsonAsync("api/SnapShot", imageEntity);
+        //    var response = await client.PostAsJsonAsync("api/Snapshot", imageEntity);
         //}
     }
 }
