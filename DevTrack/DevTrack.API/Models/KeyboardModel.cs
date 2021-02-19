@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Autofac;
+﻿using Autofac;
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.Services;
 
@@ -8,21 +6,16 @@ namespace DevTrack.API.Models
 {
     public class KeyboardModel
     {
-        private readonly IKeyboardTrackService _keyboardTrackService;
-
-        public KeyboardModel(IKeyboardTrackService keyboardTrackService)
-        {
-            _keyboardTrackService = keyboardTrackService;
-        }
+        private readonly IKeyboardWebService _keyboardWeb;
 
         public KeyboardModel()
         {
-            _keyboardTrackService = Startup.AutofacContainer.Resolve<IKeyboardTrackService>();
+            _keyboardWeb = Startup.AutofacContainer.Resolve<IKeyboardWebService>();
         }
 
-        public IList<Keyboard> KeyboardHitsList()
+        public void SaveKeyboardIntoWeb(Keyboard keyboard)
         {
-            return _keyboardTrackService.GetKeyboard();
+            _keyboardWeb.SaveKeyboardIntoWeb(keyboard);
         }
     }
 }
