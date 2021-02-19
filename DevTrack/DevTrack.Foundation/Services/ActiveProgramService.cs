@@ -10,6 +10,9 @@ using EO = DevTrack.Foundation.Entities;
 using System.Net;
 using Newtonsoft.Json;
 using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace DevTrack.Foundation.Services
 {
@@ -55,34 +58,29 @@ namespace DevTrack.Foundation.Services
             }
         }
 
+        
         private void SaveActiveProgramWeb(ActiveProgram activeProgram)
         {
             var webProgram = PrepareProgramForWeb(activeProgram);
 
-            const string url = "https://localhost:44332/api/ActiveProgram";
-            var request = WebRequest.Create(url);
-
-            request.Method = "POST";
-            request.ContentType = "application/json";
-            var requestContent = JsonConvert.SerializeObject(webProgram);
-            var data = Encoding.UTF8.GetBytes(requestContent);
-            request.ContentLength = data.Length;
-            using (var requestStream = request.GetRequestStream())
+            using (var client = new HttpClient())
             {
-                requestStream.Write(data, 0, data.Length);
-                requestStream.Flush();
-                using (var response = request.GetResponse())
+                client.BaseAddress = new Uri("https://localhost:44332/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var response = client.PostAsJsonAsync("api/ActiveProgram", webProgram).Result;
+
+                if (response.IsSuccessStatusCode)
                 {
-                    using (var streamItem = response.GetResponseStream())
+                    using (HttpContent content = response.Content)
                     {
-                        using (var reader = new StreamReader(streamItem))
+                        Task<string> result = content.ReadAsStringAsync();
+                        string final = result.Result;
+                        if (final == "true")
                         {
-                            var result = reader.ReadToEnd();
-                            if (result == "true")
-                            {
-                                _activeProgramUnitOfWork.ActiveProgramRepository.Remove(activeProgram);
-                                _activeProgramUnitOfWork.Save();
-                            }
+                            _activeProgramUnitOfWork.ActiveProgramRepository.Remove(activeProgram);
+                            _activeProgramUnitOfWork.Save();
                         }
                     }
                 }
