@@ -13,16 +13,17 @@ namespace DevTrack.API.Controllers
     public class ActiveProgramController : ControllerBase
     {
         [HttpPost]
-        public void Post(ActiveProgramModel model)
+        public bool Post(ActiveProgramModel model)
         {
             try
             {
                 model.SaveActiveProgram();
+                return true;
             }
             catch (Exception ex)
             {
-
-                throw;
+                var massage = ex.Message;
+                return false;
             }
         }
     }

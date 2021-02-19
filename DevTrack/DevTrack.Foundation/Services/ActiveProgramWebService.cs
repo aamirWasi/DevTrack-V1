@@ -9,11 +9,11 @@ namespace DevTrack.Foundation.Services
     public class ActiveProgramWebService : IActiveProgramWebService
     {
         
-        private readonly IActiveProgramWebUnitOfWork _activeProgramWebUnitOf;
+        private readonly IActiveProgramWebUnitOfWork _activeProgramWebUnitOfWork;
 
         public ActiveProgramWebService(IActiveProgramWebUnitOfWork activeProgramWebUnit)
         {
-            _activeProgramWebUnitOf = activeProgramWebUnit;
+            _activeProgramWebUnitOfWork = activeProgramWebUnit;
         }
 
         public void SaveActiveProgramWebDb(ActiveProgram program)
@@ -24,10 +24,10 @@ namespace DevTrack.Foundation.Services
             }
             else
             {
-                _activeProgramWebUnitOf.ActiveProgramWebRepository.Add(program);
-                _activeProgramWebUnitOf.Save();
+                _activeProgramWebUnitOfWork.ActiveProgramWebRepository.Add(program);
+                _activeProgramWebUnitOfWork.Save();
             }
         }
-    }
+    
     }
 }

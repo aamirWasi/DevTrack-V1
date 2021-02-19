@@ -7,5 +7,6 @@ namespace DevTrack.Foundation.Services
     public interface IActiveProgramService
     {
         void SaveActiveProgramLocalDb();
+        void SyncActivePrograms();
     }
 }

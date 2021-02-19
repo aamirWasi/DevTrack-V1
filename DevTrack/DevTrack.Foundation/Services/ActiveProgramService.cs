@@ -19,7 +19,7 @@ namespace DevTrack.Foundation.Services
         private readonly IActiveProgramUnitOfWork _activeProgramUnitOfWork;
         private readonly IActiveProgramAdapter _activeProgramAdapter;
 
-        public ActiveProgramService(IActiveProgramUnitOfWork activeProgramUnitOfWork,IActiveProgramAdapter activeProgramAdapter)
+        public ActiveProgramService(IActiveProgramUnitOfWork activeProgramUnitOfWork, IActiveProgramAdapter activeProgramAdapter)
         {
             _activeProgramUnitOfWork = activeProgramUnitOfWork;
             _activeProgramAdapter = activeProgramAdapter;
@@ -28,7 +28,7 @@ namespace DevTrack.Foundation.Services
         public void SaveActiveProgramLocalDb()
         {
             var programName = _activeProgramAdapter.GetActiveProgramName();
-            
+
             if (string.IsNullOrWhiteSpace(programName))
                 throw new InvalidOperationException("Program name is missing");
 
@@ -50,25 +50,21 @@ namespace DevTrack.Foundation.Services
             {
                 foreach (var program in programs)
                 {
-                    var activeProgramEntity = new EO.ActiveProgram
-                    {
-                        ProgramName = program.ProgramName,
-                        ProgramTime = program.ProgramTime
-                    };
-                    
-                    SaveActiveProgramWeb(activeProgramEntity);
+                    SaveActiveProgramWeb(program);
                 }
             }
         }
 
         private void SaveActiveProgramWeb(ActiveProgram activeProgram)
         {
+            var webProgram = PrepareProgramForWeb(activeProgram);
+
             const string url = "https://localhost:44332/api/ActiveProgram";
             var request = WebRequest.Create(url);
 
             request.Method = "POST";
-            request.ContentType = "application/json";            
-            var requestContent = JsonConvert.SerializeObject(activeProgram);
+            request.ContentType = "application/json";
+            var requestContent = JsonConvert.SerializeObject(webProgram);
             var data = Encoding.UTF8.GetBytes(requestContent);
             request.ContentLength = data.Length;
             using (var requestStream = request.GetRequestStream())
@@ -82,10 +78,27 @@ namespace DevTrack.Foundation.Services
                         using (var reader = new StreamReader(streamItem))
                         {
                             var result = reader.ReadToEnd();
+                            if (result == "true")
+                            {
+                                _activeProgramUnitOfWork.ActiveProgramRepository.Remove(activeProgram);
+                                _activeProgramUnitOfWork.Save();
+                            }
                         }
                     }
                 }
             }
+        }
+
+
+        private ActiveProgram PrepareProgramForWeb(ActiveProgram activeProgram)
+        {
+            var activeProgramEntity = new EO.ActiveProgram
+            {
+                ProgramName = activeProgram.ProgramName,
+                ProgramTime = activeProgram.ProgramTime
+            };
+
+            return activeProgramEntity;
         }
     }
 }

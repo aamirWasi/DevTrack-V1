@@ -62,6 +62,8 @@ namespace DevTrack.Foundation
                 .InstancePerLifetimeScope();
             builder.RegisterType<ActiveProgramService>().As<IActiveProgramService>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<ActiveProgramWebService>().As<IActiveProgramWebService>()
+                .InstancePerLifetimeScope();
 
 
             builder.RegisterType<KeyboardTrackStartService>().As<IKeyboardTrackStartService>().InstancePerLifetimeScope();
