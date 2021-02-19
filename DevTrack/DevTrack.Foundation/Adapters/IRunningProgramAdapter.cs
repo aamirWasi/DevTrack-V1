@@ -7,6 +7,5 @@ namespace DevTrack.Foundation.Adapters
     public interface IRunningProgramAdapter
     {
         string GetRunningPrograms();
-        List<string> GetRunningProgramsList();
     }
 }
