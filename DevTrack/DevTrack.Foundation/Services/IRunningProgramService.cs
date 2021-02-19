@@ -2,6 +2,6 @@
 {
     public interface IRunningProgramService
     {
-        void AddCurrentlyRunningPrograms();
+        void AddRunningProgramsLocalDb();
     }
 }

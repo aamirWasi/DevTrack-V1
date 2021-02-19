@@ -57,7 +57,7 @@ namespace DevTrack.Foundation.Tests.Services
 
             //Act
             Should.Throw<InvalidOperationException>(
-                () => _runningProgramService.AddCurrentlyRunningPrograms()
+                () => _runningProgramService.AddRunningProgramsLocalDb()
                 ) ;
 
             //Assert
@@ -84,7 +84,7 @@ namespace DevTrack.Foundation.Tests.Services
             _runningProgramUnitOfWorkMock.Setup(x => x.Save()).Verifiable();
 
             //Act
-            _runningProgramService.AddCurrentlyRunningPrograms();
+            _runningProgramService.AddRunningProgramsLocalDb();
 
             //Assert
             this.ShouldSatisfyAllConditions(

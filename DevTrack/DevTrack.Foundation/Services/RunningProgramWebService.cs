@@ -1,8 +1,6 @@
 ﻿using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.UnitOfWorks;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DevTrack.Foundation.Services
 {
@@ -14,7 +12,7 @@ namespace DevTrack.Foundation.Services
             _runningProgramWebUnitOfWork = runningProgramWebUnitOfWork;
         }
 
-        public void AddRunningProgramWebDb(RunningProgram program)
+        public void AddRunningProgramsWebDb(RunningProgram program)
         {
             if (program == null)
             {
