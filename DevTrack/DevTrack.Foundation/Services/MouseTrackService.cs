@@ -33,8 +33,31 @@ namespace DevTrack.Foundation.Services
             var mouseList = _mouseTrackUnitOfWork.MouseTrackRepository.GetAll();
             foreach (var mouse in mouseList)
             {
-                SaveDataToWebDb(mouse);
+                var data = ConvertToEntity(mouse);
+                SaveDataToWebDb(data);
+                DeleteFromLocalDb(mouse);
             }
+        }
+
+        private void DeleteFromLocalDb(Mouse mouse)
+        {
+            _mouseTrackUnitOfWork.MouseTrackRepository.Remove(mouse);
+            _mouseTrackUnitOfWork.Save();
+        }
+
+        private static Mouse ConvertToEntity(Mouse mouse)
+        {
+            return new Mouse
+            {
+                LeftButtonClick = mouse.LeftButtonClick,
+                LeftButtonDoubleClick = mouse.LeftButtonDoubleClick,
+                MiddleButtonClick = mouse.MiddleButtonClick,
+                MiddleButtonDoubleClick = mouse.MiddleButtonDoubleClick,
+                RightButtonClick = mouse.RightButtonClick,
+                RightButtonDoubleClick = mouse.RightButtonDoubleClick,
+                MouseWheel = mouse.MouseWheel,
+                TotalClicks = mouse.TotalClicks,
+            };
         }
 
         private void SaveDataToWebDb(Mouse mouse)

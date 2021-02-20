@@ -29,10 +29,7 @@
         {
             _keyboardTrackService.KeyboardTrackSave();
             _mouseTrackService.MouseTrackSave();
-        }
 
-        public void Sync()
-        {
             _keyboardTrackService.SyncKeyboardData();
             _mouseTrackService.SyncMouseData();
         }

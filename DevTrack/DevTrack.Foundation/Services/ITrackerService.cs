@@ -3,6 +3,5 @@
     public interface ITrackerService
     {
         void Track();
-        void Sync();
     }
 }

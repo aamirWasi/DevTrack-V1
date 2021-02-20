@@ -10,7 +10,7 @@ namespace DevTrack.API.Controllers
     public class MouseController : ControllerBase
     {
         [HttpPost]
-        public void Post([FromForm] Mouse mouse)
+        public void Post([FromBody] Mouse mouse)
         {
             try
             {

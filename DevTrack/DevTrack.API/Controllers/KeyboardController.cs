@@ -13,7 +13,7 @@ namespace DevTrack.API.Controllers
     public class KeyboardController : ControllerBase
     {
         [HttpPost]
-        public void Post([FromForm] Keyboard keyboard)
+        public void Post([FromBody] Keyboard keyboard)
         {
             try
             {
