@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using DevTrack.Foundation.Adapters;
 using EO = DevTrack.Foundation.Entities;
+using BO = DevTrack.Foundation.BusinessObjects;
 using System.Net;
 using Newtonsoft.Json;
 using System.IO;
@@ -88,15 +89,15 @@ namespace DevTrack.Foundation.Services
         }
 
 
-        private ActiveProgram PrepareProgramForWeb(ActiveProgram activeProgram)
+        private BO.ActiveProgram PrepareProgramForWeb(ActiveProgram activeProgram)
         {
-            var activeProgramEntity = new EO.ActiveProgram
+            var activeProgramModel = new BO.ActiveProgram
             {
                 ProgramName = activeProgram.ProgramName,
                 ProgramTime = activeProgram.ProgramTime
             };
 
-            return activeProgramEntity;
+            return activeProgramModel;
         }
     }
 }
