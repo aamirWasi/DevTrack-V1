@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DevTrack.Foundation;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Events;
@@ -57,6 +58,7 @@ namespace DevTrack.SyncWokerService
                 .UseSerilog()
                 .ConfigureContainer<ContainerBuilder>(builder => {
                     builder.RegisterModule(new WorkerModule());
+                    builder.RegisterModule(new FoundationModule(_connectionString, _migrationAssemblyName));
                 })
                 .ConfigureServices((hostContext, services) =>
                 {

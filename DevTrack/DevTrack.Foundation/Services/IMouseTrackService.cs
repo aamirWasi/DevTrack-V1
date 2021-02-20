@@ -3,5 +3,6 @@
     public interface IMouseTrackService
     {
         void MouseTrackSave();
+        void SyncMouseData();
     }
 }

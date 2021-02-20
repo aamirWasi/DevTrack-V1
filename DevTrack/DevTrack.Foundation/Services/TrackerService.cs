@@ -27,9 +27,14 @@
 
         public void Track()
         {
-            //_snapShotService.SyncSnapShotImages();
-            //_keyboardTrackService.KeyboardTrackSave();
+            _keyboardTrackService.KeyboardTrackSave();
+            _mouseTrackService.MouseTrackSave();
+        }
+
+        public void Sync()
+        {
             _keyboardTrackService.SyncKeyboardData();
+            _mouseTrackService.SyncMouseData();
         }
     }
 }

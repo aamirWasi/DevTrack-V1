@@ -47,6 +47,7 @@ namespace DevTrack.Foundation.Services
             var requestContent = JsonConvert.SerializeObject(keyboard);
             var data = Encoding.UTF8.GetBytes(requestContent);
             request.ContentLength = data.Length;
+            
 
             using (var requestStream = request.GetRequestStream())
             {

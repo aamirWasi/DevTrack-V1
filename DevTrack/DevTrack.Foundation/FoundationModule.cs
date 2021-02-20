@@ -74,6 +74,10 @@ namespace DevTrack.Foundation
             builder.RegisterType<MouseTrackRepository>().As<IMouseTrackRepository>().InstancePerLifetimeScope();
             builder.RegisterType<MouseTrackUnitOfWork>().As<IMouseTrackUnitOfWork>().InstancePerLifetimeScope();
 
+            builder.RegisterType<MouseWebRepository>().As<IMouseWebRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<MouseWebUnitOfWork>().As<IMouseWebUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<MouseWebService>().As<IMouseWebService>().InstancePerLifetimeScope();
+
             builder.RegisterType<ServerTime>().As<IServerTime>().InstancePerLifetimeScope();
             builder.RegisterType<BitMapAdapter>().As<IBitMapAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<SnapShotAdapter>().As<ISnapShotAdapter>().InstancePerLifetimeScope();

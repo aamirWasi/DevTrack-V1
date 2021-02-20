@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DevTrack.Foundation.Services;
 
 namespace DevTrack.SyncWokerService
 {
@@ -6,6 +7,8 @@ namespace DevTrack.SyncWokerService
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<TrackerService>().As<ITrackerService>()
+                .SingleInstance();
 
             base.Load(builder);
         }

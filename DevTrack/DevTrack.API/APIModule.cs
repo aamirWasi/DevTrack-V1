@@ -21,6 +21,7 @@ namespace DevTrack.API
         {
             builder.RegisterType<SnapshotModel>().AsSelf();
             builder.RegisterType<KeyboardModel>().AsSelf();
+            builder.RegisterType<MouseModel>().AsSelf();
 
             base.Load(builder);
         }

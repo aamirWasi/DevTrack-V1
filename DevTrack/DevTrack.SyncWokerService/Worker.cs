@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using DevTrack.Foundation.Services;
 using Serilog;
 
 namespace DevTrack.SyncWokerService
@@ -13,19 +14,27 @@ namespace DevTrack.SyncWokerService
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
+        private readonly ITrackerService _trackerService;
 
-        public Worker(ILogger<Worker> logger)
+        public Worker(ILogger<Worker> logger, ITrackerService trackerService)
         {
             _logger = logger;
+            _trackerService = trackerService;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            var first = false;
             while (!stoppingToken.IsCancellationRequested)
             {
-                Log.Information(CheckForInternetConnection() ? "Internet Connected" : "Internet Not Connected");
+                if (CheckForInternetConnection() && first)
+                {
+                    _trackerService.Sync();
+                }
 
-                await Task.Delay(1000, stoppingToken);
+                first = true;
+
+                await Task.Delay(10000, stoppingToken);
             }
         }
         public static bool CheckForInternetConnection()
