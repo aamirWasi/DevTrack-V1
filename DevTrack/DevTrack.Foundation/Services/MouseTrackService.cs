@@ -1,10 +1,9 @@
-﻿using System.IO;
-using System.Net;
-using System.Text;
+﻿using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using DevTrack.Foundation.BusinessObjects;
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.UnitOfWorks;
-using Newtonsoft.Json;
 
 namespace DevTrack.Foundation.Services
 {
@@ -34,44 +33,25 @@ namespace DevTrack.Foundation.Services
             var mouseList = _mouseTrackUnitOfWork.MouseTrackRepository.GetAll();
             foreach (var mouse in mouseList)
             {
-                var data = ConvertToEntity(mouse);
-                SaveDataToWebDb(data);
-                DeleteFromLocalDb(mouse);
+                SaveDataToWebDb(mouse);
             }
         }
-
-        private void DeleteFromLocalDb(Mouse mouse)
+        private void SaveDataToWebDb(Mouse mouse)
         {
+            using var client = new HttpClient {BaseAddress = new Uri("https://localhost:44332/")};
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var businessObject = new MouseBusinessObject().ConvertToBusinessObject(mouse);
+            var response = client.PostAsJsonAsync("api/Mouse", businessObject).Result;
+
+            if (!response.IsSuccessStatusCode) return;
+            using var content = response.Content;
+            var result = content.ReadAsStringAsync();
+            var final = result.Result;
+            if (final != "true") return;
             _mouseTrackUnitOfWork.MouseTrackRepository.Remove(mouse);
             _mouseTrackUnitOfWork.Save();
-        }
-
-        private static Mouse ConvertToEntity(Mouse mouse)
-        {
-            var businessModel = new MouseBusinessObject();
-            var businessObject = businessModel.ConvertToBusinessObject(mouse);
-            return businessModel.ConvertToEntity(businessObject);
-        }
-
-        private static void SaveDataToWebDb(Mouse mouse)
-        {
-            const string url = "https://localhost:44332/api/Mouse";
-            var request = WebRequest.Create(url);
-
-            request.Method = "POST";
-            request.ContentType = "application/json";
-            var requestContent = JsonConvert.SerializeObject(mouse);
-            var data = Encoding.UTF8.GetBytes(requestContent);
-            request.ContentLength = data.Length;
-
-
-            using var requestStream = request.GetRequestStream();
-            requestStream.Write(data, 0, data.Length);
-            requestStream.Flush();
-            using var response = request.GetResponse();
-            using var streamItem = response.GetResponseStream();
-            using var reader = new StreamReader(streamItem);
-            var result = reader.ReadToEnd();
         }
     }
 }
