@@ -4,7 +4,7 @@ using DevTrack.Foundation.Entities;
 
 namespace DevTrack.Foundation.Services
 {
-    public class WebCamCaptureWebService
+    public class WebCamCaptureWebService : IWebCamCaptureWebService
     {
         private readonly IWebCamCaptureUnitOfWork _webCamCaptureUnitOfWork;
 

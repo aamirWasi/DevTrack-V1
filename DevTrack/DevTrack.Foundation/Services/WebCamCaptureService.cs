@@ -33,7 +33,7 @@ namespace DevTrack.Foundation.Services
             var WebImageEntity = new WebCamCaptureImage
             {
                 WebCamImagePath = WebCamAdapterObject.path,
-                WebCamImageDateTime = DateTime.Now
+                WebCamImageDateTime = DateTimeOffset.Now
             };
 
             _WebCamCaptureUnitOfWork._webCamCaptureRepository.Add(WebImageEntity);

@@ -6,16 +6,16 @@ using System;
 
 namespace DevTrack.API.Models
 {
-    public class WebCamCaptureModel
+    public class WebCamCaptureModel : BaseModel
     {
         public IFormFile FilePath { get; set; }
         public DateTimeOffset CaptureTime { get; set; }
 
-        private ISnapShotWebService _snapShotWebService;
+        private IWebCamCaptureWebService _webCamCaptureWebService;
 
         public WebCamCaptureModel()
         {
-            _snapShotWebService = Startup.AutofacContainer.Resolve<ISnapShotWebService>();
+            _webCamCaptureWebService = Startup.AutofacContainer.Resolve<IWebCamCaptureWebService>();
         }
 
         public void SaveWebCamCapture()
@@ -24,11 +24,12 @@ namespace DevTrack.API.Models
             {
                 var (fileName, filePath) = StoreFile(FilePath);
 
-                _snapShotWebService.SaveSnapShotWebDb(new SnapshotImage
+                _webCamCaptureWebService.SaveSnapShotWebDb(new WebCamCaptureImage
                 {
-                    FilePath = filePath,
-                    CaptureTime = CaptureTime
+                    WebCamImagePath = filePath,
+                    WebCamImageDateTime = CaptureTime
                 });
+
             }
         }
     }
