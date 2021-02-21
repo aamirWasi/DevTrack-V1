@@ -20,7 +20,7 @@ namespace DevTrack.Foundation.Services
             _keyboardTrackAdapter = keyboardTrackAdapter;
         }
         
-        public void KeyboardTrackSave()
+        public void KeyboardTrackSaveToLocal()
         {
             var keyboardEntity = _keyboardTrackAdapter.KeyboardEntity();
             if (keyboardEntity == null) return;
@@ -28,7 +28,7 @@ namespace DevTrack.Foundation.Services
             _keyboardTrackUnitOfWork.Save();
         }
 
-        public void SyncKeyboardData()
+        public void SyncKeyboardDataFromLocal()
         {
             var keyboards = _keyboardTrackUnitOfWork.KeyboardTrackRepository.GetAll();
             foreach (var keyboard in keyboards)

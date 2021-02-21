@@ -21,7 +21,7 @@ namespace DevTrack.Foundation.Services
             _mouseTrackAdapter = mouseTrackAdapter;
         }
 
-        public void MouseTrackSave()
+        public void MouseTrackSaveToLocal()
         {
             var mouseEntity = _mouseTrackAdapter.MouseEntity();
             if (mouseEntity == null) return;
@@ -29,7 +29,7 @@ namespace DevTrack.Foundation.Services
             _mouseTrackUnitOfWork.Save();
         }
 
-        public void SyncMouseData()
+        public void SyncMouseDataFromLocal()
         {
             var mouseList = _mouseTrackUnitOfWork.MouseTrackRepository.GetAll();
             foreach (var mouse in mouseList)

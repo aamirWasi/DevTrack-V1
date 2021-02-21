@@ -27,11 +27,14 @@
 
         public void Track()
         {
-            _keyboardTrackService.KeyboardTrackSave();
-            _mouseTrackService.MouseTrackSave();
+            _keyboardTrackService.KeyboardTrackSaveToLocal();
+            _mouseTrackService.MouseTrackSaveToLocal();
+        }
 
-            _keyboardTrackService.SyncKeyboardData();
-            _mouseTrackService.SyncMouseData();
+        public void Sync()
+        {
+            _keyboardTrackService.SyncKeyboardDataFromLocal();
+            _mouseTrackService.SyncMouseDataFromLocal();
         }
     }
 }

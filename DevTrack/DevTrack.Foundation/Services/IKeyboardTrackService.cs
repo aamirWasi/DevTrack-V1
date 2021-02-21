@@ -2,7 +2,7 @@
 {
     public interface IKeyboardTrackService
     {
-         void KeyboardTrackSave();
-         void SyncKeyboardData();
+         void KeyboardTrackSaveToLocal();
+         void SyncKeyboardDataFromLocal();
     }
 }

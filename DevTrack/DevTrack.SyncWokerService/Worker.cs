@@ -25,7 +25,7 @@ namespace DevTrack.SyncWokerService
             {
                 if (CheckForInternetConnection() && first)
                 {
-                    //_trackerService.Track();
+                   _trackerService.Sync();
                 }
 
                 first = true;
