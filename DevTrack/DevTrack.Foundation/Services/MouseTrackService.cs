@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Net;
 using System.Text;
+using DevTrack.Foundation.BusinessObjects;
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.UnitOfWorks;
 using Newtonsoft.Json;
@@ -47,20 +48,12 @@ namespace DevTrack.Foundation.Services
 
         private static Mouse ConvertToEntity(Mouse mouse)
         {
-            return new Mouse
-            {
-                LeftButtonClick = mouse.LeftButtonClick,
-                LeftButtonDoubleClick = mouse.LeftButtonDoubleClick,
-                MiddleButtonClick = mouse.MiddleButtonClick,
-                MiddleButtonDoubleClick = mouse.MiddleButtonDoubleClick,
-                RightButtonClick = mouse.RightButtonClick,
-                RightButtonDoubleClick = mouse.RightButtonDoubleClick,
-                MouseWheel = mouse.MouseWheel,
-                TotalClicks = mouse.TotalClicks,
-            };
+            var businessModel = new MouseBusinessObject();
+            var businessObject = businessModel.ConvertToBusinessObject(mouse);
+            return businessModel.ConvertToEntity(businessObject);
         }
 
-        private void SaveDataToWebDb(Mouse mouse)
+        private static void SaveDataToWebDb(Mouse mouse)
         {
             const string url = "https://localhost:44332/api/Mouse";
             var request = WebRequest.Create(url);
@@ -72,21 +65,13 @@ namespace DevTrack.Foundation.Services
             request.ContentLength = data.Length;
 
 
-            using (var requestStream = request.GetRequestStream())
-            {
-                requestStream.Write(data, 0, data.Length);
-                requestStream.Flush();
-                using (var response = request.GetResponse())
-                {
-                    using (var streamItem = response.GetResponseStream())
-                    {
-                        using (var reader = new StreamReader(streamItem))
-                        {
-                            var result = reader.ReadToEnd();
-                        }
-                    }
-                }
-            }
+            using var requestStream = request.GetRequestStream();
+            requestStream.Write(data, 0, data.Length);
+            requestStream.Flush();
+            using var response = request.GetResponse();
+            using var streamItem = response.GetResponseStream();
+            using var reader = new StreamReader(streamItem);
+            var result = reader.ReadToEnd();
         }
     }
 }

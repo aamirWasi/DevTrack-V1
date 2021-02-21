@@ -35,7 +35,7 @@ namespace DevTrack.Foundation.Services
                 _isFirst = false;
                 return null;
             }
-            var entity = _keyboardBusiness.ConvertTOEntity(_keyboardBusiness);
+            var entity = _keyboardBusiness.ConvertToEntity(_keyboardBusiness);
             _keyboardBusiness = new KeyboardBusinessObject();
             return entity;
         }
