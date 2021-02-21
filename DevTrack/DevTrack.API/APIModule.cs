@@ -25,6 +25,8 @@ namespace DevTrack.API
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<SnapshotModel>().AsSelf();
+            builder.RegisterType<WebCamCaptureModel>().AsSelf();
+
             base.Load(builder);
         }
     }
