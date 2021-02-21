@@ -71,10 +71,18 @@ namespace DevTrack.Foundation
             builder.RegisterType<KeyboardTrackRepository>().As<IKeyboardTrackRepository>().InstancePerLifetimeScope();
             builder.RegisterType<KeyboardTrackUnitOfWork>().As<IKeyboardTrackUnitOfWork>().InstancePerLifetimeScope();
 
+            builder.RegisterType<KeyboardWebRepository>().As<IKeyboardWebRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<KeyboardWebUnitOfWork>().As<IKeyboardWebUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<KeyboardWebService>().As<IKeyboardWebService>().InstancePerLifetimeScope();
+
             builder.RegisterType<MouseTrackStartService>().As<IMouseTrackStartService>().InstancePerLifetimeScope();
             builder.RegisterType<MouseTrackService>().As<IMouseTrackService>().InstancePerLifetimeScope();
             builder.RegisterType<MouseTrackRepository>().As<IMouseTrackRepository>().InstancePerLifetimeScope();
             builder.RegisterType<MouseTrackUnitOfWork>().As<IMouseTrackUnitOfWork>().InstancePerLifetimeScope();
+
+            builder.RegisterType<MouseWebRepository>().As<IMouseWebRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<MouseWebUnitOfWork>().As<IMouseWebUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<MouseWebService>().As<IMouseWebService>().InstancePerLifetimeScope();
 
             builder.RegisterType<ServerTime>().As<IServerTime>().InstancePerLifetimeScope();
             builder.RegisterType<BitMapAdapter>().As<IBitMapAdapter>().InstancePerLifetimeScope();

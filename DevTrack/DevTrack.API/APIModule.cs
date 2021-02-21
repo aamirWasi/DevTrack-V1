@@ -1,11 +1,6 @@
 ﻿using Autofac;
 using DevTrack.API.Models;
 using Microsoft.AspNetCore.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevTrack.API
 {
@@ -25,6 +20,9 @@ namespace DevTrack.API
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<SnapshotModel>().AsSelf();
+            builder.RegisterType<KeyboardModel>().AsSelf();
+            builder.RegisterType<MouseModel>().AsSelf();
+
             base.Load(builder);
         }
     }

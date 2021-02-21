@@ -63,7 +63,7 @@ namespace DevTrack.Foundation.Tests.Services
             _keyboardTrackUnitMock.Setup(x => x.Save()).Verifiable();
 
             //act
-            _keyboardTrackService.KeyboardTrackSave();
+            _keyboardTrackService.KeyboardTrackSaveToLocal();
 
             //assert
             this.ShouldSatisfyAllConditions(

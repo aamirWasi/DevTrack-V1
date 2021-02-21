@@ -63,7 +63,7 @@ namespace DevTrack.Foundation.Tests.Services
             _mouseTrackUnitOfWorkMock.Setup(x => x.Save()).Verifiable();
 
             //act
-            _mouseTrackService.MouseTrackSave();
+            _mouseTrackService.MouseTrackSaveToLocal();
 
             //assert
             this.ShouldSatisfyAllConditions(
