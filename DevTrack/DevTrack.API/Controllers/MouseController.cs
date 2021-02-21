@@ -14,7 +14,7 @@ namespace DevTrack.API.Controllers
         {
             try
             {
-                model.SaveMouseIntoWeb();
+                model.SaveMouseIntoWeb(model);
             }
             catch (Exception ex)
             {

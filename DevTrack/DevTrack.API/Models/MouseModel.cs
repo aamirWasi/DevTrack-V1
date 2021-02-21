@@ -24,18 +24,18 @@ namespace DevTrack.API.Models
         public int RightButtonDoubleClick { get; set; }
 
 
-        public void SaveMouseIntoWeb()
+        public void SaveMouseIntoWeb(MouseModel model)
         {
             var mouse = new MouseBusinessObject().ConvertToEntity(new MouseBusinessObject
             {
-                TotalClicks = TotalClicks,
-                LeftButtonClick = LeftButtonClick,
-                LeftButtonDoubleClick = LeftButtonDoubleClick,
-                RightButtonClick = RightButtonClick,
-                RightButtonDoubleClick = RightButtonDoubleClick,
-                MiddleButtonClick = MiddleButtonClick,
-                MiddleButtonDoubleClick = MiddleButtonDoubleClick,
-                MouseWheel = MouseWheel
+                TotalClicks = model.TotalClicks,
+                LeftButtonClick = model.LeftButtonClick,
+                LeftButtonDoubleClick = model.LeftButtonDoubleClick,
+                RightButtonClick = model.RightButtonClick,
+                RightButtonDoubleClick = model.RightButtonDoubleClick,
+                MiddleButtonClick = model.MiddleButtonClick,
+                MiddleButtonDoubleClick = model.MiddleButtonDoubleClick,
+                MouseWheel = model.MouseWheel
             });
             _mouseWebService.SaveMouseIntoWeb(mouse);
         }

@@ -1,5 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using DevTrack.Foundation.BusinessObjects;
 using DevTrack.Foundation.Entities;
@@ -33,43 +36,26 @@ namespace DevTrack.Foundation.Services
             var keyboards = _keyboardTrackUnitOfWork.KeyboardTrackRepository.GetAll();
             foreach (var keyboard in keyboards)
             {
-                var data = ConvertWithoutId(keyboard);
-                SaveDataToWebDb(data);
-                DeleteFromLocalDb(keyboard);
+                SaveDataToWebDb(keyboard);
             }
         }
 
-        private void DeleteFromLocalDb(Keyboard keyboard)
+        private void SaveDataToWebDb(Keyboard keyboard)
         {
+            using var client = new HttpClient { BaseAddress = new Uri("https://localhost:44332/") };
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var businessObject = new KeyboardBusinessObject().ConvertToBusinessObject(keyboard);
+            var response = client.PostAsJsonAsync("api/Keyboard", businessObject).Result;
+
+            if (!response.IsSuccessStatusCode) return;
+            using var content = response.Content;
+            var result = content.ReadAsStringAsync();
+            var final = result.Result;
+            if (final != "true") return;
             _keyboardTrackUnitOfWork.KeyboardTrackRepository.Remove(keyboard);
             _keyboardTrackUnitOfWork.Save();
-        }
-
-        private static Keyboard ConvertWithoutId(Keyboard keyboard)
-        {
-            var model = new KeyboardBusinessObject();
-            var businessObject = model.ConvertToBusinessObject(keyboard);
-            return model.ConvertToEntity(businessObject);
-        }
-        private static void SaveDataToWebDb(Keyboard keyboard)
-        {
-            const string url = "https://localhost:44332/api/Keyboard";
-            var request = WebRequest.Create(url);
-
-            request.Method = "POST";
-            request.ContentType = "application/json";
-            var requestContent = JsonConvert.SerializeObject(keyboard);
-            var data = Encoding.UTF8.GetBytes(requestContent);
-            request.ContentLength = data.Length;
-
-
-            using var requestStream = request.GetRequestStream();
-            requestStream.Write(data, 0, data.Length);
-            requestStream.Flush();
-            using var response = request.GetResponse();
-            using var streamItem = response.GetResponseStream();
-            using var reader = new StreamReader(streamItem);
-            var result = reader.ReadToEnd();
         }
     }
 }
