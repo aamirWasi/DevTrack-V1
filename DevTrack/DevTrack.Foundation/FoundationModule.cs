@@ -50,6 +50,10 @@ namespace DevTrack.Foundation
             builder.RegisterType<WebCamCaptureService>().As<IWebCamCaptureService>().InstancePerLifetimeScope();
             builder.RegisterType<WebCamCaptureRepository>().As<IWebCamCaptureRepository>().InstancePerLifetimeScope();
             builder.RegisterType<WebCamCaptureUnitOfWork>().As<IWebCamCaptureUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<WebCamImageAdapter>().As<IWebCamImageAdapter>().InstancePerLifetimeScope();
+            builder.RegisterType<WebCamCaptureWebService>().As<IWebCamCaptureWebService>().InstancePerLifetimeScope();
+            builder.RegisterType<WebCamCaptureWebRepository>().As<IWebCamCaptureWebRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<WebCamCaptureWebUnitOfWork>().As<IWebCamCaptureWebUnitOfWork>().InstancePerLifetimeScope();
 
             builder.RegisterType<ActiveProgramRepository>().As<IActiveProgramRepository>()
                 .InstancePerLifetimeScope();
@@ -73,9 +77,6 @@ namespace DevTrack.Foundation
             builder.RegisterType<BitMapAdapter>().As<IBitMapAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<SnapShotAdapter>().As<ISnapShotAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<ActiveProgramAdapter>().As<IActiveProgramAdapter>().InstancePerLifetimeScope();
-
-            builder.RegisterType<WebCamImageAdapter>().As<IWebCamImageAdapter>().InstancePerLifetimeScope();
-            builder.RegisterType<WebCamCaptureWebService>().As<IWebCamCaptureWebService>().InstancePerLifetimeScope();
 
             base.Load(builder);
         }
