@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "DevTrack.SyncWokerService": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

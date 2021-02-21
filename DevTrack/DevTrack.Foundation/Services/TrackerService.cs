@@ -27,7 +27,19 @@
 
         public void Track()
         {
-            _snapShotService.SyncSnapShotImages();
+            //_keyboardTrackService.KeyboardTrackSaveToLocal();
+            //_mouseTrackService.MouseTrackSaveToLocal();
+            
+        }
+
+        public void Sync()
+        {
+            //_keyboardTrackService.SyncKeyboardDataFromLocal();
+            //_mouseTrackService.SyncMouseDataFromLocal();
+            //_snapShotService.SyncSnapShotImages();
+            //_snapShotService.SnapshotCapturer();
+            //_activeProgramService.SyncActivePrograms();
+            //_activeProgramService.SaveActiveProgramLocalDb();
         }
     }
 }
