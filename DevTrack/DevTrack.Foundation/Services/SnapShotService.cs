@@ -66,6 +66,7 @@ namespace DevTrack.Foundation.Services
 
             request.Method = "POST";
             request.ContentType = "application/json";
+            //request.ContentType = "multipart/form-data";            
             var requestContent = JsonConvert.SerializeObject(imageEntity);
             var data = Encoding.UTF8.GetBytes(requestContent);
             request.ContentLength = data.Length;
