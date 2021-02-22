@@ -31,8 +31,8 @@ namespace DevTrack.TrackerWorkerService
             var mouseThread = new Thread(_mouseTrackStart.MouseTrack);
             var keyboardThread = new Thread(_keyboardTrackStart.KeyboardTrack);
 
-            keyboardThread.Start();
-            mouseThread.Start();
+            //keyboardThread.Start();
+            //mouseThread.Start();
 
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -40,6 +40,7 @@ namespace DevTrack.TrackerWorkerService
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 //await Task.Delay(60000, stoppingToken);
                 await Task.Delay(10000, stoppingToken);
+            
             }
         }
     }

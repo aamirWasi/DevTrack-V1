@@ -28,6 +28,7 @@
         public void Track()
         {
             _snapShotService.SyncSnapShotImages();
+            //_snapShotService.SnapshotCapturer();
         }
     }
 }
