@@ -29,7 +29,6 @@
         {
             //_keyboardTrackService.KeyboardTrackSaveToLocal();
             //_mouseTrackService.MouseTrackSaveToLocal();
-            
         }
 
         public void Sync()
@@ -40,6 +39,8 @@
             //_snapShotService.SnapshotCapturer();
             //_activeProgramService.SyncActivePrograms();
             //_activeProgramService.SaveActiveProgramLocalDb();
+            //_runningProgramService.SyncRunningPrograms();
+            //_runningProgramService.AddRunningProgramsLocalDb();
         }
     }
 }

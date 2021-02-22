@@ -6,6 +6,10 @@ using System.Net;
 using Newtonsoft.Json;
 using System.Text;
 using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using BO = DevTrack.Foundation.BusinessObjects;
 
 namespace DevTrack.Foundation.Services
 {
@@ -39,45 +43,34 @@ namespace DevTrack.Foundation.Services
 
         public void SyncRunningPrograms()
         {
-            var programs = _runningProgramUnitOfWork.RunningProgramRepository.GetAll();
-            if(programs.Count > 0 && programs != null)
+            var runningAppsList = _runningProgramUnitOfWork.RunningProgramRepository.GetAll();
+            if(runningAppsList.Count > 0 && runningAppsList != null)
             {
-                foreach (var program in programs)
+                foreach (var runningApps in runningAppsList)
                 {
-                    var runningAppsEntity = new EO.RunningProgram
-                    {
-                        RunningApplications = program.RunningApplications,
-                        RunningApplicationsDateTime = program.RunningApplicationsDateTime,
-                    };
-
-                    AddRunningProgramsWeb(runningAppsEntity);
+                    AddRunningProgramsWeb(runningApps);
                 }
             }
         }
 
         private void AddRunningProgramsWeb(EO.RunningProgram runningAppsEntity)
         {
-            const string url = "https://localhost:44332/api/RunningProgram";
-            var request = WebRequest.Create(url);
+            using var client = new HttpClient { BaseAddress = new Uri("https://localhost:44332/") };
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            request.Method = "POST";
-            request.ContentType = "application/json";
-            var requestContent = JsonConvert.SerializeObject(runningAppsEntity);
-            var data = Encoding.UTF8.GetBytes(requestContent);
-            request.ContentLength = data.Length;
-            using (var requestStream = request.GetRequestStream())
+            var businessObject = new BO.RunningProgram().ConvertToBusinessObject(runningAppsEntity);
+            var response = client.PostAsJsonAsync("api/RunningProgram", businessObject).Result;
+
+            if (response.IsSuccessStatusCode)
             {
-                requestStream.Write(data, 0, data.Length);
-                requestStream.Flush();
-                using (var response = request.GetResponse())
+                using HttpContent content = response.Content;
+                Task<string> result = content.ReadAsStringAsync();
+                string final = result.Result;
+                if (final == "true")
                 {
-                    using (var streamItem = response.GetResponseStream())
-                    {
-                        using (var reader = new StreamReader(streamItem))
-                        {
-                            var result = reader.ReadToEnd();
-                        }
-                    }
+                    _runningProgramUnitOfWork.RunningProgramRepository.Remove(runningAppsEntity);
+                    _runningProgramUnitOfWork.Save();
                 }
             }
         }

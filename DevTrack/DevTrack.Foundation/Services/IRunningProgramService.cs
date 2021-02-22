@@ -3,5 +3,6 @@
     public interface IRunningProgramService
     {
         void AddRunningProgramsLocalDb();
+        void SyncRunningPrograms();
     }
 }
