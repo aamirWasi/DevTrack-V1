@@ -60,8 +60,8 @@ namespace DevTrack.Foundation.Services
                         FilePath = image.FilePath
                     };
 
-                    //var s = SaveSnapshotInSql(imageEntity);
-                    var returnValue = UploadFile(imageEntity);
+                    var s = SaveSnapshotInSql(imageEntity);
+                    //var returnValue = UploadFile(imageEntity);
                 }
             }
         }
@@ -73,12 +73,8 @@ namespace DevTrack.Foundation.Services
             var form = new MultipartFormDataContent();
             var file_bytes = File.ReadAllBytes(imageEntity.FilePath);
 
-
-            //var dt = DateTime.ParseExact(imageEntity.CaptureTime.ToString(), "MM/dd/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-            //var s = dt.ToString("dd/M/yyyy", CultureInfo.InvariantCulture);
-
-            form.Add(new StringContent(imageEntity.CaptureTime.ToString("dd/M/yyyy")), "CaptureTime");
-            form.Add(new ByteArrayContent(file_bytes, 0, file_bytes.Length), "FilePath");
+            form.Add(new StringContent(imageEntity.CaptureTime.ToString("yyyy-MM-dd h:mm tt")), "CaptureTime");
+            form.Add(new ByteArrayContent(file_bytes, 0, file_bytes.Length), "FilePath", "file.jpg");
             HttpResponseMessage response = await httpClient.PostAsync("api/SnapShot", form);
 
             response.EnsureSuccessStatusCode();
@@ -87,50 +83,5 @@ namespace DevTrack.Foundation.Services
             return sd;
         }
 
-        private bool UploadFile(EO.SnapshotImage imageEntity)
-        {
-            try
-            {
-                //Stream fileStream = File.OpenRead(imageEntity.FilePath);
-                //var image = Image.FromFile(imageEntity.FilePath);
-                var snapShot = new SnapshotImage
-                {
-                    CapturerTime = imageEntity.CaptureTime,
-                    //Image = (IFormFile)image
-                };
-
-                // byte[] imageByte = ImageToByteArraybyMemoryStream(image);
-
-                //int contentLength = snapShot.Image.ContentLength;
-                //byte[] data = new byte[contentLength];
-                //fileUpload.PostedFile.InputStream.Read(data, 0, contentLength);
-
-                // Prepare web request...
-
-                var url = "https://localhost:44332/api/SnapShot";
-                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
-                webRequest.Method = "POST";
-                webRequest.ContentType = "multipart/form-data";
-                var postData = imageEntity.FilePath;
-                byte[] data = Encoding.UTF8.GetBytes(postData);
-                webRequest.ContentLength = data.Length;
-
-                //request.ContentLength = data.Length;
-                using (Stream postStream = webRequest.GetRequestStream())
-                {
-                    // Send the data.
-                   postStream.Write(data, 0, data.Length);
-                    postStream.Flush();
-                    using var response = webRequest.GetResponse();
-                    using var streamItem = response.GetResponseStream();
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                //Log exception here...
-                return false;
-            }
-        }
     }
 }
