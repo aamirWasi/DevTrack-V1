@@ -3,26 +3,35 @@ using EO = DevTrack.Foundation.Entities;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
 using DevTrack.Foundation.Services.Adapters;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net;
 using Newtonsoft.Json;
 using System.Text;
+using Microsoft.AspNetCore.Http;
+using DevTrack.Foundation.BusinessObjects;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
+using System.Globalization;
 
 namespace DevTrack.Foundation.Services
 {
     public class SnapShotService : ISnapShotService
     {
+        private readonly ISnapshotUnitOfWork _snapshotUnitOfWork;
+        private readonly IBitMapAdapter _image;
+        private readonly ISnapshotApiService _snapshotApiService;
+        private readonly ISnapshotLocalService _snapshotLocalService;
+        private readonly IHelper _helper;
 
-        private ISnapshotUnitOfWork _snapshotUnitOfWork;
-        private IBitMapAdapter _image;
-
-        public SnapShotService(ISnapshotUnitOfWork snapshotUnitOfWork,IBitMapAdapter image)
+        public SnapShotService(ISnapshotUnitOfWork snapshotUnitOfWork,IBitMapAdapter image, ISnapshotApiService snapshotApiService, ISnapshotLocalService snapshotLocalService, IHelper helper)
         {
             _snapshotUnitOfWork = snapshotUnitOfWork;
             _image = image;
+            _snapshotApiService = snapshotApiService;
+            _snapshotLocalService = snapshotLocalService;
+            _helper = helper;
         }
      
         public void SnapshotCapturer()
@@ -45,7 +54,7 @@ namespace DevTrack.Foundation.Services
         public void SyncSnapShotImages()
         {
             var images = _snapshotUnitOfWork.SnapshotRepository.GetAll();
-            if (images.Count > 0 && images!=null)
+            if (images.Count > 0)
             {
                 foreach (var image in images)
                 {
@@ -54,47 +63,12 @@ namespace DevTrack.Foundation.Services
                         CaptureTime = image.CaptureTime,
                         FilePath = image.FilePath
                     };
-                    SaveSnapshotInSql(imageEntity);
+
+                    var result = _snapshotApiService.SaveSnapshotInSql(imageEntity);
+                    _snapshotLocalService.RemoveImageFromSqLite(result, image.Id);
+                    _snapshotLocalService.RemoveImageFromFolder(_helper.GetFilePath(imageEntity.FilePath));
                 }
             }
         }
-
-        private void SaveSnapshotInSql(EO.SnapshotImage imageEntity)
-        {
-            const string url = "https://localhost:44332/api/SnapShot";
-            var request = WebRequest.Create(url);
-
-            request.Method = "POST";
-            request.ContentType = "application/json";
-            //request.ContentType = "multipart/form-data";            
-            var requestContent = JsonConvert.SerializeObject(imageEntity);
-            var data = Encoding.UTF8.GetBytes(requestContent);
-            request.ContentLength = data.Length;
-            using (var requestStream = request.GetRequestStream())
-            {
-                requestStream.Write(data, 0, data.Length);
-                requestStream.Flush();
-                using (var response = request.GetResponse())
-                {
-                    using (var streamItem = response.GetResponseStream())
-                    {
-                        using (var reader = new StreamReader(streamItem))
-                        {
-                            var result = reader.ReadToEnd();
-                        }
-                    }
-                }
-            }
-        }
-        //private async void SaveSnapshotInSql(EO.SnapshotImage imageEntity)
-        //{
-        //    var client = new HttpClient();
-        //    client.BaseAddress = new Uri("http://localhost:44332/");
-        //    client.DefaultRequestHeaders.Accept.Clear();
-        //    client.DefaultRequestHeaders.Accept.Add(
-        //    new MediaTypeWithQualityHeaderValue("application/json"));
-
-        //    var response = await client.PostAsJsonAsync("api/Snapshot", imageEntity);
-        //}
     }
 }

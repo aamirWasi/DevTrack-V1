@@ -125,6 +125,7 @@ namespace DevTrack.API
 
             services.AddSingleton<IAuthorizationHandler, FullNameRequirementHandler>();
 
+            services.AddHttpContextAccessor();
             services.AddControllers();
         }
 
