@@ -5,7 +5,7 @@ using System.Net.Http;
 
 namespace DevTrack.Foundation.Services
 {
-    public class WebCamCaptureApiService
+    public class WebCamCaptureApiService : IWebCamCaptureApiService
     {
         public string SaveCampuredImageInSql(WebCamCaptureImage imageEntity)
         {
@@ -15,10 +15,11 @@ namespace DevTrack.Foundation.Services
                 httpClient.BaseAddress = new Uri("https://localhost:44332/");
 
                 var file_bytes = File.ReadAllBytes(imageEntity.WebCamImagePath);
-
                 var form = new MultipartFormDataContent();
+
                 form.Add(new StringContent(imageEntity.WebCamImageDateTime.ToString("yyyy-MM-dd h:mm tt")), "CaptureTime");
                 form.Add(new ByteArrayContent(file_bytes, 0, file_bytes.Length), "FilePath", "file.jpeg");
+
                 using (var response = httpClient.PostAsync("api/Snapshot", form).Result)
                 {
                     if (response.IsSuccessStatusCode)
