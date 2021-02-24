@@ -57,7 +57,7 @@ namespace DevTrack.Foundation.Tests.Services
 
             //Act
             Should.Throw<InvalidOperationException>(
-                () => _runningProgramService.AddCurrentlyRunningPrograms()
+                () => _runningProgramService.AddRunningProgramsLocalDb()
                 ) ;
 
             //Assert
@@ -84,7 +84,7 @@ namespace DevTrack.Foundation.Tests.Services
             _runningProgramUnitOfWorkMock.Setup(x => x.Save()).Verifiable();
 
             //Act
-            _runningProgramService.AddCurrentlyRunningPrograms();
+            _runningProgramService.AddRunningProgramsLocalDb();
 
             //Assert
             this.ShouldSatisfyAllConditions(
@@ -92,33 +92,6 @@ namespace DevTrack.Foundation.Tests.Services
                 () => _runningProgramRepositoryMock.VerifyAll(),
                 () => _runningProgramUnitOfWorkMock.VerifyAll()
                 ) ;
-        }
-
-        //This test is not running for some app like "Zoom"
-        //[Test]
-        //public void GetRunningProgramsList_ApplicationsList_IsUnique()
-        //{
-        //    //Arrange
-        //    var appList = new RunningProgramAdapter();
-
-        //    //Act
-        //    var result = appList.GetRunningProgramsList();
-
-        //    //Assert
-        //    Assert.That(result, Is.Unique);
-        //}
-
-        [Test]
-        public void GetRunningProgramsList_ApplicationsList_IsOrdered()
-        {
-            //Arrange
-            var appList = new RunningProgramAdapter();
-
-            //Act
-            var result = appList.GetRunningProgramsList();
-
-            //Assert
-            Assert.That(result, Is.Ordered);
         }
     }
 }

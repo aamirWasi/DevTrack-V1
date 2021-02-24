@@ -60,7 +60,7 @@ namespace DevTrack.Foundation.Tests.Services
 
             //act
             Should.Throw<InvalidOperationException>(
-                () => _activeProgramService.SaveActiveProgram()
+                () => _activeProgramService.SaveActiveProgramLocalDb()
                 );
 
             //assert
@@ -91,7 +91,7 @@ namespace DevTrack.Foundation.Tests.Services
             _activeProgramUnitOfWorkMock.Setup(x => x.Save()).Verifiable();
 
             //act
-            _activeProgramService.SaveActiveProgram();
+            _activeProgramService.SaveActiveProgramLocalDb();
 
             //assert
             this.ShouldSatisfyAllConditions(

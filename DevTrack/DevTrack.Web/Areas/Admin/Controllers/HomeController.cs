@@ -8,15 +8,16 @@ using System.Threading.Tasks;
 
 namespace DevTrack.Web.Areas.Admin.Controllers
 {
-    [Area("Admin"),Authorize(Roles="Admin")]
-    public class HomeController:Controller
+    [Area("Admin")]
+    // [Authorize(Roles="Admin")]
+    public class HomeController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
 
-        [Authorize(Policy = "RestrictedArea")]
+        //[Authorize(Policy = "RestrictedArea")]
         public IActionResult Profile()
         {
             return View();

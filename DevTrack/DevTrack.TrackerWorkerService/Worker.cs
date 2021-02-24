@@ -28,8 +28,8 @@ namespace DevTrack.TrackerWorkerService
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var mouseThread = new Thread(_mouseTrackStart.MouseTrack);
-            var keyboardThread = new Thread(_keyboardTrackStart.KeyboardTrack);
+            //var mouseThread = new Thread(_mouseTrackStart.MouseTrack);
+            //var keyboardThread = new Thread(_keyboardTrackStart.KeyboardTrack);
 
             //keyboardThread.Start();
             //mouseThread.Start();
