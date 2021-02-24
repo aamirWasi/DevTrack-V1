@@ -93,13 +93,11 @@ namespace DevTrack.Foundation
             builder.RegisterType<BitMapAdapter>().As<IBitMapAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<SnapShotAdapter>().As<ISnapShotAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<ActiveProgramAdapter>().As<IActiveProgramAdapter>().InstancePerLifetimeScope();
-<<<<<<< HEAD
 
-=======
             builder.RegisterType<RunningProgramAdapter>().As<IRunningProgramAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<WebCamImageAdapter>().As<IWebCamImageAdapter>().InstancePerLifetimeScope();
             
->>>>>>> develop
+
             base.Load(builder);
         }
     }
