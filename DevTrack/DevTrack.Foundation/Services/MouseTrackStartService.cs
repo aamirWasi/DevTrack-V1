@@ -59,16 +59,15 @@ namespace DevTrack.Foundation.Services
 
         private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
-            _mouseBusiness.TotalClicks++;
             switch (wParam.ToInt32())
             {
-                case WM_LBUTTONDOWN: _mouseBusiness.LeftButtonClick++; break;
-                case WM_LBUTTONDBLCLK: _mouseBusiness.LeftButtonDoubleClick++; break;
-                case WM_RBUTTONDOWN: _mouseBusiness.RightButtonClick++; break;
-                case WM_RBUTTONDBLCLK: _mouseBusiness.RightButtonDoubleClick++; break;
-                case WM_MBUTTONDOWN: _mouseBusiness.MiddleButtonClick++; break;
-                case WM_MBUTTONDBLCLK: _mouseBusiness.MiddleButtonDoubleClick++; break;
-                case WM_MOUSEWHEEL: _mouseBusiness.MouseWheel++; break;
+                case WM_LBUTTONDOWN: _mouseBusiness.LeftButtonClick++; _mouseBusiness.TotalClicks++; break;
+                case WM_LBUTTONDBLCLK: _mouseBusiness.LeftButtonDoubleClick++; _mouseBusiness.TotalClicks++; break;
+                case WM_RBUTTONDOWN: _mouseBusiness.RightButtonClick++; _mouseBusiness.TotalClicks++; break;
+                case WM_RBUTTONDBLCLK: _mouseBusiness.RightButtonDoubleClick++; _mouseBusiness.TotalClicks++; break;
+                case WM_MBUTTONDOWN: _mouseBusiness.MiddleButtonClick++; _mouseBusiness.TotalClicks++; break;
+                case WM_MBUTTONDBLCLK: _mouseBusiness.MiddleButtonDoubleClick++; _mouseBusiness.TotalClicks++; break;
+                case WM_MOUSEWHEEL: _mouseBusiness.MouseWheel++; _mouseBusiness.TotalClicks++; break;
             }
             return CallNextHookEx(_hookId, nCode, wParam, lParam);
         }

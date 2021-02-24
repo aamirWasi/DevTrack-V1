@@ -1,12 +1,10 @@
-﻿using System;
-using EO = DevTrack.Foundation.Entities;
+﻿using EO = DevTrack.Foundation.Entities;
 
 
 namespace DevTrack.Foundation.BusinessObjects
 {
     public class KeyboardBusinessObject
     {
-        public Guid Id { get; set; }
         public int TotalKeyHits { get; set; }
 
         #region Functional Keys
@@ -144,7 +142,7 @@ namespace DevTrack.Foundation.BusinessObjects
 
         #endregion
 
-        public EO.Keyboard ConvertTOEntity(KeyboardBusinessObject keyboardBusiness)
+        public EO.Keyboard ConvertToEntity(KeyboardBusinessObject keyboardBusiness)
         {
             return new EO.Keyboard()
             {
@@ -261,6 +259,126 @@ namespace DevTrack.Foundation.BusinessObjects
                 Multiply = keyboardBusiness.Multiply,
                 Divide = keyboardBusiness.Divide,
                 NumLock = keyboardBusiness.NumLock
+            };
+        }
+
+        public KeyboardBusinessObject ConvertToBusinessObject(EO.Keyboard keyboard)
+        {
+            return new KeyboardBusinessObject
+            {
+                TotalKeyHits = keyboard.TotalKeyHits,
+                A = keyboard.A,
+                B = keyboard.B,
+                C = keyboard.C,
+                D = keyboard.D,
+                E = keyboard.E,
+                F = keyboard.F,
+                G = keyboard.G,
+                H = keyboard.H,
+                I = keyboard.I,
+                J = keyboard.J,
+                K = keyboard.K,
+                L = keyboard.L,
+                M = keyboard.M,
+                N = keyboard.N,
+                O = keyboard.O,
+                P = keyboard.P,
+                Q = keyboard.Q,
+                R = keyboard.R,
+                S = keyboard.S,
+                T = keyboard.T,
+                U = keyboard.U,
+                V = keyboard.V,
+                W = keyboard.W,
+                X = keyboard.X,
+                Y = keyboard.Y,
+                Z = keyboard.Z,
+
+                NumPad0 = keyboard.NumPad0,
+                NumPad1 = keyboard.NumPad1,
+                NumPad2 = keyboard.NumPad2,
+                NumPad3 = keyboard.NumPad3,
+                NumPad4 = keyboard.NumPad4,
+                NumPad5 = keyboard.NumPad5,
+                NumPad6 = keyboard.NumPad6,
+                NumPad7 = keyboard.NumPad7,
+                NumPad8 = keyboard.NumPad8,
+                NumPad9 = keyboard.NumPad9,
+
+                Escape = keyboard.Escape,
+                F1 = keyboard.F1,
+                F2 = keyboard.F2,
+                F3 = keyboard.F3,
+                F4 = keyboard.F4,
+                F5 = keyboard.F5,
+                F6 = keyboard.F6,
+                F7 = keyboard.F7,
+                F8 = keyboard.F8,
+                F9 = keyboard.F9,
+                F10 = keyboard.F10,
+                F11 = keyboard.F11,
+                F12 = keyboard.F12,
+
+                Oemtilde = keyboard.Oemtilde,
+                D1 = keyboard.D1,
+                D2 = keyboard.D2,
+                D3 = keyboard.D3,
+                D4 = keyboard.D4,
+                D5 = keyboard.D5,
+                D6 = keyboard.D6,
+                D7 = keyboard.D7,
+                D8 = keyboard.D8,
+                D9 = keyboard.D9,
+                D0 = keyboard.D0,
+                OemMinus = keyboard.OemMinus,
+                Oemplus = keyboard.Oemplus,
+                Oem5 = keyboard.Oem5,
+                Back = keyboard.Back,
+
+                Tab = keyboard.Tab,
+                OemOpenBrackets = keyboard.OemOpenBrackets,
+                Oem6 = keyboard.Oem6,
+
+                Capital = keyboard.Capital,
+                Oem1 = keyboard.Oem1,
+                Oem7 = keyboard.Oem7,
+                Enter = keyboard.Enter,
+
+                LShiftKey = keyboard.LShiftKey,
+                Oemcomma = keyboard.Oemcomma,
+                OemPeriod = keyboard.OemPeriod,
+                OemQuestion = keyboard.OemQuestion,
+                RShiftKey = keyboard.RShiftKey,
+
+                LControlKey = keyboard.LControlKey,
+                LWin = keyboard.LWin,
+                Space = keyboard.Space,
+                RWin = keyboard.RWin,
+                Apps = keyboard.Apps,
+                RControlKey = keyboard.RControlKey,
+
+                PrintScreen = keyboard.PrintScreen,
+                Scroll = keyboard.Scroll,
+                Pause = keyboard.Pause,
+
+                Insert = keyboard.Insert,
+                Home = keyboard.Home,
+                PageUp = keyboard.PageUp,
+                Delete = keyboard.Delete,
+                End = keyboard.End,
+                Next = keyboard.Next,
+
+                Left = keyboard.Left,
+                Up = keyboard.Up,
+                Right = keyboard.Right,
+                Down = keyboard.Down,
+
+                Decimal = keyboard.Decimal,
+                Add = keyboard.Add,
+                Subtract = keyboard.Subtract,
+                Multiply = keyboard.Multiply,
+                Divide = keyboard.Divide,
+                NumLock = keyboard.NumLock
             };
         }
     }

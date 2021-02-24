@@ -2,6 +2,7 @@
 {
     public interface IMouseTrackService
     {
-        void MouseTrackSave();
+        void MouseTrackSaveToLocal();
+        void SyncMouseDataFromLocal();
     }
 }

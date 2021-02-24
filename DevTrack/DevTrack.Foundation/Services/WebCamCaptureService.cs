@@ -39,10 +39,6 @@ namespace DevTrack.Foundation.Services
             _WebCamCaptureUnitOfWork._webCamCaptureRepository.Add(WebImageEntity);
             _WebCamCaptureUnitOfWork.Save();
         }
-
-        
-
-        
-        
+ 
     }
 }

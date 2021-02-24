@@ -24,7 +24,6 @@ namespace DevTrack.Foundation.Adapters
                     //var ProgramsList = procList[i].ProcessName;
                 }
             }
-            applist.Sort();
 
             return applist;
         }

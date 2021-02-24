@@ -32,9 +32,6 @@ namespace DevTrack.Foundation.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<RunningProgram>()
-            //    .HasKey(e => e.Id);
-
             base.OnModelCreating(modelBuilder);
         }
         private static string ConnectionString()
