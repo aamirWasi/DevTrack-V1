@@ -3,7 +3,6 @@ using EO = DevTrack.Foundation.Entities;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
 using DevTrack.Foundation.Services.Adapters;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -23,12 +22,16 @@ namespace DevTrack.Foundation.Services
         private readonly ISnapshotUnitOfWork _snapshotUnitOfWork;
         private readonly IBitMapAdapter _image;
         private readonly ISnapshotApiService _snapshotApiService;
+        private readonly ISnapshotLocalService _snapshotLocalService;
+        private readonly IHelper _helper;
 
-        public SnapShotService(ISnapshotUnitOfWork snapshotUnitOfWork,IBitMapAdapter image, ISnapshotApiService snapshotApiService)
+        public SnapShotService(ISnapshotUnitOfWork snapshotUnitOfWork,IBitMapAdapter image, ISnapshotApiService snapshotApiService, ISnapshotLocalService snapshotLocalService, IHelper helper)
         {
             _snapshotUnitOfWork = snapshotUnitOfWork;
             _image = image;
             _snapshotApiService = snapshotApiService;
+            _snapshotLocalService = snapshotLocalService;
+            _helper = helper;
         }
      
         public void SnapshotCapturer()
@@ -62,6 +65,8 @@ namespace DevTrack.Foundation.Services
                     };
 
                     var result = _snapshotApiService.SaveSnapshotInSql(imageEntity);
+                    _snapshotLocalService.RemoveImageFromSqLite(result, image.Id);
+                    _snapshotLocalService.RemoveImageFromFolder(_helper.GetFilePath(imageEntity.FilePath));
                 }
             }
         }
