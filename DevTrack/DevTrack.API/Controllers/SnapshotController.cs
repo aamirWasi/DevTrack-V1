@@ -17,17 +17,18 @@ namespace DevTrack.API.Controllers
     [ApiController]
     public class SnapshotController : ControllerBase
     {
-
         [HttpPost]
-        public void Post([FromForm]SnapshotModel model)
+        public bool Post([FromForm]SnapshotModel model)
         {
             try
             {
                 model.SaveSnapshot();
+                return true;
             }
             catch (Exception ex)
             {
-                throw new InvalidOperationException(ex.Message);
+                var message = ex.Message;
+                return false;
             }
         }
     }

@@ -20,14 +20,15 @@ namespace DevTrack.Foundation.Services
 {
     public class SnapShotService : ISnapShotService
     {
-        
-        private ISnapshotUnitOfWork _snapshotUnitOfWork;
-        private IBitMapAdapter _image;
+        private readonly ISnapshotUnitOfWork _snapshotUnitOfWork;
+        private readonly IBitMapAdapter _image;
+        private readonly ISnapshotApiService _snapshotApiService;
 
-        public SnapShotService(ISnapshotUnitOfWork snapshotUnitOfWork,IBitMapAdapter image)
+        public SnapShotService(ISnapshotUnitOfWork snapshotUnitOfWork,IBitMapAdapter image, ISnapshotApiService snapshotApiService)
         {
             _snapshotUnitOfWork = snapshotUnitOfWork;
             _image = image;
+            _snapshotApiService = snapshotApiService;
         }
      
         public void SnapshotCapturer()
@@ -60,28 +61,9 @@ namespace DevTrack.Foundation.Services
                         FilePath = image.FilePath
                     };
 
-                    var s = SaveSnapshotInSql(imageEntity);
-                    //var returnValue = UploadFile(imageEntity);
+                    var result = _snapshotApiService.SaveSnapshotInSql(imageEntity);
                 }
             }
         }
-
-        private async Task<string> SaveSnapshotInSql(EO.SnapshotImage imageEntity)
-        {
-            var httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri("https://localhost:44332/");
-            var form = new MultipartFormDataContent();
-            var file_bytes = File.ReadAllBytes(imageEntity.FilePath);
-
-            form.Add(new StringContent(imageEntity.CaptureTime.ToString("yyyy-MM-dd h:mm tt")), "CaptureTime");
-            form.Add(new ByteArrayContent(file_bytes, 0, file_bytes.Length), "FilePath", "file.jpg");
-            HttpResponseMessage response = await httpClient.PostAsync("api/SnapShot", form);
-
-            response.EnsureSuccessStatusCode();
-            httpClient.Dispose();
-            string sd = response.Content.ReadAsStringAsync().Result;
-            return sd;
-        }
-
     }
 }
