@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Drawing;
-using System.IO;
-using System.Threading;
-using OpenCvSharp;
-using OpenCvSharp.Extensions;
 using DevTrack.Foundation.UnitOfWorks;
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.Adapters;
-using DevTrack.Foundation.Services;
 
 namespace DevTrack.Foundation.Services
 {
@@ -66,6 +60,7 @@ namespace DevTrack.Foundation.Services
                     };
 
                     var result = _webCamCaptureApiService.SaveCampuredImageInSql(imageEntity);
+
                     _webCamCaptureLocalService.RemoveImageFromSqLite(result, image.Id);
                     _webCamCaptureLocalService.RemoveImageFromFolder(_helper.GetFilePath(imageEntity.WebCamImagePath));
                 }
