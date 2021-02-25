@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DevTrack.Foundation.BusinessObjects
 {
-    public class Snapshot
+    public class SnapshotImage
     {
-        public string Location { get; set; }
-        public IFormFile FilePath { get; set; }
+        public DateTimeOffset CapturerTime { get; set; }
+        public IFormFile Image { get; set; }
     }
 }

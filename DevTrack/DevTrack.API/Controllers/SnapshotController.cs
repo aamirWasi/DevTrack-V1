@@ -1,10 +1,15 @@
 ﻿using DevTrack.API.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace DevTrack.API.Controllers
 {
@@ -13,16 +18,17 @@ namespace DevTrack.API.Controllers
     public class SnapshotController : ControllerBase
     {
         [HttpPost]
-        public void Post([FromForm]SnapshotModel model)
+        public bool Post([FromForm]SnapshotModel model)
         {
             try
             {
                 model.SaveSnapshot();
+                return true;
             }
             catch (Exception ex)
             {
-
-                throw;
+                var message = ex.Message;
+                return false;
             }
         }
     }

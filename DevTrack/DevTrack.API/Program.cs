@@ -21,7 +21,6 @@ namespace DevTrack.API
                 .MinimumLevel.Debug()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .Enrich.FromLogContext()
-                //.WriteTo.File(Path.Combine("Logs" , "library-log-.log"), rollingInterval: RollingInterval.Day)
                 .ReadFrom.Configuration(configBuilder)
                 .CreateLogger();
 

@@ -3,6 +3,7 @@
 **/obj
 **/*.user
 **/.Logs
+**/.jpeg
 [Ll]ogs/
 /DevTrack/DevTrack.TrackerWorkerService/*.db
 **/.db-shm
