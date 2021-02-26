@@ -18,8 +18,8 @@ namespace DevTrack.Foundation.Services
                 var file_bytes = File.ReadAllBytes(imageEntity.WebCamImagePath);
                 var form = new MultipartFormDataContent();
 
-                form.Add(new StringContent(imageEntity.WebCamImageDateTime.ToString("yyyy-MM-dd h:mm tt")), "WebCamImageDateTime");
-                form.Add(new ByteArrayContent(file_bytes, 0, file_bytes.Length), "WebCamImagePath", "file.jpg");
+                form.Add(new StringContent(imageEntity.WebCamImageDateTime.ToString("yyyy-MM-dd h:mm tt")), "CaptureTime");
+                form.Add(new ByteArrayContent(file_bytes, 0, file_bytes.Length), "FilePath", "filePath.jpg");
 
                 using (var response = httpClient.PostAsync("api/WebCamCapture", form).Result)
                 {

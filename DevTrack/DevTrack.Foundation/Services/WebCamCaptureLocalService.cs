@@ -16,8 +16,8 @@ namespace DevTrack.Foundation.Services
         {
             if (returnResult == "true")
             {
-                var imageRemove = _webCamCaptureUnitOfWork._webCamCaptureRepository.GetById(id);
-                _webCamCaptureUnitOfWork._webCamCaptureRepository.Remove(imageRemove);
+                var imageRemove = _webCamCaptureUnitOfWork.WebCamCaptureRepository.GetById(id);
+                _webCamCaptureUnitOfWork.WebCamCaptureRepository.Remove(imageRemove);
                 _webCamCaptureUnitOfWork.Save();
             }
         }

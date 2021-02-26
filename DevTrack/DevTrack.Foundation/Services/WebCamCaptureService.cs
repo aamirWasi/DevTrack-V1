@@ -28,27 +28,26 @@ namespace DevTrack.Foundation.Services
 
         public void WebCamCaptureImageSave()
         {
-            var WebCamAdapterObject = _webCamImageAdapter.WebCamCapture();
+            var webCamAdapterObject = _webCamImageAdapter.WebCamCapture();
 
-            var img = WebCamAdapterObject.image;
+            var img = webCamAdapterObject.image;
 
             if(img == null)
                 throw new InvalidOperationException("Image information is missing");
 
             var WebImageEntity = new WebCamCaptureImage
             {
-                WebCamImagePath = WebCamAdapterObject.path,
+                WebCamImagePath = webCamAdapterObject.path,
                 WebCamImageDateTime = DateTimeOffset.Now
             };
 
-            _WebCamCaptureUnitOfWork._webCamCaptureRepository.Add(WebImageEntity);
+            _WebCamCaptureUnitOfWork.WebCamCaptureRepository.Add(WebImageEntity);
             _WebCamCaptureUnitOfWork.Save();
         }
 
         public void SyncWebCamImages()
         {
-            var images = _WebCamCaptureUnitOfWork._webCamCaptureRepository.GetAll();
-
+            var images = _WebCamCaptureUnitOfWork.WebCamCaptureRepository.GetAll();
             if (images.Count > 0)
             {
                 foreach (var image in images)
@@ -60,9 +59,8 @@ namespace DevTrack.Foundation.Services
                     };
 
                     var result = _webCamCaptureApiService.SaveCampuredImageInSql(imageEntity);
-
                     _webCamCaptureLocalService.RemoveImageFromSqLite(result, image.Id);
-                    _webCamCaptureLocalService.RemoveImageFromFolder(imageEntity.WebCamImagePath);
+                    _webCamCaptureLocalService.RemoveImageFromFolder(_helper.GetFilePath(imageEntity.WebCamImagePath));
                 }
             }
         }
