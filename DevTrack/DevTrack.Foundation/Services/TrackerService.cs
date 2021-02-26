@@ -32,7 +32,6 @@
             //_keyboardTrackService.KeyboardTrackSaveToLocal();
             //_mouseTrackService.MouseTrackSaveToLocal();
             //_webCamCaptureService.WebCamCaptureImageSave();
-            _webCamCaptureService.SyncWebCamImages();
         }
 
         public void Sync()
