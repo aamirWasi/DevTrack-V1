@@ -6,11 +6,11 @@ namespace DevTrack.Foundation.Services
 {
     public class WebCamCaptureWebService : IWebCamCaptureWebService
     {
-        private readonly IWebCamCaptureUnitOfWork _webCamCaptureUnitOfWork;
+        private readonly IWebCamCaptureWebUnitOfWork _webCamCaptureWebUnitOfWork;
 
-        public WebCamCaptureWebService(IWebCamCaptureUnitOfWork webCamCaptureUnitOfWork)
+        public WebCamCaptureWebService(IWebCamCaptureWebUnitOfWork webCamCaptureWebUnitOfWork)
         {
-            _webCamCaptureUnitOfWork = webCamCaptureUnitOfWork;
+            _webCamCaptureWebUnitOfWork = webCamCaptureWebUnitOfWork;
         }
 
         public void SaveSnapShotWebDb(WebCamCaptureImage image)
@@ -21,8 +21,8 @@ namespace DevTrack.Foundation.Services
             }
             else
             {
-                _webCamCaptureUnitOfWork._webCamCaptureRepository.Add(image);
-                _webCamCaptureUnitOfWork.Save();
+                _webCamCaptureWebUnitOfWork._webCamCaptureWebRepository.Add(image);
+                _webCamCaptureWebUnitOfWork.Save();
             }
         }
     }
