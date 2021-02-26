@@ -7,7 +7,7 @@ namespace DevTrack.Foundation.Services
 {
     public class WebCamCaptureApiService : IWebCamCaptureApiService
     {
-        public string SaveCampuredImageInSql(WebCamCaptureImage imageEntity)
+        public string SaveCapturedImageInSql(WebCamCaptureImage imageEntity)
         {
             var finalResult = string.Empty;
 

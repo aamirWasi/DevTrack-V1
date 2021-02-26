@@ -6,7 +6,7 @@ using System;
 
 namespace DevTrack.API.Models
 {
-    public class WebCamCaptureModel : BaseModel
+    public class WebCamCaptureModel : WebCamImageSaveModel
     {
         public IFormFile FilePath { get; set; }
         public DateTimeOffset CaptureTime { get; set; }

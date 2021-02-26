@@ -4,6 +4,6 @@ namespace DevTrack.Foundation.Services
 {
     public interface IWebCamCaptureApiService
     {
-        string SaveCampuredImageInSql(WebCamCaptureImage imageEntity);
+        string SaveCapturedImageInSql(WebCamCaptureImage imageEntity);
     }
 }

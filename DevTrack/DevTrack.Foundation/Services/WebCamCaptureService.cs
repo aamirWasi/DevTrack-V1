@@ -58,9 +58,9 @@ namespace DevTrack.Foundation.Services
                         WebCamImagePath = image.WebCamImagePath
                     };
 
-                    var result = _webCamCaptureApiService.SaveCampuredImageInSql(imageEntity);
+                    var result = _webCamCaptureApiService.SaveCapturedImageInSql(imageEntity);
                     _webCamCaptureLocalService.RemoveImageFromSqLite(result, image.Id);
-                    _webCamCaptureLocalService.RemoveImageFromFolder(_helper.GetFilePath(imageEntity.WebCamImagePath));
+                    _webCamCaptureLocalService.RemoveImageFromFolder(imageEntity.WebCamImagePath);
                 }
             }
         }
