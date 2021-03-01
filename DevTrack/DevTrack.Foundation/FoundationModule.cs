@@ -31,6 +31,11 @@ namespace DevTrack.Foundation
                 .WithParameter("migrationAssemblyName", _migrationAssemblyName)
                 .InstancePerLifetimeScope();
 
+            builder.RegisterType<ProjectContext>()
+                .WithParameter("connectionString", _connectionString)
+                .WithParameter("migrationAssemblyName", _migrationAssemblyName)
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<SnapshotRepository>().As<ISnapshotRepository>().InstancePerLifetimeScope();
             builder.RegisterType<SnapshotUnitOfWork>().As<ISnapshotUnitOfWork>().InstancePerLifetimeScope();
             builder.RegisterType<SnapShotService>().As<ISnapShotService>().InstancePerLifetimeScope();
@@ -53,8 +58,7 @@ namespace DevTrack.Foundation
             builder.RegisterType<RunningProgramWebRepository>().As<IRunningProgramWebRepository>().InstancePerLifetimeScope();
             builder.RegisterType<RunningProgramWebUnitOfWork>().As<IRunningProgramWebUnitOfWork>().InstancePerLifetimeScope();
 
-            builder.RegisterType<WebCamCaptureService>().As<IWebCamCaptureService>()
-                .InstancePerLifetimeScope();
+            builder.RegisterType<WebCamCaptureService>().As<IWebCamCaptureService>().InstancePerLifetimeScope();
             builder.RegisterType<WebCamCaptureRepository>().As<IWebCamCaptureRepository>().InstancePerLifetimeScope();
             builder.RegisterType<WebCamCaptureUnitOfWork>().As<IWebCamCaptureUnitOfWork>().InstancePerLifetimeScope();
 
@@ -96,7 +100,11 @@ namespace DevTrack.Foundation
             builder.RegisterType<ActiveProgramAdapter>().As<IActiveProgramAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<RunningProgramAdapter>().As<IRunningProgramAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<WebCamImageAdapter>().As<IWebCamImageAdapter>().InstancePerLifetimeScope();
-            
+
+            builder.RegisterType<ProjectRepository>().As<IProjectRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<ProjectUnitOfWork>().As<IProjectUnitOfWork>().InstancePerLifetimeScope();
+
+
             base.Load(builder);
         }
     }
