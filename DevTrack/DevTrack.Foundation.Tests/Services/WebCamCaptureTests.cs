@@ -78,7 +78,7 @@ namespace DevTrack.Foundation.Tests.Services
             var imageEntity = new WebCamCaptureImage() { WebCamImageDateTime = DateTime.Now, WebCamImagePath = ImagePath };
             (Image image, string ImagePath) obj = (image, ImagePath);
 
-            _webCamCaptureUnitOfWorkMock.Setup(x => x._webCamCaptureRepository).Returns(_webCamCaptureRepositoryMock.Object);
+            _webCamCaptureUnitOfWorkMock.Setup(x => x.WebCamCaptureRepository).Returns(_webCamCaptureRepositoryMock.Object);
             _webCamImageAdapterMock.Setup(x => x.WebCamCapture()).Returns(obj);
             _webCamCaptureRepositoryMock.Setup(x => x.Add(It.Is<WebCamCaptureImage>(y => y.WebCamImagePath == imageEntity.WebCamImagePath))).Verifiable();
             _webCamCaptureUnitOfWorkMock.Setup(x => x.Save()).Verifiable();

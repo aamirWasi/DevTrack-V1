@@ -10,3 +10,6 @@
 **/.db-wal
 /DevTrack/DevTrack.Web/appsettings.json
 /*.db
+/DevTrack/DevTrack.TrackerWorkerService/WebCamCapture
+/DevTrack/DevTrack.API/wwwroot/temp
+/DevTrack/DevTrack.API/wwwroot/images

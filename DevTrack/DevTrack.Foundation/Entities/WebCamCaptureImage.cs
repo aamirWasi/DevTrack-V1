@@ -9,6 +9,6 @@ namespace DevTrack.Foundation.Entities
 
         public string WebCamImagePath { get; set; }
 
-        public DateTime WebCamImageDateTime { get; set; }
+        public DateTimeOffset WebCamImageDateTime { get; set; }
     }
 }

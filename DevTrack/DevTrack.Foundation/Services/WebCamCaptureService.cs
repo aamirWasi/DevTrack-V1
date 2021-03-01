@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Drawing;
-using System.IO;
-using System.Threading;
-using OpenCvSharp;
-using OpenCvSharp.Extensions;
 using DevTrack.Foundation.UnitOfWorks;
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.Adapters;
@@ -14,31 +9,61 @@ namespace DevTrack.Foundation.Services
     {
         private readonly IWebCamCaptureUnitOfWork _WebCamCaptureUnitOfWork;
         private readonly IWebCamImageAdapter _webCamImageAdapter;
+        private readonly IWebCamCaptureApiService _webCamCaptureApiService;
+        private readonly IWebCamCaptureLocalService _webCamCaptureLocalService;
+        private readonly IHelper _helper;
 
-        public WebCamCaptureService(IWebCamCaptureUnitOfWork webCamCaptureUnitOfWork, IWebCamImageAdapter webCamImageAdapter)
+        public WebCamCaptureService(IWebCamCaptureUnitOfWork webCamCaptureUnitOfWork, 
+                                    IWebCamImageAdapter webCamImageAdapter, 
+                                    IWebCamCaptureApiService webCamCaptureApiService,
+                                    IWebCamCaptureLocalService webCamCaptureLocalService,
+                                    IHelper helper)
         {
             _WebCamCaptureUnitOfWork = webCamCaptureUnitOfWork;
             _webCamImageAdapter = webCamImageAdapter;
+            _webCamCaptureApiService = webCamCaptureApiService;
+            _webCamCaptureLocalService = webCamCaptureLocalService;
+            _helper = helper;
         }
 
         public void WebCamCaptureImageSave()
         {
-            var WebCamAdapterObject = _webCamImageAdapter.WebCamCapture();
+            var webCamAdapterObject = _webCamImageAdapter.WebCamCapture();
 
-            var img = WebCamAdapterObject.image;
+            var img = webCamAdapterObject.image;
 
             if(img == null)
                 throw new InvalidOperationException("Image information is missing");
 
             var WebImageEntity = new WebCamCaptureImage
             {
-                WebCamImagePath = WebCamAdapterObject.path,
-                WebCamImageDateTime = DateTime.Now
+                WebCamImagePath = webCamAdapterObject.path,
+                WebCamImageDateTime = DateTimeOffset.Now
             };
 
-            _WebCamCaptureUnitOfWork._webCamCaptureRepository.Add(WebImageEntity);
+            _WebCamCaptureUnitOfWork.WebCamCaptureRepository.Add(WebImageEntity);
             _WebCamCaptureUnitOfWork.Save();
         }
- 
+
+        public void SyncWebCamImages()
+        {
+            var images = _WebCamCaptureUnitOfWork.WebCamCaptureRepository.GetAll();
+            if (images.Count > 0)
+            {
+                foreach (var image in images)
+                {
+                    var imageEntity = new WebCamCaptureImage
+                    {
+                        WebCamImageDateTime = image.WebCamImageDateTime,
+                        WebCamImagePath = image.WebCamImagePath
+                    };
+
+                    var result = _webCamCaptureApiService.SaveCapturedImageInSql(imageEntity);
+                    _webCamCaptureLocalService.RemoveImageFromSqLite(result, image.Id);
+                    _webCamCaptureLocalService.RemoveImageFromFolder(imageEntity.WebCamImagePath);
+                }
+            }
+        }
+
     }
 }
