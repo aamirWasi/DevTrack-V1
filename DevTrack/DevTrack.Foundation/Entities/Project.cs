@@ -12,5 +12,6 @@ namespace DevTrack.Foundation.Entities
         public ApplicationUser User { get; set; }
         public bool IsAdmin { get; set; }
         public Settings Settings { get; set; }
+        public TeamMember TeamMember { get; set; }
     }
 }
