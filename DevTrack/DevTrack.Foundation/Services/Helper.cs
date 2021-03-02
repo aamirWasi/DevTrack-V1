@@ -11,5 +11,10 @@ namespace DevTrack.Foundation.Services
             const string imageDirectory = "ScreenShotReceiver";
             return Path.Combine(path, imageDirectory, filePath);
         }
+
+        public void RemoveFileFromDirectory(string path)
+        {
+            File.Delete(path);
+        }
     }
 }

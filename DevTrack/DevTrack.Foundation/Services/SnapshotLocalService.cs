@@ -5,11 +5,13 @@ namespace DevTrack.Foundation.Services
 {
     public class SnapshotLocalService : ISnapshotLocalService
     {
-        private ISnapshotUnitOfWork _snapshotUnitOfWork;
+        private readonly ISnapshotUnitOfWork _snapshotUnitOfWork;
+        private readonly IHelper _helper;
 
-        public SnapshotLocalService(ISnapshotUnitOfWork snapshotUnitOfWork)
+        public SnapshotLocalService(ISnapshotUnitOfWork snapshotUnitOfWork, IHelper helper)
         {
             _snapshotUnitOfWork = snapshotUnitOfWork;
+            _helper = helper;
         }
 
         public void RemoveImageFromSqLite(string returnResult, int id)
@@ -24,7 +26,7 @@ namespace DevTrack.Foundation.Services
 
         public void RemoveImageFromFolder(string path)
         {
-            File.Delete(path);
+            _helper.RemoveFileFromDirectory(path);
         }
     }
 }
