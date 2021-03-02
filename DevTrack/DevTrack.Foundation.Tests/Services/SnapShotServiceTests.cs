@@ -99,5 +99,24 @@ namespace DevTrack.Foundation.Tests.Services
                 , () => _snapshotRepositoryMock.VerifyAll()
                 );
         }
+
+        [Test]
+        public void SyncSnapShotImages_NoSnapshotImageProvided_ReturnNull()
+        {
+            //arrange
+            IList<SnapshotImage> actualImages = null;
+            _snapshotUnitOfWorkMock.Setup(x => x.SnapshotRepository).Returns(_snapshotRepositoryMock.Object);
+            _snapshotRepositoryMock.Setup(x => x.GetAll()).Returns(actualImages).Verifiable();
+
+            //act
+            _snapshotService.SyncSnapShotImages();
+            actualImages.ShouldBeNull("No Image is found");
+
+            //assert
+            this.ShouldSatisfyAllConditions(
+                () => _snapshotUnitOfWorkMock.VerifyAll()
+                , () => _snapshotRepositoryMock.VerifyAll()
+                );
+        }
     }
 }
