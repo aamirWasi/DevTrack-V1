@@ -12,7 +12,7 @@ namespace DevTrack.Foundation.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime CreateDate { get; set; }
-        public ApplicationUser User { get; set; }
+        //public ApplicationUser User { get; set; }
         public bool IsAdmin { get; set; }
         public List<TeamMember> TeamMembers { get; set; }
         public Settings Settings { get; set; }

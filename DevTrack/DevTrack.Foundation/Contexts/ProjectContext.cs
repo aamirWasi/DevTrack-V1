@@ -10,6 +10,8 @@ namespace DevTrack.Foundation.Contexts
     public class ProjectContext : DbContext, IProjectContext
     {
         public DbSet<Project> Project { get; set; }
+        public DbSet<TeamMember> TeamMembers { get; set; }
+        public DbSet<Settings> Settings { get; set; }
 
         private readonly string _connectionString;
         private readonly string _migrationAssemblyName;
