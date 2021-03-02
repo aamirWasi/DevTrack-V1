@@ -31,7 +31,7 @@ namespace DevTrack.Foundation
                 .WithParameter("migrationAssemblyName", _migrationAssemblyName)
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<ProjectContext>()
+            builder.RegisterType<DevTrackProjectContext>()
                 .WithParameter("connectionString", _connectionString)
                 .WithParameter("migrationAssemblyName", _migrationAssemblyName)
                 .InstancePerLifetimeScope();

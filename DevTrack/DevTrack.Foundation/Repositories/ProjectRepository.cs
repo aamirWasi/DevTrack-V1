@@ -7,9 +7,9 @@ using System.Text;
 
 namespace DevTrack.Foundation.Repositories
 {
-    public class ProjectRepository : Repository<Project, int, ProjectContext>, IProjectRepository
+    public class ProjectRepository : Repository<Project, int, DevTrackProjectContext>, IProjectRepository
     {
-        public ProjectRepository(ProjectContext projectContext) : base(projectContext)
+        public ProjectRepository(DevTrackProjectContext projectContext) : base(projectContext)
         {
 
         }

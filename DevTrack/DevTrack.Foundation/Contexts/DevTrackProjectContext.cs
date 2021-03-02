@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DevTrack.Foundation.Contexts
 {
-    public class ProjectContext : DbContext, IProjectContext
+    public class DevTrackProjectContext : DbContext, IDevTrackProjectContext
     {
         public DbSet<Project> Project { get; set; }
         public DbSet<TeamMember> TeamMembers { get; set; }
@@ -16,7 +16,7 @@ namespace DevTrack.Foundation.Contexts
         private readonly string _connectionString;
         private readonly string _migrationAssemblyName;
 
-        public ProjectContext(string connectionString, string migrationAssemblyName)
+        public DevTrackProjectContext(string connectionString, string migrationAssemblyName)
         {
             _connectionString = connectionString;
             _migrationAssemblyName = migrationAssemblyName;

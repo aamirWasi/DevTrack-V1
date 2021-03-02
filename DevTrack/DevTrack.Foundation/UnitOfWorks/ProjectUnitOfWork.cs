@@ -11,7 +11,7 @@ namespace DevTrack.Foundation.UnitOfWorks
     {
         public IProjectRepository projectRepository { get; set; }
 
-        public ProjectUnitOfWork(ProjectContext projectContext, IProjectRepository _projectRepository) : base(projectContext)
+        public ProjectUnitOfWork(DevTrackProjectContext projectContext, IProjectRepository _projectRepository) : base(projectContext)
         {
             projectRepository = _projectRepository;
         }
