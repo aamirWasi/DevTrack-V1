@@ -21,11 +21,6 @@ namespace DevTrack.Foundation.Services
             }
             else
             {
-                //var imageEntity = new EO.SnapshotImage
-                //{
-                //    FilePath = image.FilePath,
-                //    CaptureTime = image.CaptureTime
-                //};
                 _snapshotWebUnitOfWork.SnapshotWebRepository.Add(image);
                 _snapshotWebUnitOfWork.Save();
             }

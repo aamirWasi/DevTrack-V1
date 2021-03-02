@@ -17,6 +17,7 @@ namespace DevTrack.Foundation.Tests.Services
 {
     public class SnapShotServiceTests
     {
+        #region MockObjects
         private AutoMock _mock;
         private Mock<ISnapshotUnitOfWork> _snapshotUnitOfWorkMock;
         private Mock<ISnapshotRepository> _snapshotRepositoryMock;
@@ -26,6 +27,7 @@ namespace DevTrack.Foundation.Tests.Services
         private Mock<ISnapshotApiService> _snapshotApiServiceMock;
         private Mock<ISnapshotLocalService> _snapshotLocalServiceMock;
         private Mock<IHelper> _helperMock;
+        #endregion
 
         [OneTimeSetUp]
         public void ClassTestUp()
@@ -79,7 +81,7 @@ namespace DevTrack.Foundation.Tests.Services
             //assert
             this.ShouldSatisfyAllConditions(
                 () => _bitMapAdapterMock.VerifyAll()
-                ,() => _adpaterMock.VerifyAll()
+                , () => _adpaterMock.VerifyAll()
                 );
         }
 
@@ -103,7 +105,7 @@ namespace DevTrack.Foundation.Tests.Services
             //assert
             this.ShouldSatisfyAllConditions(
                 () => _bitMapAdapterMock.VerifyAll()
-                ,() => _adpaterMock.VerifyAll()
+                , () => _adpaterMock.VerifyAll()
                 , () => _snapshotUnitOfWorkMock.VerifyAll()
                 , () => _snapshotRepositoryMock.VerifyAll()
                 );
@@ -137,7 +139,7 @@ namespace DevTrack.Foundation.Tests.Services
             var imageEntity = new SnapshotImage { Id = 1, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
             var imageEntity2 = new SnapshotImage { Id = 1, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
             var actualImages = new List<SnapshotImage> { imageEntity, imageEntity2 };
-            var expectedImages = new List<SnapshotImage> { imageEntity,imageEntity2 };
+            var expectedImages = new List<SnapshotImage> { imageEntity, imageEntity2 };
             _snapshotUnitOfWorkMock.Setup(x => x.SnapshotRepository).Returns(_snapshotRepositoryMock.Object);
             _snapshotRepositoryMock.Setup(x => x.GetAll()).Returns(actualImages).Verifiable();
             _snapshotApiServiceMock.Setup(x => x.SaveSnapshotInSql(It.Is<SnapshotImage>(y => y.FilePath == imageEntity.FilePath))).Returns(result);
