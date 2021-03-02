@@ -129,7 +129,7 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
-        public void SyncSnapShotImages_SnapshotProvided_ReturnEqualCount()
+        public void SyncSnapShotImages_SnapshotProvided_ReturnTrueForEqualCount()
         {
             //arrange
             const string filePath = @"D:/test";
@@ -138,6 +138,36 @@ namespace DevTrack.Foundation.Tests.Services
             var imageEntity2 = new SnapshotImage { Id = 1, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
             var actualImages = new List<SnapshotImage> { imageEntity, imageEntity2 };
             var expectedImages = new List<SnapshotImage> { imageEntity,imageEntity2 };
+            _snapshotUnitOfWorkMock.Setup(x => x.SnapshotRepository).Returns(_snapshotRepositoryMock.Object);
+            _snapshotRepositoryMock.Setup(x => x.GetAll()).Returns(actualImages).Verifiable();
+            _snapshotApiServiceMock.Setup(x => x.SaveSnapshotInSql(It.Is<SnapshotImage>(y => y.FilePath == imageEntity.FilePath))).Returns(result);
+            _snapshotLocalServiceMock.Setup(x => x.RemoveImageFromSqLite(result, imageEntity.Id)).Verifiable();
+            _helperMock.Setup(x => x.GetFilePath(filePath)).Returns(imageEntity.FilePath);
+            _snapshotLocalServiceMock.Setup(x => x.RemoveImageFromFolder(filePath)).Verifiable();
+
+            //act
+            _snapshotService.SyncSnapShotImages();
+            actualImages.ShouldBe(expectedImages, "Actual & expected images both are equal");
+
+            //assert
+            this.ShouldSatisfyAllConditions(
+                () => _snapshotUnitOfWorkMock.VerifyAll()
+                , () => _snapshotRepositoryMock.VerifyAll()
+                , () => _snapshotApiServiceMock.VerifyAll()
+                , () => _snapshotLocalServiceMock.VerifyAll()
+                );
+        }
+
+        [Test]
+        public void SyncSnapShotImages_SnapshotsProvided_SaveInSqlAndRemoveFromBothSqLiteAndDirectory()
+        {
+            //arrange
+            const string filePath = @"D:/test";
+            const string result = "true";
+            var imageEntity = new SnapshotImage { Id = 1, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
+            var imageEntity2 = new SnapshotImage { Id = 2, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
+            var actualImages = new List<SnapshotImage> { imageEntity, imageEntity2 };
+            var expectedImages = new List<SnapshotImage> { imageEntity, imageEntity2 };
             _snapshotUnitOfWorkMock.Setup(x => x.SnapshotRepository).Returns(_snapshotRepositoryMock.Object);
             _snapshotRepositoryMock.Setup(x => x.GetAll()).Returns(actualImages).Verifiable();
             _snapshotApiServiceMock.Setup(x => x.SaveSnapshotInSql(It.Is<SnapshotImage>(y => y.FilePath == imageEntity.FilePath))).Returns(result);
