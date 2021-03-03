@@ -4,6 +4,7 @@ using DevTrack.Foundation.UnitOfWorks;
 using DevTrack.Membership.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace DevTrack.Web.Areas.Admin.Models
     public class ProjectCreateModel
     {
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
         //public ApplicationUser User { get; set; }
         public bool IsAdmin { get; set; }
@@ -33,7 +35,7 @@ namespace DevTrack.Web.Areas.Admin.Models
             {
                 Name = Name,
                 CreateDate = DateTime.Now,
-                IsAdmin = true                
+                IsAdmin = IsAdmin                
             };
 
             ProjectEntity.Settings = new Settings

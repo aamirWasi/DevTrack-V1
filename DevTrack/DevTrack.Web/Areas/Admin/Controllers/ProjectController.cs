@@ -35,7 +35,9 @@ namespace DevTrack.Web.Areas.Admin.Controllers
         public ActionResult AddProject(ProjectCreateModel model)
         {
             var NewModel = Startup.AutofacContainer.Resolve<ProjectCreateModel>();
-            
+
+            model.CreateProject();
+
             return View();
             
         }
