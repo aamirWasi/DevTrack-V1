@@ -4,17 +4,18 @@ using System.Text;
 using EO = DevTrack.Foundation.Entities;
 using BO = DevTrack.Foundation.BusinessObjects;
 using DevTrack.Foundation.UnitOfWorks;
+using System.Linq;
 
 namespace DevTrack.Foundation.Services
 {
     public class ProjectService : IProjectService
     {
-        private readonly ProjectUnitOfWork _projectUnitOfWork;
+        private readonly IProjectUnitOfWork _projectUnitOfWork;
 
         public ProjectService()
-        { }
+        {}
 
-        public ProjectService(ProjectUnitOfWork projectUnitOfWork)
+        public ProjectService(IProjectUnitOfWork projectUnitOfWork)
         {
             _projectUnitOfWork = projectUnitOfWork;
         }
@@ -40,7 +41,7 @@ namespace DevTrack.Foundation.Services
             };
 
             _projectUnitOfWork.projectRepository.Add(projectEntity);
-            //_projectUnitOfWork.Save();
+            _projectUnitOfWork.Save();
         }
 
         public void EditProject(BO.Project project)
@@ -50,12 +51,23 @@ namespace DevTrack.Foundation.Services
 
         public void DeleteProject(int id)
         {
+            var project = _projectUnitOfWork.projectRepository.Get(x => x.Id == id, "Settings").FirstOrDefault();
 
+            _projectUnitOfWork.projectRepository.Remove(project);
+            _projectUnitOfWork.Save();
         }
 
-        public void GetAllProject()
+        public IList<BO.Project> GetProjectList()
         {
+            var ProjectList = _projectUnitOfWork.projectRepository.GetAll();
+            return BO.Project.ConvertToProjectList(ProjectList);
+        }
 
+        public BO.Project GetProject(int id)
+        {
+            var projectEntity = _projectUnitOfWork.projectRepository.Get(x => x.Id == id, orderBy: null, "Settings", true).FirstOrDefault();
+
+            return BO.Project.ConvertToSelf(projectEntity);
         }
     }
 }
