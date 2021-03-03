@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using DevTrack.Foundation.Adapters;
+using DevTrack.Foundation.BusinessObjects;
 using DevTrack.Foundation.Contexts;
 using DevTrack.Foundation.Repositories;
 using DevTrack.Foundation.Services;
@@ -103,7 +104,7 @@ namespace DevTrack.Foundation
 
             builder.RegisterType<ProjectRepository>().As<IProjectRepository>().InstancePerLifetimeScope();
             builder.RegisterType<ProjectUnitOfWork>().As<IProjectUnitOfWork>().InstancePerLifetimeScope();
-
+            builder.RegisterType<ProjectService>().As<IProjectService>().InstancePerLifetimeScope();
 
             base.Load(builder);
         }
