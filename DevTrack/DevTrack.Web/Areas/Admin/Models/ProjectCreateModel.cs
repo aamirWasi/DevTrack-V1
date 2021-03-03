@@ -19,7 +19,8 @@ namespace DevTrack.Web.Areas.Admin.Models
         //public ApplicationUser User { get; set; }
         public bool IsAdmin { get; set; }
         public DateTime CreationTime = DateTime.Now;
-        public BO.Settings Settings { get; set; }
+        public BO.Settings Setting { get; set; }
+        public IList<BO.Project> ProjectList { get; set; }
 
         private readonly IProjectService _projectService;
 
@@ -34,37 +35,46 @@ namespace DevTrack.Web.Areas.Admin.Models
             _projectService.CreateProject(project);
         }
 
+        public void EditProject()
+        {
+            var project = ConvertToProjectBO();
+            _projectService.EditProject(project);
+        }
 
-        //public void CreateProject()
-        //{
-        //    var ProjectEntity = new EO.Project
-        //    {
-        //        Name = Name,
-        //        CreateDate = DateTime.Now,
-        //        IsAdmin = IsAdmin                
-        //    };
+        public void DeleteProject(int id)
+        {
+            _projectService.DeleteProject(id);
+        }
 
-        //    ProjectEntity.Settings = new EO.Settings
-        //    {
-        //        AllowTracking = Settings.AllowTracking,
-        //        TrackActiveProgram = Settings.TrackActiveProgram,
-        //        TakeScreenShot = Settings.TakeScreenShot,
-        //        TrackKeyboardHits = Settings.TrackKeyboardHits,
-        //        TrackMouseHits = Settings.TrackMouseHits,
-        //        TrackRunningProgram = Settings.TrackRunningProgram,
-        //        WebCamCapture = Settings.WebCamCapture
-        //    };
+        public void GetProjectList()
+        {
+            ProjectList = _projectService.GetProjectList();
+        }
 
-        //    //ProjectEntity.User = new ApplicationUser
-        //    //{
-        //    //    FullName = User.FullName,
-        //    //    ImageUrl = User.ImageUrl
-        //    //};
+        public void GetProject(int id)
+        {
+            Id = id;
+            var tempProject = _projectService.GetProject(id);
 
+            if(tempProject != null)
+            {
+                Name = tempProject.Name;
+                IsAdmin = tempProject.IsAdmin;
+                CreationTime = tempProject.CreationTime;
 
-        //    //_projectUnitOfWork.projectRepository.Add(ProjectEntity);
-        //    //_projectUnitOfWork.Save();
-        //}
+                Setting = new BO.Settings();
+
+                Setting.Id = tempProject.Settings.Id;
+                Setting.AllowTracking = tempProject.Settings.AllowTracking;
+                Setting.TrackActiveProgram = tempProject.Settings.TrackActiveProgram;
+                Setting.TakeScreenShot = tempProject.Settings.TakeScreenShot;
+                Setting.TrackKeyboardHits = tempProject.Settings.TrackKeyboardHits;
+                Setting.TrackMouseHits = tempProject.Settings.TrackMouseHits;
+                Setting.TrackRunningProgram = tempProject.Settings.TrackRunningProgram;
+                Setting.WebCamCapture = tempProject.Settings.TrackRunningProgram;
+            }
+
+        }
 
         private BO.Project ConvertToProjectBO()
         {
@@ -77,13 +87,13 @@ namespace DevTrack.Web.Areas.Admin.Models
 
             ProductBO.Settings = new Settings
             {
-                AllowTracking = Settings.AllowTracking,
-                TrackActiveProgram = Settings.TrackActiveProgram,
-                TakeScreenShot = Settings.TakeScreenShot,
-                TrackKeyboardHits = Settings.TrackKeyboardHits,
-                TrackMouseHits = Settings.TrackMouseHits,
-                TrackRunningProgram = Settings.TrackRunningProgram,
-                WebCamCapture = Settings.WebCamCapture
+                AllowTracking = Setting.AllowTracking,
+                TrackActiveProgram = Setting.TrackActiveProgram,
+                TakeScreenShot = Setting.TakeScreenShot,
+                TrackKeyboardHits = Setting.TrackKeyboardHits,
+                TrackMouseHits = Setting.TrackMouseHits,
+                TrackRunningProgram = Setting.TrackRunningProgram,
+                WebCamCapture = Setting.WebCamCapture
             };
 
             return ProductBO;

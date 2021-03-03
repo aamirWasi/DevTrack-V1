@@ -15,7 +15,10 @@ namespace DevTrack.Web.Areas.Admin.Controllers
         // GET: ProjectController
         public ActionResult Index()
         {
-            return View();
+            var model = Startup.AutofacContainer.Resolve<ProjectCreateModel>();
+            model.GetProjectList();
+
+            return View(model);
         }
 
         public ActionResult AddProject()
@@ -28,8 +31,11 @@ namespace DevTrack.Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddProject(ProjectCreateModel model)
         {
-            model.CreateProject();
-
+            if (ModelState.IsValid)
+            {
+                model.CreateProject();
+                return RedirectToAction("Index");
+            }
             return View();
         }
 
@@ -54,25 +60,30 @@ namespace DevTrack.Web.Areas.Admin.Controllers
             }
         }
 
-        // GET: ProjectController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var model = Startup.AutofacContainer.Resolve<ProjectCreateModel>();
+            model.GetProject(id);
+
+            return View(model);
         }
 
-        // POST: ProjectController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(ProjectCreateModel model)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var id = model.Id;
+            model.DeleteProject(id);
+            
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Details(int id)
+        {
+            var model = Startup.AutofacContainer.Resolve<ProjectCreateModel>();
+            model.GetProject(id);
+
+            return View(model);
         }
     }
 }

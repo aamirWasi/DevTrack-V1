@@ -64,6 +64,9 @@ namespace DevTrack.Web
             services.AddDbContext<DevTrackWebContext>(options =>
                 options.UseSqlServer(connectionString, b => b.MigrationsAssembly(migrationAssemblyName)));
 
+            services.AddDbContext<DevTrackProjectContext>(options =>
+                options.UseSqlServer(connectionString, b => b.MigrationsAssembly(migrationAssemblyName)));
+
             // Identity customization started here
             services
                 .AddIdentity<ApplicationUser, ApplicationRole>()
