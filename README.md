@@ -8,6 +8,9 @@
 
 ## SqlServer Update Database Command
 - `dotnet ef database update --project DevTrack.Web --context DevTrackWebContext`
+- `dotnet ef database update --project DevTrack.Web --context DevTrackProjectContext`
+
+
 
 
 ### Before Run Project, Make sure
