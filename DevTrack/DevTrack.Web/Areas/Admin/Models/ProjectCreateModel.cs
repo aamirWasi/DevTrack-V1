@@ -80,6 +80,7 @@ namespace DevTrack.Web.Areas.Admin.Models
         {
             var ProductBO = new BO.Project
             {
+                Id = Id,
                 Name = Name,
                 CreationTime = CreationTime,
                 IsAdmin = IsAdmin

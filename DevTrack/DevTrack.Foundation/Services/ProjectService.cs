@@ -46,7 +46,24 @@ namespace DevTrack.Foundation.Services
 
         public void EditProject(BO.Project project)
         {
+            var projectEntity = _projectUnitOfWork.projectRepository.Get(x => x.Id == project.Id, orderBy: null, "Settings", true).FirstOrDefault();
 
+            projectEntity.Name = project.Name;
+            projectEntity.IsAdmin = project.IsAdmin;
+
+            projectEntity.Settings = new EO.Settings
+            {
+                Id = project.Settings.Id,
+                AllowTracking = project.Settings.AllowTracking,
+                TrackActiveProgram = project.Settings.TrackActiveProgram,
+                TakeScreenShot = project.Settings.TakeScreenShot,
+                TrackKeyboardHits = project.Settings.TrackKeyboardHits,
+                TrackMouseHits = project.Settings.TrackMouseHits,
+                TrackRunningProgram = project.Settings.TrackRunningProgram,
+                WebCamCapture = project.Settings.WebCamCapture
+            };
+
+            _projectUnitOfWork.Save();
         }
 
         public void DeleteProject(int id)

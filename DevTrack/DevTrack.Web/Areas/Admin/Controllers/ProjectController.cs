@@ -42,22 +42,24 @@ namespace DevTrack.Web.Areas.Admin.Controllers
         // GET: ProjectController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var model = Startup.AutofacContainer.Resolve<ProjectCreateModel>();
+            model.GetProject(id);
+
+            return View(model);
         }
 
         // POST: ProjectController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(ProjectCreateModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                model.EditProject();
+                return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int id)
