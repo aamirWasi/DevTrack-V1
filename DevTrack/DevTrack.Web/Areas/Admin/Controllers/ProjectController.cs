@@ -18,12 +18,6 @@ namespace DevTrack.Web.Areas.Admin.Controllers
             return View();
         }
 
-        // GET: ProjectController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         public ActionResult AddProject()
         {
             return View();
@@ -34,12 +28,9 @@ namespace DevTrack.Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddProject(ProjectCreateModel model)
         {
-            var NewModel = Startup.AutofacContainer.Resolve<ProjectCreateModel>();
-
             model.CreateProject();
 
             return View();
-            
         }
 
         // GET: ProjectController/Edit/5
