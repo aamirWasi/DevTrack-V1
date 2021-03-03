@@ -848,7 +848,7 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            @RenderBody();
+            @RenderBody()
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
@@ -900,5 +900,8 @@
     <script src="/Admin/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="/Admin/js/pages/dashboard.js"></script>
+
+    @RenderSection("Scripts", required: false)
+
 </body>
 </html>

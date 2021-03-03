@@ -24,8 +24,7 @@ namespace DevTrack.Web.Areas.Admin.Controllers
             return View();
         }
 
-        // GET: ProjectController/Create
-        public ActionResult Create()
+        public ActionResult AddProject()
         {
             return View();
         }
@@ -33,11 +32,11 @@ namespace DevTrack.Web.Areas.Admin.Controllers
         // POST: ProjectController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult AddProject(ProjectCreateModel model)
         {
             var NewModel = Startup.AutofacContainer.Resolve<ProjectCreateModel>();
             
-            return View(NewModel);
+            return View();
             
         }
 

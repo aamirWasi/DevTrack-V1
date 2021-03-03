@@ -1,20 +1,15 @@
 ﻿using DevTrack.Foundation.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DevTrack.Foundation.Contexts
 {
-    public class DevTrackProjectContext : DbContext, IDevTrackProjectContext
+    public class DevTrackProjectContext : DbContext
     {
-        public DbSet<Project> Project { get; set; }
-        public DbSet<TeamMember> TeamMembers { get; set; }
-        public DbSet<Settings> Settings { get; set; }
-
-        private readonly string _connectionString;
-        private readonly string _migrationAssemblyName;
+        private string _connectionString;
+        private string _migrationAssemblyName;
 
         public DevTrackProjectContext(string connectionString, string migrationAssemblyName)
         {
@@ -38,6 +33,10 @@ namespace DevTrack.Foundation.Contexts
         {
             base.OnModelCreating(modelBuilder);
         }
+
+        public DbSet<Project> Project { get; set; }
+        //public DbSet<TeamMember> TeamMembers { get; set; }
+        public DbSet<Settings> Settings { get; set; }
 
     }
 }
