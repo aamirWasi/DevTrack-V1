@@ -12,7 +12,6 @@ namespace DevTrack.Web.Areas.Admin.Controllers
     [Area("Admin")]
     public class ProjectController : Controller
     {
-        // GET: ProjectController
         public ActionResult Index()
         {
             var model = Startup.AutofacContainer.Resolve<ProjectCreateModel>();
@@ -26,7 +25,6 @@ namespace DevTrack.Web.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: ProjectController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddProject(ProjectCreateModel model)
@@ -39,7 +37,6 @@ namespace DevTrack.Web.Areas.Admin.Controllers
             return View();
         }
 
-        // GET: ProjectController/Edit/5
         public ActionResult Edit(int id)
         {
             var model = Startup.AutofacContainer.Resolve<ProjectCreateModel>();
@@ -48,7 +45,6 @@ namespace DevTrack.Web.Areas.Admin.Controllers
             return View(model);
         }
 
-        // POST: ProjectController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ProjectCreateModel model)

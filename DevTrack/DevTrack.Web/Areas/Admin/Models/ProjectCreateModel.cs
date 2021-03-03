@@ -88,6 +88,7 @@ namespace DevTrack.Web.Areas.Admin.Models
 
             ProductBO.Settings = new Settings
             {
+                Id = Setting.Id,
                 AllowTracking = Setting.AllowTracking,
                 TrackActiveProgram = Setting.TrackActiveProgram,
                 TakeScreenShot = Setting.TakeScreenShot,
