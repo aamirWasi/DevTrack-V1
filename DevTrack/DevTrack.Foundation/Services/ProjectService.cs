@@ -51,18 +51,6 @@ namespace DevTrack.Foundation.Services
             projectEntity.Name = project.Name;
             projectEntity.IsAdmin = project.IsAdmin;
 
-            //projectEntity.Settings = new EO.Settings
-            //{
-            //    //Id = project.Settings.Id,
-            //    AllowTracking = project.Settings.AllowTracking,
-            //    TrackActiveProgram = project.Settings.TrackActiveProgram,
-            //    TakeScreenShot = project.Settings.TakeScreenShot,
-            //    TrackKeyboardHits = project.Settings.TrackKeyboardHits,
-            //    TrackMouseHits = project.Settings.TrackMouseHits,
-            //    TrackRunningProgram = project.Settings.TrackRunningProgram,
-            //    WebCamCapture = project.Settings.WebCamCapture
-            //};
-
             projectEntity.Settings.AllowTracking = project.Settings.AllowTracking;
             projectEntity.Settings.TakeScreenShot = project.Settings.TakeScreenShot;
             projectEntity.Settings.WebCamCapture = project.Settings.WebCamCapture;
