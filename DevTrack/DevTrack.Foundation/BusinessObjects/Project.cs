@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using EO = DevTrack.Foundation.Entities;
 using BO = DevTrack.Foundation.BusinessObjects;
+using DevTrack.Membership.Entities;
 
 namespace DevTrack.Foundation.BusinessObjects
 {
@@ -10,11 +11,12 @@ namespace DevTrack.Foundation.BusinessObjects
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        //public ApplicationUser User { get; set; }
+        public ApplicationUser User { get; set; }
         public bool IsAdmin { get; set; }
-        public DateTime CreationTime;
+        public DateTime CreationTime { get; set; }
         public BO.Settings Settings { get; set; }
         static IList<BO.Project> ProjectList { get; set; }
+        public Guid UserId { get; set; }
 
         public static Project ConvertToSelf(EO.Project project)
         {

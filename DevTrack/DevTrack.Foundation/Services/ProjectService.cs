@@ -26,7 +26,8 @@ namespace DevTrack.Foundation.Services
             {
                 Name = project.Name,
                 CreateDate = project.CreationTime,
-                IsAdmin = project.IsAdmin
+                IsAdmin = project.IsAdmin,
+                UserId = project.UserId
             };
 
             projectEntity.Settings = new EO.Settings

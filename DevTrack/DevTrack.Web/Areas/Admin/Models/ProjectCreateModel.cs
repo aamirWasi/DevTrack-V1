@@ -18,9 +18,10 @@ namespace DevTrack.Web.Areas.Admin.Models
         public string Name { get; set; }
         //public ApplicationUser User { get; set; }
         public bool IsAdmin { get; set; }
-        public DateTime CreationTime = DateTime.Now;
+        public DateTime CreationTime { get; set; } = DateTime.Now;
         public BO.Settings Setting { get; set; }
         public IList<BO.Project> ProjectList { get; set; }
+        public Guid UserId { get; set; }
 
         private readonly IProjectService _projectService;
 
@@ -83,7 +84,8 @@ namespace DevTrack.Web.Areas.Admin.Models
                 Id = Id,
                 Name = Name,
                 CreationTime = CreationTime,
-                IsAdmin = IsAdmin
+                IsAdmin = IsAdmin,
+                UserId = UserId
             };
 
             ProductBO.Settings = new Settings
