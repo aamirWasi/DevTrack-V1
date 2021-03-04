@@ -64,9 +64,9 @@ namespace DevTrack.Foundation.Services
             //};
 
             projectEntity.Settings.AllowTracking = project.Settings.AllowTracking;
-            projectEntity.Settings.TakeScreenShot = project.Settings.TrackRunningProgram;
-            projectEntity.Settings.WebCamCapture = project.Settings.TrackRunningProgram;
-            projectEntity.Settings.TrackActiveProgram = project.Settings.TrackRunningProgram;
+            projectEntity.Settings.TakeScreenShot = project.Settings.TakeScreenShot;
+            projectEntity.Settings.WebCamCapture = project.Settings.WebCamCapture;
+            projectEntity.Settings.TrackActiveProgram = project.Settings.TrackActiveProgram;
             projectEntity.Settings.TrackRunningProgram = project.Settings.TrackRunningProgram;
             projectEntity.Settings.TrackKeyboardHits = project.Settings.TrackKeyboardHits;
             projectEntity.Settings.TrackMouseHits = project.Settings.TrackMouseHits;

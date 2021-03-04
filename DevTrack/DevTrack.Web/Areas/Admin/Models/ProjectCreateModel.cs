@@ -71,7 +71,7 @@ namespace DevTrack.Web.Areas.Admin.Models
                 Setting.TrackKeyboardHits = tempProject.Settings.TrackKeyboardHits;
                 Setting.TrackMouseHits = tempProject.Settings.TrackMouseHits;
                 Setting.TrackRunningProgram = tempProject.Settings.TrackRunningProgram;
-                Setting.WebCamCapture = tempProject.Settings.TrackRunningProgram;
+                Setting.WebCamCapture = tempProject.Settings.WebCamCapture;
             }
 
         }
