@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="/Admin/plugins/summernote/summernote-bs4.min.css">
+
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -47,8 +49,12 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
                 </li>
-                <a class="nav-link btn btn-success text-white m-2" asp-area="Admin" asp-controller="Project" asp-action="Index">All Project</a>
-                <a class="nav-link btn btn-success text-white" asp-area="Admin" asp-controller="Project" asp-action="AddProject">Add Project</a>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a class="nav-link btn btn-outline-primary m-2" asp-area="Admin" asp-controller="Project" asp-action="Index">All Project</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a class="nav-link btn btn-success text-white" asp-area="Admin" asp-controller="Project" asp-action="AddProject">Add Project</a>
+                </li>
             </ul>
 
             <!-- Right navbar links -->
