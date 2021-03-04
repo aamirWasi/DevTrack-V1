@@ -16,6 +16,10 @@ namespace DevTrack.Foundation.Tests.Services
 {
     public class SnapshotLocalServiceTests
     {
+        private const string filePath = @"D:/test";
+        SnapshotImage actualImage = new SnapshotImage { Id=1,CaptureTime = DateTimeOffset.Now, FilePath = filePath };
+        SnapshotImage expectedImage = new SnapshotImage { Id = 2, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
+
         #region MockObjects
         private AutoMock _mock;
         private Mock<ISnapshotUnitOfWork> _snapshotUnitOfWorkMock;
@@ -57,8 +61,6 @@ namespace DevTrack.Foundation.Tests.Services
         public void RemoveImageFromSqLite_ResponseIsFalse_NoImageRemoveFromSqlite()
         {
             //arrange
-            const string filePath = @"D:/test";
-            var actualImage = new SnapshotImage { Id = 1, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
             var result = "false";
 
             //act
@@ -66,17 +68,15 @@ namespace DevTrack.Foundation.Tests.Services
 
             //assert
             result.ShouldNotBe("true");
+            result.ShouldBe("false");
         }
 
         [Test]
         public void RemoveImageFromSqLite_ResponseIsTrue_RemoveImageFromSqlite()
         {
             //arrange
-            const string filePath = @"D:/test";
             var result = "true";
-            var actualImage = new SnapshotImage { CaptureTime = DateTimeOffset.Now, FilePath = filePath };
-            var expectedImage = new SnapshotImage { CaptureTime = DateTimeOffset.Now, FilePath = filePath };
-
+            
             _snapshotUnitOfWorkMock.Setup(x => x.SnapshotRepository).Returns(_snapshotRepositoryMock.Object);
             _snapshotRepositoryMock.Setup(x => x.GetById(actualImage.Id)).Returns(actualImage);
             _snapshotRepositoryMock.Setup(x => x.Remove(actualImage)).Verifiable();
@@ -86,6 +86,7 @@ namespace DevTrack.Foundation.Tests.Services
             _snapshotLocalService.RemoveImageFromSqLite(result, actualImage.Id);
             actualImage.ShouldNotBe(expectedImage);
             result.ShouldNotBe("false");
+            result.ShouldBe("true");
 
             //assert
             this.ShouldSatisfyAllConditions(
@@ -98,7 +99,6 @@ namespace DevTrack.Foundation.Tests.Services
         public void RemoveImageFromFolder_FilePathProvided_RemoveImageFromDirectory()
         {
             //arrange
-            const string filePath = @"D:/test";
             _helperMock.Setup(x => x.RemoveFileFromDirectory(filePath)).Verifiable();
 
             //act

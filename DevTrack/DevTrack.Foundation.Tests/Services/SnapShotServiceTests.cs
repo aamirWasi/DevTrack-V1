@@ -17,6 +17,11 @@ namespace DevTrack.Foundation.Tests.Services
 {
     public class SnapShotServiceTests
     {
+        const string filePath = @"D:/test";
+        const string result = "true";
+        SnapshotImage imageEntity = new SnapshotImage { Id = 1, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
+        SnapshotImage imageEntity2 = new SnapshotImage { Id = 2, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
+
         #region MockObjects
         private AutoMock _mock;
         private Mock<ISnapshotUnitOfWork> _snapshotUnitOfWorkMock;
@@ -90,8 +95,6 @@ namespace DevTrack.Foundation.Tests.Services
         {
             //arrange
             ISnapShotAdapter image = new SnapShotAdapter(1000, 1000);
-            const string filePath = @"D:/test";
-            var imageEntity = new SnapshotImage() { CaptureTime = DateTimeOffset.Now, FilePath = filePath };
             (ISnapShotAdapter image, string filePath) obj = (image, filePath);
 
             _snapshotUnitOfWorkMock.Setup(x => x.SnapshotRepository).Returns(_snapshotRepositoryMock.Object);
@@ -112,7 +115,7 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
-        public void SyncSnapShotImages_NoSnapshotImageProvided_ReturnNull()
+        public void SyncSnapShotImages_NoSnapshotImageIsProvided_ReturnNull()
         {
             //arrange
             IList<SnapshotImage> actualImages = null;
@@ -121,7 +124,7 @@ namespace DevTrack.Foundation.Tests.Services
 
             //act
             _snapshotService.SyncSnapShotImages();
-            actualImages.ShouldBeNull("No Image is found");
+            actualImages.ShouldBeNull("No Image is here");
 
             //assert
             this.ShouldSatisfyAllConditions(
@@ -134,10 +137,6 @@ namespace DevTrack.Foundation.Tests.Services
         public void SyncSnapShotImages_SnapshotProvided_ReturnTrueForEqualCount()
         {
             //arrange
-            const string filePath = @"D:/test";
-            const string result = "true";
-            var imageEntity = new SnapshotImage { Id = 1, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
-            var imageEntity2 = new SnapshotImage { Id = 1, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
             var actualImages = new List<SnapshotImage> { imageEntity, imageEntity2 };
             var expectedImages = new List<SnapshotImage> { imageEntity, imageEntity2 };
             _snapshotUnitOfWorkMock.Setup(x => x.SnapshotRepository).Returns(_snapshotRepositoryMock.Object);
@@ -150,6 +149,7 @@ namespace DevTrack.Foundation.Tests.Services
             //act
             _snapshotService.SyncSnapShotImages();
             actualImages.ShouldBe(expectedImages, "Actual & expected images both are equal");
+            actualImages.ShouldNotBeNull();
 
             //assert
             this.ShouldSatisfyAllConditions(
@@ -164,10 +164,6 @@ namespace DevTrack.Foundation.Tests.Services
         public void SyncSnapShotImages_SnapshotsProvided_SaveInSqlAndRemoveFromBothSqLiteAndDirectory()
         {
             //arrange
-            const string filePath = @"D:/test";
-            const string result = "true";
-            var imageEntity = new SnapshotImage { Id = 1, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
-            var imageEntity2 = new SnapshotImage { Id = 2, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
             var actualImages = new List<SnapshotImage> { imageEntity, imageEntity2 };
             var expectedImages = new List<SnapshotImage> { imageEntity, imageEntity2 };
             _snapshotUnitOfWorkMock.Setup(x => x.SnapshotRepository).Returns(_snapshotRepositoryMock.Object);
