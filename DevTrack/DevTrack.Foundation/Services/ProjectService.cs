@@ -46,30 +46,30 @@ namespace DevTrack.Foundation.Services
 
         public void EditProject(BO.Project project)
         {
-            var projectEntity = _projectUnitOfWork.projectRepository.Get(x => x.Id == project.Id, orderBy: null, "Settings", true).FirstOrDefault();
+            var projectEntity = _projectUnitOfWork.projectRepository.Get(x => x.Id == project.Id, "Settings").FirstOrDefault();
 
             projectEntity.Name = project.Name;
             projectEntity.IsAdmin = project.IsAdmin;
 
-            projectEntity.Settings = new EO.Settings
-            {
-                Id = project.Settings.Id,
-                AllowTracking = project.Settings.AllowTracking,
-                TrackActiveProgram = project.Settings.TrackActiveProgram,
-                TakeScreenShot = project.Settings.TakeScreenShot,
-                TrackKeyboardHits = project.Settings.TrackKeyboardHits,
-                TrackMouseHits = project.Settings.TrackMouseHits,
-                TrackRunningProgram = project.Settings.TrackRunningProgram,
-                WebCamCapture = project.Settings.WebCamCapture
-            };
+            //projectEntity.Settings = new EO.Settings
+            //{
+            //    //Id = project.Settings.Id,
+            //    AllowTracking = project.Settings.AllowTracking,
+            //    TrackActiveProgram = project.Settings.TrackActiveProgram,
+            //    TakeScreenShot = project.Settings.TakeScreenShot,
+            //    TrackKeyboardHits = project.Settings.TrackKeyboardHits,
+            //    TrackMouseHits = project.Settings.TrackMouseHits,
+            //    TrackRunningProgram = project.Settings.TrackRunningProgram,
+            //    WebCamCapture = project.Settings.WebCamCapture
+            //};
 
-            //projectEntity.Settings.AllowTracking = project.Settings.AllowTracking;
-            //projectEntity.Settings.TakeScreenShot = project.Settings.TrackRunningProgram;
-            //projectEntity.Settings.WebCamCapture = project.Settings.TrackRunningProgram;
-            //projectEntity.Settings.TrackActiveProgram = project.Settings.TrackRunningProgram;
-            //projectEntity.Settings.TrackRunningProgram = project.Settings.TrackRunningProgram;
-            //projectEntity.Settings.TrackKeyboardHits = project.Settings.TrackKeyboardHits;
-            //projectEntity.Settings.TrackMouseHits = project.Settings.TrackMouseHits;
+            projectEntity.Settings.AllowTracking = project.Settings.AllowTracking;
+            projectEntity.Settings.TakeScreenShot = project.Settings.TrackRunningProgram;
+            projectEntity.Settings.WebCamCapture = project.Settings.TrackRunningProgram;
+            projectEntity.Settings.TrackActiveProgram = project.Settings.TrackRunningProgram;
+            projectEntity.Settings.TrackRunningProgram = project.Settings.TrackRunningProgram;
+            projectEntity.Settings.TrackKeyboardHits = project.Settings.TrackKeyboardHits;
+            projectEntity.Settings.TrackMouseHits = project.Settings.TrackMouseHits;
 
             _projectUnitOfWork.Save();
         }
@@ -77,8 +77,8 @@ namespace DevTrack.Foundation.Services
         public void DeleteProject(int id)
         {
             var project = _projectUnitOfWork.projectRepository.Get(x => x.Id == id, "Settings").FirstOrDefault();
-
             _projectUnitOfWork.projectRepository.Remove(project);
+            _projectUnitOfWork.settingsRepository.Remove(project.Settings.Id);
             _projectUnitOfWork.Save();
         }
 
