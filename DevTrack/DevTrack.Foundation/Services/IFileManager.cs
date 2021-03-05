@@ -1,6 +1,6 @@
 ﻿namespace DevTrack.Foundation.Services
 {
-    public interface IHelper
+    public interface IFileManager
     {
         string GetFilePath(string filePath);
         void RemoveFileFromDirectory(string path);

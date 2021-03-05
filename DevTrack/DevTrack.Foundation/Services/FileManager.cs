@@ -3,7 +3,7 @@ using System.IO;
 
 namespace DevTrack.Foundation.Services
 {
-    public class Helper : IHelper
+    public class FileManager : IFileManager
     {
         public string GetFilePath(string filePath)
         {

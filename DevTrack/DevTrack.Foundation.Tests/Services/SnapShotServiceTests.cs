@@ -17,10 +17,12 @@ namespace DevTrack.Foundation.Tests.Services
 {
     public class SnapShotServiceTests
     {
+        #region Initial_fields
         const string filePath = @"D:/test";
         const string result = "true";
         SnapshotImage imageEntity = new SnapshotImage { Id = 1, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
         SnapshotImage imageEntity2 = new SnapshotImage { Id = 2, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
+        #endregion
 
         #region MockObjects
         private AutoMock _mock;
@@ -31,7 +33,7 @@ namespace DevTrack.Foundation.Tests.Services
         private ISnapShotService _snapshotService;
         private Mock<ISnapshotApiService> _snapshotApiServiceMock;
         private Mock<ISnapshotLocalService> _snapshotLocalServiceMock;
-        private Mock<IHelper> _helperMock;
+        private Mock<IFileManager> _fileManagerMock;
         #endregion
 
         [OneTimeSetUp]
@@ -55,7 +57,7 @@ namespace DevTrack.Foundation.Tests.Services
             _adpaterMock = _mock.Mock<ISnapShotAdapter>();
             _snapshotApiServiceMock = _mock.Mock<ISnapshotApiService>();
             _snapshotLocalServiceMock = _mock.Mock<ISnapshotLocalService>();
-            _helperMock = _mock.Mock<IHelper>();
+            _fileManagerMock = _mock.Mock<IFileManager>();
             _snapshotService = _mock.Create<SnapShotService>();
         }
 
@@ -68,7 +70,7 @@ namespace DevTrack.Foundation.Tests.Services
             _adpaterMock?.Reset();
             _snapshotApiServiceMock?.Reset();
             _snapshotLocalServiceMock?.Reset();
-            _helperMock?.Reset();
+            _fileManagerMock?.Reset();
         }
 
         [Test]
@@ -143,7 +145,7 @@ namespace DevTrack.Foundation.Tests.Services
             _snapshotRepositoryMock.Setup(x => x.GetAll()).Returns(actualImages).Verifiable();
             _snapshotApiServiceMock.Setup(x => x.SaveSnapshotInSql(It.Is<SnapshotImage>(y => y.FilePath == imageEntity.FilePath))).Returns(result);
             _snapshotLocalServiceMock.Setup(x => x.RemoveImageFromSqLite(result, imageEntity.Id)).Verifiable();
-            _helperMock.Setup(x => x.GetFilePath(filePath)).Returns(imageEntity.FilePath);
+            _fileManagerMock.Setup(x => x.GetFilePath(filePath)).Returns(imageEntity.FilePath);
             _snapshotLocalServiceMock.Setup(x => x.RemoveImageFromFolder(filePath)).Verifiable();
 
             //act
@@ -170,7 +172,7 @@ namespace DevTrack.Foundation.Tests.Services
             _snapshotRepositoryMock.Setup(x => x.GetAll()).Returns(actualImages).Verifiable();
             _snapshotApiServiceMock.Setup(x => x.SaveSnapshotInSql(It.Is<SnapshotImage>(y => y.FilePath == imageEntity.FilePath))).Returns(result);
             _snapshotLocalServiceMock.Setup(x => x.RemoveImageFromSqLite(result, imageEntity.Id)).Verifiable();
-            _helperMock.Setup(x => x.GetFilePath(filePath)).Returns(imageEntity.FilePath);
+            _fileManagerMock.Setup(x => x.GetFilePath(filePath)).Returns(imageEntity.FilePath);
             _snapshotLocalServiceMock.Setup(x => x.RemoveImageFromFolder(filePath)).Verifiable();
 
             //act

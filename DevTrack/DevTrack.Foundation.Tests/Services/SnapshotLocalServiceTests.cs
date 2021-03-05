@@ -16,14 +16,16 @@ namespace DevTrack.Foundation.Tests.Services
 {
     public class SnapshotLocalServiceTests
     {
+        #region Initial_fields
         private const string filePath = @"D:/test";
-        SnapshotImage actualImage = new SnapshotImage { Id=1,CaptureTime = DateTimeOffset.Now, FilePath = filePath };
+        SnapshotImage actualImage = new SnapshotImage { Id = 1, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
         SnapshotImage expectedImage = new SnapshotImage { Id = 2, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
+        #endregion
 
         #region MockObjects
         private AutoMock _mock;
         private Mock<ISnapshotUnitOfWork> _snapshotUnitOfWorkMock;
-        private Mock<IHelper> _helperMock;
+        private Mock<IFileManager> _fileManagerMock;
         private Mock<ISnapshotRepository> _snapshotRepositoryMock;
         private ISnapshotLocalService _snapshotLocalService;
         #endregion
@@ -45,7 +47,7 @@ namespace DevTrack.Foundation.Tests.Services
         {
             _snapshotRepositoryMock = _mock.Mock<ISnapshotRepository>();
             _snapshotUnitOfWorkMock = _mock.Mock<ISnapshotUnitOfWork>();
-            _helperMock = _mock.Mock<IHelper>();
+            _fileManagerMock = _mock.Mock<IFileManager>();
             _snapshotLocalService = _mock.Create<SnapshotLocalService>();
         }
 
@@ -54,7 +56,7 @@ namespace DevTrack.Foundation.Tests.Services
         {
             _snapshotUnitOfWorkMock?.Reset();
             _snapshotRepositoryMock?.Reset();
-            _helperMock?.Reset();
+            _fileManagerMock?.Reset();
         }
 
         [Test]
@@ -99,14 +101,14 @@ namespace DevTrack.Foundation.Tests.Services
         public void RemoveImageFromFolder_FilePathProvided_RemoveImageFromDirectory()
         {
             //arrange
-            _helperMock.Setup(x => x.RemoveFileFromDirectory(filePath)).Verifiable();
+            _fileManagerMock.Setup(x => x.RemoveFileFromDirectory(filePath)).Verifiable();
 
             //act
             _snapshotLocalService.RemoveImageFromFolder(filePath);
 
             //assert
             this.ShouldSatisfyAllConditions(
-                () => _helperMock.VerifyAll()
+                () => _fileManagerMock.VerifyAll()
                 );
         }
     }

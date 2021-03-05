@@ -23,9 +23,9 @@ namespace DevTrack.Foundation.Services
         private readonly IBitMapAdapter _image;
         private readonly ISnapshotApiService _snapshotApiService;
         private readonly ISnapshotLocalService _snapshotLocalService;
-        private readonly IHelper _helper;
+        private readonly IFileManager _helper;
 
-        public SnapShotService(ISnapshotUnitOfWork snapshotUnitOfWork,IBitMapAdapter image, ISnapshotApiService snapshotApiService, ISnapshotLocalService snapshotLocalService, IHelper helper)
+        public SnapShotService(ISnapshotUnitOfWork snapshotUnitOfWork,IBitMapAdapter image, ISnapshotApiService snapshotApiService, ISnapshotLocalService snapshotLocalService, IFileManager helper)
         {
             _snapshotUnitOfWork = snapshotUnitOfWork;
             _image = image;
