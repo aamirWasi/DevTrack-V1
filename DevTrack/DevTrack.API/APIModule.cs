@@ -20,6 +20,7 @@ namespace DevTrack.API
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<SnapshotModel>().AsSelf();
+            builder.RegisterType<WebCamCaptureModel>().AsSelf();
             builder.RegisterType<KeyboardModel>().AsSelf();
             builder.RegisterType<MouseModel>().AsSelf();
             builder.RegisterType<RunningProgramModel>().AsSelf();

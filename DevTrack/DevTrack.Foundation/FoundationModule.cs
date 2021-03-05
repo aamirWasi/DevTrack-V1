@@ -53,10 +53,18 @@ namespace DevTrack.Foundation
             builder.RegisterType<RunningProgramWebRepository>().As<IRunningProgramWebRepository>().InstancePerLifetimeScope();
             builder.RegisterType<RunningProgramWebUnitOfWork>().As<IRunningProgramWebUnitOfWork>().InstancePerLifetimeScope();
 
-            builder.RegisterType<WebCamCaptureService>().As<IWebCamCaptureService>()
-                .InstancePerLifetimeScope();
+            builder.RegisterType<WebCamCaptureService>().As<IWebCamCaptureService>().InstancePerLifetimeScope();
             builder.RegisterType<WebCamCaptureRepository>().As<IWebCamCaptureRepository>().InstancePerLifetimeScope();
             builder.RegisterType<WebCamCaptureUnitOfWork>().As<IWebCamCaptureUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<WebCamImageAdapter>().As<IWebCamImageAdapter>().InstancePerLifetimeScope();
+            builder.RegisterType<WebCamCaptureWebService>().As<IWebCamCaptureWebService>().InstancePerLifetimeScope();
+            builder.RegisterType<WebCamCaptureWebRepository>().As<IWebCamCaptureWebRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<WebCamCaptureWebUnitOfWork>().As<IWebCamCaptureWebUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<WebCamImageAdapter>().As<IWebCamImageAdapter>().InstancePerLifetimeScope();
+            builder.RegisterType<WebCamCaptureApiService>().As<IWebCamCaptureApiService>().InstancePerLifetimeScope();
+            builder.RegisterType<WebCamCaptureLocalService>().As<IWebCamCaptureLocalService>().InstancePerLifetimeScope();
+
+
 
             builder.RegisterType<ActiveProgramRepository>().As<IActiveProgramRepository>()
                 .InstancePerLifetimeScope();
@@ -94,9 +102,10 @@ namespace DevTrack.Foundation
             builder.RegisterType<BitMapAdapter>().As<IBitMapAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<SnapShotAdapter>().As<ISnapShotAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<ActiveProgramAdapter>().As<IActiveProgramAdapter>().InstancePerLifetimeScope();
+
             builder.RegisterType<RunningProgramAdapter>().As<IRunningProgramAdapter>().InstancePerLifetimeScope();
-            builder.RegisterType<WebCamImageAdapter>().As<IWebCamImageAdapter>().InstancePerLifetimeScope();
             
+
             base.Load(builder);
         }
     }

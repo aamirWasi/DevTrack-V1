@@ -27,10 +27,11 @@
 
         public void Track()
         {
-            _snapShotService.SyncSnapShotImages();
+            //_snapShotService.SyncSnapShotImages();
             //_snapShotService.SnapshotCapturer();
             //_keyboardTrackService.KeyboardTrackSaveToLocal();
             //_mouseTrackService.MouseTrackSaveToLocal();
+            //_webCamCaptureService.WebCamCaptureImageSave();
         }
 
         public void Sync()
@@ -43,6 +44,7 @@
             //_activeProgramService.SaveActiveProgramLocalDb();
             //_runningProgramService.SyncRunningPrograms();
             //_runningProgramService.AddRunningProgramsLocalDb();
+            //_webCamCaptureService.SyncWebCamImages();
         }
     }
 }
