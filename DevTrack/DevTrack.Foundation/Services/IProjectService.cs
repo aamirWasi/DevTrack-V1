@@ -1,4 +1,5 @@
 ﻿using DevTrack.Foundation.BusinessObjects;
+using System;
 using System.Collections.Generic;
 
 namespace DevTrack.Foundation.Services
@@ -8,7 +9,7 @@ namespace DevTrack.Foundation.Services
         void CreateProject(Project project);
         void DeleteProject(int id);
         void EditProject(Project project);
-        IList<Project> GetProjectList();
+        IList<Project> GetProjectList(Guid userId);
         Project GetProject(int id);
 
 

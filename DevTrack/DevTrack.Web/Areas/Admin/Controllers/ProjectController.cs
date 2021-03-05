@@ -18,6 +18,8 @@ namespace DevTrack.Web.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var model = Startup.AutofacContainer.Resolve<ProjectCreateModel>();
+            var UserId = User?.FindFirst(ClaimTypes.NameIdentifier).Value;
+            model.UserId = Guid.Parse(UserId);
             model.GetProjectList();
 
             return View(model);

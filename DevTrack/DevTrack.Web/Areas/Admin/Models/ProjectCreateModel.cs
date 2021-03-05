@@ -49,7 +49,7 @@ namespace DevTrack.Web.Areas.Admin.Models
 
         public void GetProjectList()
         {
-            ProjectList = _projectService.GetProjectList();
+            ProjectList = _projectService.GetProjectList(UserId);
         }
 
         public void GetProject(int id)
