@@ -4,7 +4,7 @@ using DevTrack.Foundation.Entities;
 
 namespace DevTrack.Foundation.Repositories
 {
-    public interface ISettingsRepository : IRepository<Settings, int, DevTrackProjectContext>
+    public interface ISettingsRepository : IRepository<Settings, int, DevTrackWebContext>
     {
     }
 }

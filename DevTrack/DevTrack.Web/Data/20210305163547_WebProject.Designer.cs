@@ -4,14 +4,16 @@ using DevTrack.Foundation.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DevTrack.Web.Data
+namespace DevTrack.Web.Migrations.DevTrackWeb
 {
     [DbContext(typeof(DevTrackWebContext))]
-    partial class DevTrackWebContextModelSnapshot : ModelSnapshot
+    [Migration("20210305163547_WebProject")]
+    partial class WebProject
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -64,8 +64,6 @@ namespace DevTrack.Web
             services.AddDbContext<DevTrackWebContext>(options =>
                 options.UseSqlServer(connectionString, b => b.MigrationsAssembly(migrationAssemblyName)));
 
-            services.AddDbContext<DevTrackProjectContext>(options =>
-                options.UseSqlServer(connectionString, b => b.MigrationsAssembly(migrationAssemblyName)));
 
             services.AddRouting(x => x.LowercaseUrls = true);
             services.AddRouting(x => x.AppendTrailingSlash = true);

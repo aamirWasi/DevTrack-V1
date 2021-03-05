@@ -7,9 +7,9 @@ using System.Text;
 
 namespace DevTrack.Foundation.Repositories
 {
-    public class SettingsRepository : Repository<Settings, int, DevTrackProjectContext>, ISettingsRepository
+    public class SettingsRepository : Repository<Settings, int, DevTrackWebContext>, ISettingsRepository
     {
-        public SettingsRepository(DevTrackProjectContext projectContext) : base(projectContext)
+        public SettingsRepository(DevTrackWebContext devTrackWebContext) : base(devTrackWebContext)
         {
 
         }
