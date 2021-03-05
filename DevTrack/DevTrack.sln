@@ -12,6 +12,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workers", "Workers", "{9A2E0A52-CA26-4CFA-85E4-30EE4FD6D272}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevTrack.TrackerWorkerService", "DevTrack.TrackerWorkerService\DevTrack.TrackerWorkerService.csproj", "{1890AA61-4E15-457F-B6FA-CECE313C122C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7C6D6221-1397-441D-A3F2-3BC93914F88C} = {7C6D6221-1397-441D-A3F2-3BC93914F88C}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevTrack.Foundation.Tests", "DevTrack.Foundation.Tests\DevTrack.Foundation.Tests.csproj", "{34675FF2-89D4-4A79-86FF-7B23DDB313E6}"
 EndProject
@@ -27,7 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{33DCC2EF-5A7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevTrack.API", "DevTrack.API\DevTrack.API.csproj", "{7C6D6221-1397-441D-A3F2-3BC93914F88C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevTrack.SyncWokerService", "DevTrack.SyncWokerService\DevTrack.SyncWokerService.csproj", "{4F89B5B2-0943-4BCD-B9FE-FF8460E81D16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevTrack.SyncWokerService", "DevTrack.SyncWokerService\DevTrack.SyncWokerService.csproj", "{4F89B5B2-0943-4BCD-B9FE-FF8460E81D16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

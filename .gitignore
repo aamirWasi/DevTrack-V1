@@ -12,3 +12,7 @@
 /*.db
 /DevTrack/DevTrack.API/wwwroot/images
 /DevTrack/DevTrack.API/wwwroot/temp
+/DevTrack/DevTrack.API/wwwroot/images/WebCamCapture
+/DevTrack/DevTrack.TrackerWorkerService/WebCamCapture
+/DevTrack/DevTrack.API/wwwroot/temp
+/DevTrack/DevTrack.API/wwwroot/images

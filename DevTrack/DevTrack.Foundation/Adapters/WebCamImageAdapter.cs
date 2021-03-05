@@ -1,10 +1,8 @@
 ﻿using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Threading;
 
 namespace DevTrack.Foundation.Adapters
@@ -26,9 +24,7 @@ namespace DevTrack.Foundation.Adapters
             Thread.Sleep(2000);
 
             _image = BitmapConverter.ToBitmap(_frame);
-
             _path = CreatePath();
-
             _image.Save(_path);
 
             _capture.Release();
@@ -46,7 +42,6 @@ namespace DevTrack.Foundation.Adapters
             }
 
             var FileName = DateTime.Now.ToString("dd-MM-yyyy hh-mm-ss-tt");
-
             var FullImagePath = string.Format(Folder + "\\" + FileName + ".jpg");
 
             return FullImagePath;

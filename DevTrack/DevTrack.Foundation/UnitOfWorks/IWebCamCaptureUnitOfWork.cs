@@ -5,6 +5,6 @@ namespace DevTrack.Foundation.UnitOfWorks
 {
     public interface IWebCamCaptureUnitOfWork : IUnitOfWork
     {
-        public IWebCamCaptureRepository _webCamCaptureRepository { get; set; }
+        public IWebCamCaptureRepository WebCamCaptureRepository { get; set; }
     }
 }
