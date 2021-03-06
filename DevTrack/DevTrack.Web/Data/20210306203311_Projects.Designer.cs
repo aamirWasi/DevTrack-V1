@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevTrack.Web.Migrations.DevTrackWeb
 {
     [DbContext(typeof(DevTrackWebContext))]
-    [Migration("20210305163547_WebProject")]
-    partial class WebProject
+    [Migration("20210306203311_Projects")]
+    partial class Projects
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

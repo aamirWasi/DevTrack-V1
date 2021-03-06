@@ -413,9 +413,14 @@ namespace DevTrack.Web.Data
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AspNetUsers")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SettingsId");
+
+                    b.HasIndex("AspNetUsers");
 
                     b.ToTable("Project");
                 });
@@ -512,7 +517,13 @@ namespace DevTrack.Web.Data
                     b.HasOne("DevTrack.Foundation.Entities.Settings", "Settings")
                         .WithMany()
                         .HasForeignKey("SettingsId");
+
+                    b.HasMany("DevTrack.Membership.Entities.ApplicationUser", "AspNetUsersId")
+                    .WithOne()
+                    .HasForeignKey("AspNetUsersId");
                 });
+
+
 #pragma warning restore 612, 618
         }
     }

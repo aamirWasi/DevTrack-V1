@@ -14,7 +14,8 @@ namespace DevTrack.Foundation.Entities
         public Guid UserId { get; set; }
         public string Name { get; set; }
         public DateTime CreateDate { get; set; }
-        //public ApplicationUser User { get; set; }
+        [NotMapped]
+        public ApplicationUser User { get; set; }
         public bool IsAdmin { get; set; }
         public Settings Settings { get; set; }
         
