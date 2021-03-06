@@ -70,7 +70,7 @@ namespace DevTrack.Foundation.Tests.Services
 
             //assert
             result.ShouldNotBe("true");
-            result.ShouldBe("false");
+            _fileManagerMock.VerifyAll();
         }
 
         [Test]
@@ -86,11 +86,10 @@ namespace DevTrack.Foundation.Tests.Services
 
             //act
             _snapshotLocalService.RemoveImageFromSqLite(result, actualImage.Id);
-            actualImage.ShouldNotBe(expectedImage);
-            result.ShouldNotBe("false");
-            result.ShouldBe("true");
 
             //assert
+            actualImage.ShouldNotBe(expectedImage);
+            result.ShouldNotBe("false");
             this.ShouldSatisfyAllConditions(
                 () => _snapshotUnitOfWorkMock.VerifyAll()
                 , () => _snapshotRepositoryMock.VerifyAll()
@@ -107,9 +106,7 @@ namespace DevTrack.Foundation.Tests.Services
             _snapshotLocalService.RemoveImageFromFolder(filePath);
 
             //assert
-            this.ShouldSatisfyAllConditions(
-                () => _fileManagerMock.VerifyAll()
-                );
+            _fileManagerMock.VerifyAll();
         }
     }
 }

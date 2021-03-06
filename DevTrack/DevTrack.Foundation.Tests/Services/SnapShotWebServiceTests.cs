@@ -75,10 +75,10 @@ namespace DevTrack.Foundation.Tests.Services
 
             //act
             _snapshotWebService.SaveSnapShotWebDb(actualImage);
-            actualImage.ShouldNotBeNull();
-            actualImage.ShouldNotBe(expectedImage);
 
             //assert
+            actualImage.ShouldNotBeNull();
+            actualImage.ShouldNotBe(expectedImage);
             this.ShouldSatisfyAllConditions(
                 () => _snapshotWebUnitOfWorkMock.VerifyAll()
                 , () => _snapshotWebRepositoryMock.VerifyAll()

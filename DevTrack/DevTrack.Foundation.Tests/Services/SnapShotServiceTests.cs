@@ -110,7 +110,6 @@ namespace DevTrack.Foundation.Tests.Services
             //assert
             this.ShouldSatisfyAllConditions(
                 () => _bitMapAdapterMock.VerifyAll()
-                , () => _adpaterMock.VerifyAll()
                 , () => _snapshotUnitOfWorkMock.VerifyAll()
                 , () => _snapshotRepositoryMock.VerifyAll()
                 );
@@ -126,7 +125,6 @@ namespace DevTrack.Foundation.Tests.Services
 
             //act
             _snapshotService.SyncSnapShotImages();
-            actualImages.ShouldBeNull("No Image is here");
 
             //assert
             this.ShouldSatisfyAllConditions(
@@ -136,7 +134,7 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
-        public void SyncSnapShotImages_SnapshotProvided_ReturnTrueForEqualCount()
+        public void SyncSnapShotImages_SnapshotImagesProvided_ReturnTrueForEqualCount()
         {
             //arrange
             var actualImages = new List<SnapshotImage> { imageEntity, imageEntity2 };
@@ -150,10 +148,10 @@ namespace DevTrack.Foundation.Tests.Services
 
             //act
             _snapshotService.SyncSnapShotImages();
-            actualImages.ShouldBe(expectedImages, "Actual & expected images both are equal");
-            actualImages.ShouldNotBeNull();
 
             //assert
+            actualImages.ShouldBe(expectedImages, "Actual & expected images both are equal");
+            actualImages.ShouldNotBeNull();
             this.ShouldSatisfyAllConditions(
                 () => _snapshotUnitOfWorkMock.VerifyAll()
                 , () => _snapshotRepositoryMock.VerifyAll()
@@ -163,7 +161,7 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
-        public void SyncSnapShotImages_SnapshotsProvided_SaveInSqlAndRemoveFromBothSqLiteAndDirectory()
+        public void SyncSnapShotImages_SnapshotsProvided_SyncSuccessfully()
         {
             //arrange
             var actualImages = new List<SnapshotImage> { imageEntity, imageEntity2 };
@@ -177,9 +175,9 @@ namespace DevTrack.Foundation.Tests.Services
 
             //act
             _snapshotService.SyncSnapShotImages();
-            actualImages.ShouldBe(expectedImages, "Actual & expected images both are equal");
 
             //assert
+            actualImages.ShouldBe(expectedImages, "Actual & expected images both are equal");
             this.ShouldSatisfyAllConditions(
                 () => _snapshotUnitOfWorkMock.VerifyAll()
                 , () => _snapshotRepositoryMock.VerifyAll()
