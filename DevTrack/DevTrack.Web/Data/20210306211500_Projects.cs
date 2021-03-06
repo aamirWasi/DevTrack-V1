@@ -55,7 +55,6 @@ namespace DevTrack.Web.Migrations.DevTrackWeb
                         principalTable: "Settings",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-
                     table.ForeignKey(
                         name: "FK_Project_AspNetUsers_AspNetUsersId",
                         column: x => x.AspNetUsersId,
@@ -68,11 +67,10 @@ namespace DevTrack.Web.Migrations.DevTrackWeb
                 name: "IX_Project_SettingsId",
                 table: "Project",
                 column: "SettingsId");
-
             migrationBuilder.CreateIndex(
-                name: "IX_Project_AspNetUsersId",
-                table: "Project",
-                column: "AspNetUsersId");
+              name: "IX_Project_AspNetUsersId",
+              table: "Project",
+              column: "AspNetUsersId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

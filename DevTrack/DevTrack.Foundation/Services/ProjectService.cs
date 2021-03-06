@@ -27,7 +27,8 @@ namespace DevTrack.Foundation.Services
                 Name = project.Name,
                 CreateDate = project.CreationTime,
                 IsAdmin = project.IsAdmin,
-                UserId = project.UserId
+                UserId = project.UserId,
+                AspNetUsersId = project.UserId
             };
 
             projectEntity.Settings = new EO.Settings
@@ -73,7 +74,7 @@ namespace DevTrack.Foundation.Services
 
         public IList<BO.Project> GetProjectList(Guid userId)
         {
-            var ProjectList = _projectUnitOfWork.projectRepository.Get(x => x.UserId == userId, "Settings");
+            var ProjectList = _projectUnitOfWork.projectRepository.Get(x => x.UserId == userId, "Settings, AspNetUsers");
             return BO.Project.ConvertToProjectList(ProjectList);
         }
 

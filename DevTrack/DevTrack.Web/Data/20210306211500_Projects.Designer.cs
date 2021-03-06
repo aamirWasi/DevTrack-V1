@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevTrack.Web.Migrations.DevTrackWeb
 {
     [DbContext(typeof(DevTrackWebContext))]
-    [Migration("20210306203311_Projects")]
+    [Migration("20210306211500_Projects")]
     partial class Projects
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -399,6 +399,9 @@ namespace DevTrack.Web.Migrations.DevTrackWeb
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Guid>("AspNetUsersId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
