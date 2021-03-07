@@ -29,7 +29,6 @@ namespace DevTrack.Foundation.Tests.Services
         private Mock<ISnapshotUnitOfWork> _snapshotUnitOfWorkMock;
         private Mock<ISnapshotRepository> _snapshotRepositoryMock;
         private Mock<IBitMapAdapter> _bitMapAdapterMock;
-        private Mock<ISnapShotAdapter> _adpaterMock;
         private ISnapShotService _snapshotService;
         private Mock<ISnapshotApiService> _snapshotApiServiceMock;
         private Mock<ISnapshotLocalService> _snapshotLocalServiceMock;
@@ -54,7 +53,6 @@ namespace DevTrack.Foundation.Tests.Services
             _snapshotRepositoryMock = _mock.Mock<ISnapshotRepository>();
             _snapshotUnitOfWorkMock = _mock.Mock<ISnapshotUnitOfWork>();
             _bitMapAdapterMock = _mock.Mock<IBitMapAdapter>();
-            _adpaterMock = _mock.Mock<ISnapShotAdapter>();
             _snapshotApiServiceMock = _mock.Mock<ISnapshotApiService>();
             _snapshotLocalServiceMock = _mock.Mock<ISnapshotLocalService>();
             _fileManagerMock = _mock.Mock<IFileManager>();
@@ -67,7 +65,6 @@ namespace DevTrack.Foundation.Tests.Services
             _snapshotUnitOfWorkMock?.Reset();
             _snapshotRepositoryMock?.Reset();
             _bitMapAdapterMock?.Reset();
-            _adpaterMock?.Reset();
             _snapshotApiServiceMock?.Reset();
             _snapshotLocalServiceMock?.Reset();
             _fileManagerMock?.Reset();
@@ -77,8 +74,8 @@ namespace DevTrack.Foundation.Tests.Services
         public void SnapshotCapturer_NoImageProvided_ThrowsInvalidOperationException()
         {
             //arrange
-            (ISnapShotAdapter image, string filePath) obj = (null, null);
-            _bitMapAdapterMock.Setup(x => x.GenerateSnapshot()).Returns(obj);
+            (ISnapShotAdapter image, string filePath) imageInfo = (null, null);
+            _bitMapAdapterMock.Setup(x => x.GenerateSnapshot()).Returns(imageInfo);
 
             //act
             Should.Throw<InvalidOperationException>(
@@ -86,10 +83,7 @@ namespace DevTrack.Foundation.Tests.Services
                 );
 
             //assert
-            this.ShouldSatisfyAllConditions(
-                () => _bitMapAdapterMock.VerifyAll()
-                , () => _adpaterMock.VerifyAll()
-                );
+            _bitMapAdapterMock.VerifyAll();
         }
 
         [Test]
@@ -97,10 +91,10 @@ namespace DevTrack.Foundation.Tests.Services
         {
             //arrange
             ISnapShotAdapter image = new SnapShotAdapter(1000, 1000);
-            (ISnapShotAdapter image, string filePath) obj = (image, filePath);
+            (ISnapShotAdapter image, string filePath) imageInfo = (image, filePath);
 
             _snapshotUnitOfWorkMock.Setup(x => x.SnapshotRepository).Returns(_snapshotRepositoryMock.Object);
-            _bitMapAdapterMock.Setup(x => x.GenerateSnapshot()).Returns(obj);
+            _bitMapAdapterMock.Setup(x => x.GenerateSnapshot()).Returns(imageInfo);
             _snapshotRepositoryMock.Setup(x => x.Add(It.Is<SnapshotImage>(y => y.FilePath == imageEntity.FilePath))).Verifiable();
             _snapshotUnitOfWorkMock.Setup(x => x.Save()).Verifiable();
 
