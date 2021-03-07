@@ -74,7 +74,7 @@ namespace DevTrack.Foundation.Services
 
         public IList<BO.Project> GetProjectList(Guid userId)
         {
-            var ProjectList = _projectUnitOfWork.projectRepository.Get(x => x.UserId == userId, "Settings, AspNetUsers");
+            var ProjectList = _projectUnitOfWork.projectRepository.Get(x => x.UserId == userId, "Settings");
             return BO.Project.ConvertToProjectList(ProjectList);
         }
 
