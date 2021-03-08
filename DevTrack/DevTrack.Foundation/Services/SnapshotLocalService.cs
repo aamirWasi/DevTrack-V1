@@ -1,5 +1,6 @@
 ﻿using DevTrack.Foundation.UnitOfWorks;
 using System.IO;
+using System;
 
 namespace DevTrack.Foundation.Services
 {
@@ -21,6 +22,11 @@ namespace DevTrack.Foundation.Services
                 var imageRemove = _snapshotUnitOfWork.SnapshotRepository.GetById(id);
                 _snapshotUnitOfWork.SnapshotRepository.Remove(imageRemove);
                 _snapshotUnitOfWork.Save();
+            }
+
+            else
+            {
+                throw new InvalidProgramException("Response is false");
             }
         }
 

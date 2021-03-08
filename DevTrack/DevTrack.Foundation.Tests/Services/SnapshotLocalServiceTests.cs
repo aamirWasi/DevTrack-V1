@@ -60,13 +60,15 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
-        public void RemoveImageFromSqLite_ResponseIsFalse_NoImageRemoveFromSqlite()
+        public void RemoveImageFromSqLite_ResponseIsFalse_ThrowsInvalidProgramException()
         {
             //arrange
             var result = "false";
 
             //act
-            _snapshotLocalService.RemoveImageFromSqLite(result, actualImage.Id);
+            Should.Throw<InvalidProgramException>(
+                () => _snapshotLocalService.RemoveImageFromSqLite(result, actualImage.Id)
+            );
 
             //assert
             result.ShouldNotBe("true");
@@ -97,7 +99,7 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
-        public void RemoveImageFromFolder_FilePathProvided_RemoveImageFromDirectory()
+        public void RemoveImageFromFolder_ImagePathProvided_RemoveImageFromDirectory()
         {
             //arrange
             _fileManagerMock.Setup(x => x.RemoveFileFromDirectory(filePath)).Verifiable();
