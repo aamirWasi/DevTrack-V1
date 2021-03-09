@@ -22,6 +22,7 @@ namespace DevTrack.Foundation.Tests.Services
         const string result = "true";
         SnapshotImage imageEntity = new SnapshotImage { Id = 1, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
         SnapshotImage imageEntity2 = new SnapshotImage { Id = 2, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
+        SnapshotImage imageEntity3 = new SnapshotImage { Id = 21, CaptureTime = DateTimeOffset.Now, FilePath = filePath };
         #endregion
 
         #region MockObjects
@@ -71,7 +72,7 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
-        public void SnapshotCapturer_NoImageProvided_ThrowsInvalidOperationException()
+        public void SnapshotCapturer_NoImageFound_ThrowsInvalidOperationException()
         {
             //arrange
             (ISnapShotAdapter image, string filePath) imageInfo = (null, null);
@@ -87,7 +88,7 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
-        public void SnapshotCapturer_ImageProvided_SaveImage()
+        public void SnapshotCapturer_ImageFound_SaveImageInLocalStorage()
         {
             //arrange
             ISnapShotAdapter image = new SnapShotAdapter(1000, 1000);
@@ -110,7 +111,7 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
-        public void SyncSnapShotImages_NoSnapshotImageIsProvided_ReturnNull()
+        public void SyncSnapShotImages_NoImageFound_ReturnNull()
         {
             //arrange
             IList<SnapshotImage> actualImages = null;
@@ -128,7 +129,7 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
-        public void SyncSnapShotImages_SnapshotImagesProvided_ReturnTrueForEqualCount()
+        public void SyncSnapShotImages_ImagesFound_ReturnTrueForEqualCount()
         {
             //arrange
             var actualImages = new List<SnapshotImage> { imageEntity, imageEntity2 };
@@ -144,7 +145,7 @@ namespace DevTrack.Foundation.Tests.Services
             _snapshotService.SyncSnapShotImages();
 
             //assert
-            actualImages.ShouldBe(expectedImages, "Actual & expected images both are equal");
+            actualImages.ShouldBe(expectedImages, "Actual & expected images both are equal in count & same instances");
             actualImages.ShouldNotBeNull();
             this.ShouldSatisfyAllConditions(
                 () => _snapshotUnitOfWorkMock.VerifyAll()
@@ -155,11 +156,12 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
-        public void SyncSnapShotImages_SnapshotsProvided_SyncSuccessfully()
+        public void SyncSnapShotImages_SnapshotsFound_SyncSuccessfully()
         {
             //arrange
             var actualImages = new List<SnapshotImage> { imageEntity, imageEntity2 };
             var expectedImages = new List<SnapshotImage> { imageEntity, imageEntity2 };
+            var expectedSnapshots = new List<SnapshotImage> { imageEntity, imageEntity2,imageEntity3 };
             _snapshotUnitOfWorkMock.Setup(x => x.SnapshotRepository).Returns(_snapshotRepositoryMock.Object);
             _snapshotRepositoryMock.Setup(x => x.GetAll()).Returns(actualImages).Verifiable();
             _snapshotApiServiceMock.Setup(x => x.SaveSnapshotInSql(It.Is<SnapshotImage>(y => y.FilePath == imageEntity.FilePath))).Returns(result);
@@ -172,6 +174,7 @@ namespace DevTrack.Foundation.Tests.Services
 
             //assert
             actualImages.ShouldBe(expectedImages, "Actual & expected images both are equal");
+            actualImages.ShouldNotBe(expectedSnapshots);
             this.ShouldSatisfyAllConditions(
                 () => _snapshotUnitOfWorkMock.VerifyAll()
                 , () => _snapshotRepositoryMock.VerifyAll()
