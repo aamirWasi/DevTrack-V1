@@ -14,7 +14,14 @@ namespace DevTrack.Foundation.Services
 
         public void RemoveFileFromDirectory(string path)
         {
-            File.Delete(path);
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                throw new InvalidOperationException("Path must be provided");
+            }
+            else
+            {
+                File.Delete(path);
+            }
         }
     }
 }

@@ -32,7 +32,14 @@ namespace DevTrack.Foundation.Services
 
         public void RemoveImageFromFolder(string path)
         {
-            _fileManager.RemoveFileFromDirectory(path);
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                _fileManager.RemoveFileFromDirectory(path);
+            }
+            else
+            {
+                throw new InvalidOperationException("File path must be provided to remove from local directory");
+            }
         }
     }
 }

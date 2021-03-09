@@ -80,7 +80,7 @@ namespace DevTrack.Foundation.Tests.Services
         {
             //arrange
             var result = "true";
-            
+
             _snapshotUnitOfWorkMock.Setup(x => x.SnapshotRepository).Returns(_snapshotRepositoryMock.Object);
             _snapshotRepositoryMock.Setup(x => x.GetById(actualImage.Id)).Returns(actualImage);
             _snapshotRepositoryMock.Setup(x => x.Remove(actualImage)).Verifiable();
@@ -109,6 +109,21 @@ namespace DevTrack.Foundation.Tests.Services
 
             //assert
             _fileManagerMock.VerifyAll();
+        }
+
+        [Test]
+        public void RemoveImageFromFolder_ImagePathNotProvided_ThrowsInvalidOperationException()
+        {
+            //arrange
+            const string filePathEmpty = null;
+
+            //act
+            Should.Throw<InvalidOperationException>(
+                    () => _snapshotLocalService.RemoveImageFromFolder(filePathEmpty)
+                    );
+
+            //assert
+            filePathEmpty.ShouldNotBe(filePath);
         }
     }
 }
