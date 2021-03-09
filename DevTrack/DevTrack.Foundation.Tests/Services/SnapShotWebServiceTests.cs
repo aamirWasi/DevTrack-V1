@@ -12,6 +12,12 @@ namespace DevTrack.Foundation.Tests.Services
 {
     public class SnapShotWebServiceTests
     {
+        #region Initial_Fields
+        const string filePath = @"D:/test";
+        SnapshotImage actualImage = new SnapshotImage { CaptureTime = DateTimeOffset.Now, FilePath = filePath };
+        SnapshotImage expectedImage = new SnapshotImage { CaptureTime = DateTimeOffset.Now, FilePath = filePath };
+        #endregion
+
         #region MockObjects
         private AutoMock _mock;
         private Mock<ISnapshotWebUnitOfWork> _snapshotWebUnitOfWorkMock;
@@ -58,17 +64,13 @@ namespace DevTrack.Foundation.Tests.Services
                 );
 
             //assert
-            imageEntity.ShouldBeNull();
+            imageEntity.ShouldNotBe(actualImage);
         }
 
         [Test]
         public void SnapshotCapturer_ImageProvided_SaveImageInSql()
         {
             //arrange
-            const string filePath = @"D:/test";
-            var actualImage = new SnapshotImage { CaptureTime = DateTimeOffset.Now, FilePath = filePath };
-            var expectedImage = new SnapshotImage { CaptureTime = DateTimeOffset.Now, FilePath = filePath };
-
             _snapshotWebUnitOfWorkMock.Setup(x => x.SnapshotWebRepository).Returns(_snapshotWebRepositoryMock.Object);
             _snapshotWebRepositoryMock.Setup(x => x.Add(It.Is<SnapshotImage>(y => y.FilePath == actualImage.FilePath))).Verifiable();
             _snapshotWebUnitOfWorkMock.Setup(x => x.Save()).Verifiable();
