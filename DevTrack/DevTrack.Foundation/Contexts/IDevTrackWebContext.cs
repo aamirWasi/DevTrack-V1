@@ -14,5 +14,8 @@ namespace DevTrack.Foundation.Contexts
         DbSet<RunningProgram> RunningPrograms { get; set; }
         DbSet<SnapshotImage> SnapshotImages { get; set; }
         DbSet<WebCamCaptureImage> WebCamCaptureImages { get; set; }
+        DbSet<Project> Project { get; set; }
+        DbSet<Settings> Settings { get; set; }
+        //DbSet<TeamMember> TeamMembers { get; set; }
     }
 }

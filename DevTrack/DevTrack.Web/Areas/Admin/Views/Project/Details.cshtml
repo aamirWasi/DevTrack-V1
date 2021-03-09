@@ -1,0 +1,94 @@
+﻿@model DevTrack.Web.Areas.Admin.Models.ProjectCreateModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <h1>Project Details</h1>
+        <hr />
+
+        <dl class="row">
+            <dt class="col-sm-6">
+                Project Id
+            </dt>
+            <dd class="col-sm-4">
+                @Model.Id
+            </dd>
+            <dt class="col-sm-6">
+                Project Name
+            </dt>
+            <dd class="col-sm-4">
+                @Model.Name
+            </dd>
+            <dt class="col-sm-6">
+                Is Admin
+            </dt>
+            <dd class="col-sm-4">
+                @Model.IsAdmin
+            </dd>
+        </dl>
+
+        <br />
+        <h3>Project Settings</h3>
+        <hr />
+
+        <dl class="row">
+            <dt class="col-sm-6">
+                Allow Tracking
+            </dt>
+            <dd class="col-sm-4">
+                @Model.Setting.AllowTracking
+            </dd>
+            <dt class="col-sm-6">
+                Allow Taking Screenshot
+            </dt>
+            <dd class="col-sm-4">
+                @Model.Setting.TakeScreenShot
+            </dd>
+            <dt class="col-sm-6">
+                Allow Capturing WebCam
+            </dt>
+            <dd class="col-sm-4">
+                @Model.Setting.WebCamCapture
+            </dd>
+            <dt class="col-sm-6">
+                Allow Mouse Hit Tracking
+            </dt>
+            <dd class="col-sm-4">
+                @Model.Setting.TrackMouseHits
+            </dd>
+            <dt class="col-sm-6">
+                Allow Keyboard Hits Tracking
+            </dt>
+            <dd class="col-sm-4">
+                @Model.Setting.TrackKeyboardHits
+            </dd>
+            <dt class="col-sm-6">
+                Allow Tracking Active Program
+            </dt>
+            <dd class="col-sm-4">
+                @Model.Setting.TrackActiveProgram
+            </dd>
+            <dt class="col-sm-6">
+                Allow Tracking Running Program 
+            </dt>
+            <dd class="col-sm-4">
+                @Model.Setting.TrackRunningProgram
+            </dd>
+        </dl>
+
+        <br />
+
+        <div>
+            <a asp-action="Index" class="btn btn-info">Back</a>
+            <a asp-action="Edit" asp-route-Id="@Model.Id" class="btn btn-primary m-0">Update</a>
+            <a asp-action="Delete" asp-route-Id="@Model.Id" class="btn btn-danger m-0">Delete</a>
+        </div>
+    </div>
+    <br /><br />
+    
+</div>
+

@@ -4,14 +4,16 @@ using DevTrack.Foundation.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DevTrack.Web.Data
+namespace DevTrack.Web.Migrations.DevTrackWeb
 {
     [DbContext(typeof(DevTrackWebContext))]
-    partial class DevTrackWebContextModelSnapshot : ModelSnapshot
+    [Migration("20210306211500_Projects")]
+    partial class Projects
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -420,8 +422,6 @@ namespace DevTrack.Web.Data
 
                     b.HasIndex("SettingsId");
 
-                    b.HasIndex("AspNetUsersId");
-
                     b.ToTable("Project");
                 });
 
@@ -517,11 +517,7 @@ namespace DevTrack.Web.Data
                     b.HasOne("DevTrack.Foundation.Entities.Settings", "Settings")
                         .WithMany()
                         .HasForeignKey("SettingsId");
-                    b.HasMany("DevTrack.Membership.Entities.ApplicationUser", "AspNetUsersId")
-                        .WithOne()
-                        .HasForeignKey("AspNetUsersId");
                 });
-
 #pragma warning restore 612, 618
         }
     }

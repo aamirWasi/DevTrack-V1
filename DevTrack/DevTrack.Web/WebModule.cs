@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DevTrack.Web.Areas.Admin.Models;
 
 namespace DevTrack.Web
 {
@@ -15,6 +16,8 @@ namespace DevTrack.Web
 
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<ProjectCreateModel>().AsSelf().InstancePerLifetimeScope();
+
             base.Load(builder);
         }
     }

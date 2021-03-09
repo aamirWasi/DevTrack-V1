@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using DevTrack.Foundation.Adapters;
+using DevTrack.Foundation.BusinessObjects;
 using DevTrack.Foundation.Contexts;
 using DevTrack.Foundation.Repositories;
 using DevTrack.Foundation.Services;
@@ -104,7 +105,13 @@ namespace DevTrack.Foundation
             builder.RegisterType<ActiveProgramAdapter>().As<IActiveProgramAdapter>().InstancePerLifetimeScope();
 
             builder.RegisterType<RunningProgramAdapter>().As<IRunningProgramAdapter>().InstancePerLifetimeScope();
-            
+
+            builder.RegisterType<WebCamImageAdapter>().As<IWebCamImageAdapter>().InstancePerLifetimeScope();
+
+            builder.RegisterType<ProjectRepository>().As<IProjectRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<SettingsRepository>().As<ISettingsRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<ProjectUnitOfWork>().As<IProjectUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<ProjectService>().As<IProjectService>().InstancePerLifetimeScope();
 
             base.Load(builder);
         }

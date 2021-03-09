@@ -1,0 +1,86 @@
+﻿@model DevTrack.Web.Areas.Admin.Models.ProjectCreateModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="row">  
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+        <h1>Update Project Information</h1>
+        <hr />
+
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Project Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsAdmin" /> Is Admin
+                </label>
+            </div>
+
+            <h4>Tracking Settings</h4>
+            <hr />
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Setting.AllowTracking" value="true" /> Allow Tracking
+                </label>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Setting.TakeScreenShot" /> Allow Taking ScreenShot
+                </label>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Setting.WebCamCapture" /> Allow Captureing WebCam
+                </label>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Setting.TrackKeyboardHits" /> Allow Tracking Keyboard Hits
+                </label>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Setting.TrackMouseHits" /> Allow Tracking Mouse Hits
+                </label>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Setting.TrackRunningProgram" /> Allow Tracking Running Program
+                </label>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Setting.TrackActiveProgram" /> Allow Tracking Active Program
+                </label>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-info">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

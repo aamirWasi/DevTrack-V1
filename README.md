@@ -10,6 +10,8 @@
 - `dotnet ef database update --project DevTrack.Web --context DevTrackWebContext`
 
 
+
+
 ### Before Run Project, Make sure
 - Set Startup Project
 - Change connection string followed by your machine in `appsettings.json`
