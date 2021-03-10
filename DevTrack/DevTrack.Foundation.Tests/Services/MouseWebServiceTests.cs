@@ -46,7 +46,7 @@ namespace DevTrack.Foundation.Tests.Services
 
 
         [Test]
-        public void MouseTrackSave_MouseTrackProvided_SaveTrackInfo()
+        public void SaveMouseIntoWeb_MouseNotNull_SaveIntoSqlServer()
         {
             //arrange
             var mouse = new Mouse { LeftButtonClick = 1};
