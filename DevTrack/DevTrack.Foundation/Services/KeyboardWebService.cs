@@ -13,6 +13,7 @@ namespace DevTrack.Foundation.Services
         }
         public void SaveKeyboardIntoWeb(Keyboard keyboard)
         {
+            if (keyboard == null) return;
             _keyboardWeb.KeyboardWebRepository.Add(keyboard);
             _keyboardWeb.Save();
         }
