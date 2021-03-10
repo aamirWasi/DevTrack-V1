@@ -7,6 +7,7 @@
 - `dotnet ef database update --project DevTrack.TrackerWorkerService --context DevTrackContext`
 
 ## SqlServer Update Database Command
+- `dotnet ef database update --project DevTrack.Web --context ApplicationDbContext`
 - `dotnet ef database update --project DevTrack.Web --context DevTrackWebContext`
 
 
