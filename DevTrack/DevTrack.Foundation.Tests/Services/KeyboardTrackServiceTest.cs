@@ -13,11 +13,8 @@ namespace DevTrack.Foundation.Tests.Services
     {
         private AutoMock _mock;
         private Mock<IKeyboardTrackUnitOfWork> _keyboardTrackUnitMock;
-        private Mock<IKeyboardWebUnitOfWork> _keyboardWebUnitMock;
         private Mock<IKeyboardTrackRepository> _keyboardTrackRepositoryMock;
-        private Mock<IKeyboardWebRepository> _keyboardWebRepositoryMock;
         private Mock<IKeyboardTrackStartService> _keyboardTrackStartService;
-        private IKeyboardWebService _keyboardWebService;
         private IKeyboardTrackService _keyboardTrackService;
 
 
@@ -37,11 +34,8 @@ namespace DevTrack.Foundation.Tests.Services
         public void Setup()
         {
             _keyboardTrackUnitMock = _mock.Mock<IKeyboardTrackUnitOfWork>();
-            _keyboardWebUnitMock = _mock.Mock<IKeyboardWebUnitOfWork>();
             _keyboardTrackRepositoryMock = _mock.Mock<IKeyboardTrackRepository>();
             _keyboardTrackStartService = _mock.Mock<IKeyboardTrackStartService>();
-            _keyboardWebRepositoryMock = _mock.Mock<IKeyboardWebRepository>();
-            _keyboardWebService = _mock.Create<KeyboardWebService>();
             _keyboardTrackService = _mock.Create<KeyboardTrackService>();
         }
 
@@ -51,8 +45,6 @@ namespace DevTrack.Foundation.Tests.Services
             _keyboardTrackUnitMock?.Reset();
             _keyboardTrackRepositoryMock?.Reset();
             _keyboardTrackStartService?.Reset();
-            _keyboardWebRepositoryMock?.Reset();
-            _keyboardWebUnitMock?.Reset();
         }
 
 
@@ -78,29 +70,6 @@ namespace DevTrack.Foundation.Tests.Services
                 () => _keyboardTrackUnitMock.VerifyAll(),
                 () => _keyboardTrackRepositoryMock.VerifyAll(),
                 () => _keyboardTrackStartService.VerifyAll()
-            );
-        }
-
-        [Test]
-        public void SaveKeyboardIntoWeb_KeyboardProvide_SaveIntoSqlServer()
-        {
-            //arrange
-            var keyboard = new Keyboard{A = 5, TotalKeyHits = 5};
-            //Keyboard keyboard = null;
-
-            _keyboardWebUnitMock.Setup(x => x.KeyboardWebRepository)
-                .Returns(_keyboardWebRepositoryMock.Object);
-
-            _keyboardWebRepositoryMock.Setup(x => x.Add(keyboard)).Verifiable();
-            _keyboardWebUnitMock.Setup(x => x.Save()).Verifiable();
-
-            //act
-            _keyboardWebService.SaveKeyboardIntoWeb(keyboard);
-
-            //assert
-            this.ShouldSatisfyAllConditions(
-                () => _keyboardWebUnitMock.VerifyAll(),
-                () => _keyboardWebRepositoryMock.VerifyAll()
             );
         }
     }
