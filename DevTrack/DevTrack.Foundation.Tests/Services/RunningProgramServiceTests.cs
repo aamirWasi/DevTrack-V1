@@ -49,7 +49,7 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
-        public void GetRunningPrograms_NoApplicationsProvided_ThrowsInvalidOperationException()
+        public void AddRunningProgramsLocalDb_NoApplicationsFound_ThrowsInvalidOperationException()
         {
             //Arrange
             string appName = String.Empty;
@@ -67,7 +67,7 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
-        public void GetRunningPrograms_ApplicationsFound_SaveApplications()
+        public void AddRunningProgramsLocalDb_ApplicationsFound_SaveApplications()
         {
             //Arrange 
             string appName = "chrome,Code,devenv,TopTracker";
