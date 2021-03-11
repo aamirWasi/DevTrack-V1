@@ -8,6 +8,7 @@ using Moq;
 using NUnit.Framework;
 using Shouldly;
 using System;
+using System.Collections.Generic;
 
 namespace DevTrack.Foundation.Tests.Services
 {
@@ -92,6 +93,27 @@ namespace DevTrack.Foundation.Tests.Services
                 () => _runningProgramRepositoryMock.VerifyAll(),
                 () => _runningProgramUnitOfWorkMock.VerifyAll()
                 ) ;
+        }
+
+        [Test,Category("Unit Test")]
+        public void SyncRunningPrograms_RunningAppListIsEmpty_ThrowException()
+        {
+            //Arrange
+            List<RunningProgram> appList = null;
+
+            _runningProgramUnitOfWorkMock.Setup(x => x.RunningProgramRepository).Returns(_runningProgramRepositoryMock.Object);
+            _runningProgramRepositoryMock.Setup(x => x.GetAll()).Returns(appList).Verifiable();
+
+            //Act
+            Should.Throw<NullReferenceException>(
+                () => _runningProgramService.SyncRunningPrograms()
+            );
+
+            //Assert
+            this.ShouldSatisfyAllConditions(
+                () => _runningProgramRepositoryMock.VerifyAll(),
+                () => _runningProgramUnitOfWorkMock.VerifyAll()
+            );
         }
     }
 }

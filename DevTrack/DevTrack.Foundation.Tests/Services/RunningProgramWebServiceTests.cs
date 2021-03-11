@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Autofac.Extras.Moq;
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.Repositories;
@@ -63,7 +61,6 @@ namespace DevTrack.Foundation.Tests.Services
             Should.Throw<NullReferenceException>(
                 () => _runningProgramWebService.AddRunningProgramsWebDb(runningApps)
             );
-
         }
 
         [Test,Category("Unit Test")]
@@ -84,7 +81,6 @@ namespace DevTrack.Foundation.Tests.Services
                 () => _runningProgramWebUnitOfWorkMock.VerifyAll(),
                 () => _runningProgramWebRepositoryMock.VerifyAll()
             );
-
         }
     }
 }
