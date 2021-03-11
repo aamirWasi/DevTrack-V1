@@ -15,7 +15,7 @@ namespace DevTrack.Foundation.Adapters
         {
             var applist = new List<string>();
 
-            Process[] procList = Process.GetProcesses();
+            var procList = Process.GetProcesses();
             for (int i = 0; i < procList.Length; i++)
             {
                 if (procList[i].MainWindowHandle != IntPtr.Zero)

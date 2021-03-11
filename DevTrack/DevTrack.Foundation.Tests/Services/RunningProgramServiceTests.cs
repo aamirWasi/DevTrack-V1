@@ -48,7 +48,7 @@ namespace DevTrack.Foundation.Tests.Services
             _runningProgramAdapterMock?.Reset();
         }
 
-        [Test]
+        [Test,Category("Unit Test")]
         public void AddRunningProgramsLocalDb_NoApplicationsFound_ThrowsInvalidOperationException()
         {
             //Arrange
@@ -66,7 +66,7 @@ namespace DevTrack.Foundation.Tests.Services
                 );
         }
 
-        [Test]
+        [Test,Category("Unit Test")]
         public void AddRunningProgramsLocalDb_ApplicationsFound_SaveApplications()
         {
             //Arrange 
