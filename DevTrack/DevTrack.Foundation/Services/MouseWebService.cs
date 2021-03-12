@@ -14,6 +14,7 @@ namespace DevTrack.Foundation.Services
 
         public void SaveMouseIntoWeb(Mouse mouse)
         {
+            if (mouse == null) return;
             _mouseWebUnitOfWork.MouseWebRepository.Add(mouse);
             _mouseWebUnitOfWork.Save();
         }

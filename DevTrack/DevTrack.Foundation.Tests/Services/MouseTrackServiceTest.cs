@@ -49,7 +49,7 @@ namespace DevTrack.Foundation.Tests.Services
 
 
         [Test]
-        public void MouseTrackSave_MouseTrackProvided_SaveTrackInfo()
+        public void MouseTrackSaveToLocal_MouseTrackProvided_SaveTrackInfo()
         {
             //arrange
             var mouse = new Mouse { LeftButtonClick = 1};
