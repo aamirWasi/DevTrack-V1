@@ -71,7 +71,7 @@ namespace DevTrack.Foundation.Tests.Services
 
 
         [Test]
-        public void SaveActiveProgram_Save()
+        public void SaveActiveProgram_NoProgramFound_SaveLocalDB()
         {
             //arrange
             string programName = "Slack";
