@@ -8,6 +8,7 @@ using Moq;
 using NUnit.Framework;
 using Shouldly;
 using System;
+using System.Collections.Generic;
 
 namespace DevTrack.Foundation.Tests.Services
 {
@@ -48,8 +49,8 @@ namespace DevTrack.Foundation.Tests.Services
             _runningProgramAdapterMock?.Reset();
         }
 
-        [Test]
-        public void GetRunningPrograms_NoApplicationsProvided_ThrowsInvalidOperationException()
+        [Test,Category("Unit Test")]
+        public void AddRunningProgramsLocalDb_NoApplicationsFound_ThrowsInvalidOperationException()
         {
             //Arrange
             string appName = String.Empty;
@@ -66,8 +67,8 @@ namespace DevTrack.Foundation.Tests.Services
                 );
         }
 
-        [Test]
-        public void GetRunningPrograms_ApplicationsFound_SaveApplications()
+        [Test,Category("Unit Test")]
+        public void AddRunningProgramsLocalDb_ApplicationsFound_SaveApplications()
         {
             //Arrange 
             string appName = "chrome,Code,devenv,TopTracker";
@@ -92,6 +93,27 @@ namespace DevTrack.Foundation.Tests.Services
                 () => _runningProgramRepositoryMock.VerifyAll(),
                 () => _runningProgramUnitOfWorkMock.VerifyAll()
                 ) ;
+        }
+
+        [Test,Category("Unit Test")]
+        public void SyncRunningPrograms_RunningAppListIsEmpty_ThrowException()
+        {
+            //Arrange
+            List<RunningProgram> appList = null;
+
+            _runningProgramUnitOfWorkMock.Setup(x => x.RunningProgramRepository).Returns(_runningProgramRepositoryMock.Object);
+            _runningProgramRepositoryMock.Setup(x => x.GetAll()).Returns(appList).Verifiable();
+
+            //Act
+            Should.Throw<NullReferenceException>(
+                () => _runningProgramService.SyncRunningPrograms()
+            );
+
+            //Assert
+            this.ShouldSatisfyAllConditions(
+                () => _runningProgramRepositoryMock.VerifyAll(),
+                () => _runningProgramUnitOfWorkMock.VerifyAll()
+            );
         }
     }
 }
