@@ -156,6 +156,34 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
+        public void SyncSnapShotImages_ImagesFileNotFound_ThrowsArgumentException()
+        {
+            //arrange
+            const string imageFilePath = null;
+            const string returnResponse = "false";
+            var snapshotImage = new SnapshotImage { Id = 1, CaptureTime = DateTimeOffset.Now, FilePath = imageFilePath };
+            var actualImages = new List<SnapshotImage> { snapshotImage };
+            var expectedImages = new List<SnapshotImage> { imageEntity, imageEntity2 };
+            _snapshotUnitOfWorkMock.Setup(x => x.SnapshotRepository).Returns(_snapshotRepositoryMock.Object);
+            _snapshotRepositoryMock.Setup(x => x.GetAll()).Returns(actualImages).Verifiable();
+            _snapshotApiServiceMock.Setup(x => x.SaveSnapshotInSql(It.Is<SnapshotImage>(y => y.FilePath == snapshotImage.FilePath))).Returns(returnResponse);
+
+            //act
+            Should.Throw<ArgumentException>(
+            () => _snapshotService.SyncSnapShotImages()
+            );
+
+            //assert
+            actualImages.ShouldNotBe(expectedImages, "Actual & expected images both are equal in count & same instances");
+            actualImages.ShouldNotBeNull();
+            this.ShouldSatisfyAllConditions(
+                () => _snapshotUnitOfWorkMock.VerifyAll()
+                , () => _snapshotRepositoryMock.VerifyAll()
+                , () => _snapshotApiServiceMock.VerifyAll()
+                );
+        }
+
+        [Test]
         public void SyncSnapShotImages_SnapshotsFound_SyncSuccessfully()
         {
             //arrange

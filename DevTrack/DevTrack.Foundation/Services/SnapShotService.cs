@@ -23,15 +23,15 @@ namespace DevTrack.Foundation.Services
         private readonly IBitMapAdapter _image;
         private readonly ISnapshotApiService _snapshotApiService;
         private readonly ISnapshotLocalService _snapshotLocalService;
-        private readonly IFileManager _helper;
+        private readonly IFileManager _fileManager;
 
-        public SnapShotService(ISnapshotUnitOfWork snapshotUnitOfWork,IBitMapAdapter image, ISnapshotApiService snapshotApiService, ISnapshotLocalService snapshotLocalService, IFileManager helper)
+        public SnapShotService(ISnapshotUnitOfWork snapshotUnitOfWork,IBitMapAdapter image, ISnapshotApiService snapshotApiService, ISnapshotLocalService snapshotLocalService, IFileManager fileManager)
         {
             _snapshotUnitOfWork = snapshotUnitOfWork;
             _image = image;
             _snapshotApiService = snapshotApiService;
             _snapshotLocalService = snapshotLocalService;
-            _helper = helper;
+            _fileManager = fileManager;
         }
      
         public void SnapshotCapturer()
@@ -54,7 +54,7 @@ namespace DevTrack.Foundation.Services
         public void SyncSnapShotImages()
         {
             var images = _snapshotUnitOfWork.SnapshotRepository.GetAll();
-            if (images != null)
+            if (images!=null)
             {
                 foreach (var image in images)
                 {
@@ -65,8 +65,15 @@ namespace DevTrack.Foundation.Services
                     };
 
                     var result = _snapshotApiService.SaveSnapshotInSql(imageEntity);
-                    _snapshotLocalService.RemoveImageFromSqLite(result, image.Id);
-                    _snapshotLocalService.RemoveImageFromFolder(_helper.GetFilePath(imageEntity.FilePath));
+                    if (result != "true")
+                    {
+                        throw new ArgumentException("Result is false");
+                    }
+                    else
+                    {
+                        _snapshotLocalService.RemoveImageFromSqLite(result, image.Id);
+                        _snapshotLocalService.RemoveImageFromFolder(_fileManager.GetFilePath(imageEntity.FilePath));
+                    }
                 }
             }
         }
