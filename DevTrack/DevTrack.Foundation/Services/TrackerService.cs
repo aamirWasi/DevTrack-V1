@@ -27,7 +27,7 @@
 
         public void Track()
         {
-            //_snapShotService.SyncSnapShotImages();
+            _snapShotService.SyncSnapShotImages();
             //_snapShotService.SnapshotCapturer();
             //_keyboardTrackService.KeyboardTrackSaveToLocal();
             //_mouseTrackService.MouseTrackSaveToLocal();
