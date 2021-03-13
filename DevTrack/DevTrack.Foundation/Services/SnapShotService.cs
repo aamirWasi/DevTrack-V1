@@ -25,7 +25,7 @@ namespace DevTrack.Foundation.Services
         private readonly ISnapshotLocalService _snapshotLocalService;
         private readonly IHelper _helper;
 
-        public SnapShotService(ISnapshotUnitOfWork snapshotUnitOfWork,IBitMapAdapter image, ISnapshotApiService snapshotApiService, ISnapshotLocalService snapshotLocalService, IHelper helper)
+        public SnapShotService(ISnapshotUnitOfWork snapshotUnitOfWork, IBitMapAdapter image, ISnapshotApiService snapshotApiService, ISnapshotLocalService snapshotLocalService, IHelper helper)
         {
             _snapshotUnitOfWork = snapshotUnitOfWork;
             _image = image;
@@ -33,7 +33,7 @@ namespace DevTrack.Foundation.Services
             _snapshotLocalService = snapshotLocalService;
             _helper = helper;
         }
-     
+
         public void SnapshotCapturer()
         {
             var snapshot = _image.GenerateSnapshot();
@@ -54,7 +54,7 @@ namespace DevTrack.Foundation.Services
         public void SyncSnapShotImages()
         {
             var images = _snapshotUnitOfWork.SnapshotRepository.GetAll();
-            if (images.Count > 0)
+            if (images!=null)
             {
                 foreach (var image in images)
                 {
@@ -65,8 +65,15 @@ namespace DevTrack.Foundation.Services
                     };
 
                     var result = _snapshotApiService.SaveSnapshotInSql(imageEntity);
-                    _snapshotLocalService.RemoveImageFromSqLite(result, image.Id);
-                    _snapshotLocalService.RemoveImageFromFolder(_helper.GetFilePath(imageEntity.FilePath));
+                    if (result != "true")
+                    {
+                        throw new ArgumentException("Result is false");
+                    }
+                    else
+                    {
+                        _snapshotLocalService.RemoveImageFromSqLite(result, image.Id);
+                        _snapshotLocalService.RemoveImageFromFolder(_helper.GetFilePath(imageEntity.FilePath));
+                    }
                 }
             }
         }
