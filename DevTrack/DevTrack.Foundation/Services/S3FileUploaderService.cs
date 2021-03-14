@@ -13,18 +13,15 @@ namespace DevTrack.Foundation.Services
         {
             try
             {
-                using (var client = new AmazonS3Client(Amazon.RegionEndpoint.USEast1))
+                using var client = new AmazonS3Client(Amazon.RegionEndpoint.USEast1);
+                var putRequest = new PutObjectRequest
                 {
-                    var putRequest = new PutObjectRequest
-                    {
-                        BucketName = bucketName,
-                        Key = keyName,
-                        FilePath = filePath,
-                        ContentType = "text/plain"
-                    };
+                    BucketName = bucketName,
+                    Key = keyName,
+                    FilePath = filePath
+                };
 
-                    var response = await client.PutObjectAsync(putRequest);
-                }
+                var response = await client.PutObjectAsync(putRequest);
             }
             catch (Exception ex)
             {
