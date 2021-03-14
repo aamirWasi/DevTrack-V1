@@ -25,7 +25,7 @@ namespace DevTrack.Foundation.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw new InvalidOperationException("Could not upload file in bucket properly",ex.InnerException);
             }
         }
     }
