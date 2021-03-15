@@ -26,7 +26,7 @@ namespace DevTrack.Foundation.Services
 
             else
             {
-                throw new InvalidProgramException("Response is false");
+                throw new InvalidProgramException("Result is false");
             }
         }
 

@@ -112,10 +112,10 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
-        public void RemoveImageFromFolder_ImagePathNotProvided_ThrowsInvalidOperationException()
+        public void RemoveImageFromFolder_NoImagePathProvided_ThrowsInvalidOperationException()
         {
             //arrange
-            const string filePathEmpty = null;
+            const string filePathEmpty = "";
 
             //act
             Should.Throw<InvalidOperationException>(
