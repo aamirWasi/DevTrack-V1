@@ -49,7 +49,7 @@ namespace DevTrack.Foundation.Tests.Services
 
 
         [Test]
-        public void KeyboardTrackSave_KeyboardTrackProvided_SaveTrackInfo()
+        public void KeyboardTrackSaveToLocal_KeyboardTrackDataSet_SaveTrackInfo()
         {
             //arrange
             var keyboard = new Keyboard{A = 5, TotalKeyHits = 5};

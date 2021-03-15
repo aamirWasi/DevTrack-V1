@@ -11,13 +11,13 @@ namespace DevTrack.Foundation.Services
         private readonly IWebCamImageAdapter _webCamImageAdapter;
         private readonly IWebCamCaptureApiService _webCamCaptureApiService;
         private readonly IWebCamCaptureLocalService _webCamCaptureLocalService;
-        private readonly IHelper _helper;
+        private readonly IFileManager _helper;
 
         public WebCamCaptureService(IWebCamCaptureUnitOfWork webCamCaptureUnitOfWork, 
                                     IWebCamImageAdapter webCamImageAdapter, 
                                     IWebCamCaptureApiService webCamCaptureApiService,
                                     IWebCamCaptureLocalService webCamCaptureLocalService,
-                                    IHelper helper)
+                                    IFileManager helper)
         {
             _WebCamCaptureUnitOfWork = webCamCaptureUnitOfWork;
             _webCamImageAdapter = webCamImageAdapter;
