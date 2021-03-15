@@ -9,19 +9,19 @@ namespace DevTrack.Foundation.Services
     {
         private readonly IWebCamCaptureUnitOfWork _WebCamCaptureUnitOfWork;
         private readonly IWebCamImageAdapter _webCamImageAdapter;
-        private readonly IWebCamCaptureApiService _webCamCaptureApiService;
+        private readonly IWebCamCaptureWebService _webCamCaptureWebService;
         private readonly IWebCamCaptureLocalService _webCamCaptureLocalService;
         private readonly IFileManager _helper;
 
         public WebCamCaptureService(IWebCamCaptureUnitOfWork webCamCaptureUnitOfWork, 
-                                    IWebCamImageAdapter webCamImageAdapter, 
-                                    IWebCamCaptureApiService webCamCaptureApiService,
+                                    IWebCamImageAdapter webCamImageAdapter,
+                                    IWebCamCaptureWebService webCamCaptureWebService,
                                     IWebCamCaptureLocalService webCamCaptureLocalService,
                                     IFileManager helper)
         {
             _WebCamCaptureUnitOfWork = webCamCaptureUnitOfWork;
             _webCamImageAdapter = webCamImageAdapter;
-            _webCamCaptureApiService = webCamCaptureApiService;
+            _webCamCaptureWebService = webCamCaptureWebService;
             _webCamCaptureLocalService = webCamCaptureLocalService;
             _helper = helper;
         }
@@ -58,7 +58,7 @@ namespace DevTrack.Foundation.Services
                         WebCamImagePath = image.WebCamImagePath
                     };
 
-                    var result = _webCamCaptureApiService.SaveCapturedImageInSql(imageEntity);
+                    var result = _webCamCaptureWebService.SaveSnapshotInSql(imageEntity);
                     _webCamCaptureLocalService.RemoveImageFromSqLite(result, image.Id);
                     _webCamCaptureLocalService.RemoveImageFromFolder(imageEntity.WebCamImagePath);
                 }

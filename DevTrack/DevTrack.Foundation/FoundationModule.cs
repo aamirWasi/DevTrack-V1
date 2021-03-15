@@ -61,7 +61,7 @@ namespace DevTrack.Foundation
             builder.RegisterType<WebCamCaptureWebRepository>().As<IWebCamCaptureWebRepository>().InstancePerLifetimeScope();
             builder.RegisterType<WebCamCaptureWebUnitOfWork>().As<IWebCamCaptureWebUnitOfWork>().InstancePerLifetimeScope();
             builder.RegisterType<WebCamImageAdapter>().As<IWebCamImageAdapter>().InstancePerLifetimeScope();
-            builder.RegisterType<WebCamCaptureApiService>().As<IWebCamCaptureApiService>().InstancePerLifetimeScope();
+            builder.RegisterType<WebCamCaptureAdapterService>().As<IWebCamCaptureAdapterService>().InstancePerLifetimeScope();
             builder.RegisterType<WebCamCaptureLocalService>().As<IWebCamCaptureLocalService>().InstancePerLifetimeScope();
 
 
