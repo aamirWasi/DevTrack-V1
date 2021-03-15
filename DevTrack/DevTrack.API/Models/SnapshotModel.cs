@@ -30,7 +30,7 @@ namespace DevTrack.API.Models
 
                 _snapShotWebService.SaveSnapShotWebDb(new SnapshotImage
                 {
-                    FilePath = filePath,
+                    FilePath = fileName,
                     CaptureTime = CaptureTime
                 });
             }
