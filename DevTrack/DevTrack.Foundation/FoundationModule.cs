@@ -99,6 +99,7 @@ namespace DevTrack.Foundation
 
             builder.RegisterType<ServerTime>().As<IServerTime>().InstancePerLifetimeScope();
             builder.RegisterType<BitMapAdapter>().As<IBitMapAdapter>().InstancePerLifetimeScope();
+            builder.RegisterType<SnapShotWebAdapterService>().As<ISnapShotWebAdapterService>().InstancePerLifetimeScope();
             builder.RegisterType<SnapShotAdapter>().As<ISnapShotAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<ActiveProgramAdapter>().As<IActiveProgramAdapter>().InstancePerLifetimeScope();
 

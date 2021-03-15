@@ -34,7 +34,7 @@ namespace DevTrack.Foundation.Services
             if (imageEntity != null)
                 return _snapShotWebAdapterService.WebHttpResponse(imageEntity);
             else
-                throw new InvalidOperationException("Image information is not valid");
+                throw new InvalidOperationException("Image information is invalid");
         }
     }
 }

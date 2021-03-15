@@ -1,4 +1,5 @@
 ﻿using Autofac.Extras.Moq;
+using DevTrack.Foundation.Adapters;
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.Repositories;
 using DevTrack.Foundation.Services;
@@ -22,6 +23,7 @@ namespace DevTrack.Foundation.Tests.Services
         private AutoMock _mock;
         private Mock<ISnapshotWebUnitOfWork> _snapshotWebUnitOfWorkMock;
         private Mock<ISnapshotWebRepository> _snapshotWebRepositoryMock;
+        private Mock<ISnapShotWebAdapterService> _snapShotWebAdapterServiceMock;
         private ISnapShotWebService _snapshotWebService;
         #endregion
 
@@ -42,6 +44,7 @@ namespace DevTrack.Foundation.Tests.Services
         {
             _snapshotWebRepositoryMock = _mock.Mock<ISnapshotWebRepository>();
             _snapshotWebUnitOfWorkMock = _mock.Mock<ISnapshotWebUnitOfWork>();
+            _snapShotWebAdapterServiceMock = _mock.Mock<ISnapShotWebAdapterService>();
             _snapshotWebService = _mock.Create<SnapShotWebService>();
         }
 
@@ -50,10 +53,11 @@ namespace DevTrack.Foundation.Tests.Services
         {
             _snapshotWebUnitOfWorkMock?.Reset();
             _snapshotWebRepositoryMock?.Reset();
+            _snapShotWebAdapterServiceMock?.Reset();
         }
 
         [Test]
-        public void SnapshotCapturer_NoImageProvided_ThrowsInvalidOperationException()
+        public void SaveSnapShotWebDb_NoImageProvided_ThrowsInvalidOperationException()
         {
             //arrange
             SnapshotImage imageEntity = null;
@@ -68,7 +72,7 @@ namespace DevTrack.Foundation.Tests.Services
         }
 
         [Test]
-        public void SnapshotCapturer_ImageProvided_SaveImageInSql()
+        public void SaveSnapShotWebDb_ImageProvided_SaveImageInSql()
         {
             //arrange
             _snapshotWebUnitOfWorkMock.Setup(x => x.SnapshotWebRepository).Returns(_snapshotWebRepositoryMock.Object);
@@ -85,6 +89,53 @@ namespace DevTrack.Foundation.Tests.Services
                 () => _snapshotWebUnitOfWorkMock.VerifyAll()
                 , () => _snapshotWebRepositoryMock.VerifyAll()
                 );
+        }
+
+        [Test]
+        public void SaveSnapshotInSql_NoImageProvided_ThrowsInvalidOperationException()
+        {
+            //arrange
+            SnapshotImage imageEntity = null;
+
+            //act
+            Should.Throw<InvalidOperationException>(
+                () => _snapshotWebService.SaveSnapshotInSql(imageEntity)
+                );
+
+            //assert
+            imageEntity.ShouldNotBe(actualImage);
+        }
+
+        [Test]
+        public void SaveSnapshotInSql_ImageProvided_ReturnsResponseTrue()
+        {
+            //arrange
+            var result = "true";
+            _snapShotWebAdapterServiceMock.Setup(x => x.WebHttpResponse(It.Is<SnapshotImage>(y => y.FilePath == actualImage.FilePath))).Returns("true");
+
+            //act
+            var response = _snapshotWebService.SaveSnapshotInSql(actualImage);
+
+            //assert
+            actualImage.ShouldNotBeNull();
+            result.ShouldBe(response);
+            _snapShotWebAdapterServiceMock.VerifyAll();
+        }
+
+        [Test]
+        public void SaveSnapshotInSql_ImageProvided_ReturnsResponseFalse()
+        {
+            //arrange
+            var result = "true";
+            _snapShotWebAdapterServiceMock.Setup(x => x.WebHttpResponse(It.Is<SnapshotImage>(y => y.FilePath == actualImage.FilePath))).Returns("false");
+
+            //act
+            var response = _snapshotWebService.SaveSnapshotInSql(actualImage);
+
+            //assert
+            actualImage.ShouldNotBeNull();
+            result.ShouldNotBe(response);
+            _snapShotWebAdapterServiceMock.VerifyAll();
         }
     }
 }
