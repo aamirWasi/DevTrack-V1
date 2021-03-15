@@ -1,4 +1,5 @@
 ﻿using Autofac.Extras.Moq;
+using DevTrack.Foundation.Adapters;
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.Repositories;
 using DevTrack.Foundation.Services;
@@ -22,6 +23,7 @@ namespace DevTrack.Foundation.Tests.Services
         private AutoMock _mock;
         private Mock<IWebCamCaptureWebUnitOfWork> _webCamCaptureWebUnitOfWorkMock;
         private Mock<IWebCamCaptureWebRepository> _webCamCaptureWebRepositoryMock;
+        private Mock<IWebCamCaptureAdapterService> _webCamCaptureAdapterServiceMock;
         private IWebCamCaptureWebService _webCamCaptureWebService;
         #endregion
 
@@ -42,6 +44,7 @@ namespace DevTrack.Foundation.Tests.Services
         {
             _webCamCaptureWebRepositoryMock = _mock.Mock<IWebCamCaptureWebRepository>();
             _webCamCaptureWebUnitOfWorkMock = _mock.Mock<IWebCamCaptureWebUnitOfWork>();
+            _webCamCaptureAdapterServiceMock = _mock.Mock<IWebCamCaptureAdapterService>();
             _webCamCaptureWebService = _mock.Create<WebCamCaptureWebService>();
         }
 
@@ -50,6 +53,7 @@ namespace DevTrack.Foundation.Tests.Services
         {
             _webCamCaptureWebUnitOfWorkMock?.Reset();
             _webCamCaptureWebRepositoryMock?.Reset();
+            _webCamCaptureAdapterServiceMock?.Reset();
         }
 
         [Test]
@@ -86,5 +90,53 @@ namespace DevTrack.Foundation.Tests.Services
                 , () => _webCamCaptureWebRepositoryMock.VerifyAll()
                 );
         }
+
+        [Test]
+        public void SaveWebCamInSql_NoImageProvided_ThrowsInvalidOperationException()
+        {
+            //arrange
+            WebCamCaptureImage imageEntity = null;
+
+            //act
+            Should.Throw<InvalidOperationException>(
+                () => _webCamCaptureWebService.SaveSnapshotInSql(imageEntity)
+                );
+
+            //assert
+            imageEntity.ShouldNotBe(actualImage);
+        }
+
+        [Test]
+        public void SaveWebCamInSql_ImageProvided_ReturnsResponseTrue()
+        {
+            //arrange
+            var result = "true";
+            _webCamCaptureAdapterServiceMock.Setup(x => x.WebHttpResponse(It.Is<WebCamCaptureImage>(y => y.WebCamImagePath == actualImage.WebCamImagePath))).Returns("true");
+
+            //act
+            var response = _webCamCaptureWebService.SaveSnapshotInSql(actualImage);
+
+            //assert
+            actualImage.ShouldNotBeNull();
+            result.ShouldBe(response);
+            _webCamCaptureAdapterServiceMock.VerifyAll();
+        }
+
+        [Test]
+        public void SaveWebCamInSql_ImageProvided_ReturnsResponseFalse()
+        {
+            //arrange
+            var result = "true";
+            _webCamCaptureAdapterServiceMock.Setup(x => x.WebHttpResponse(It.Is<WebCamCaptureImage>(y => y.WebCamImagePath == actualImage.WebCamImagePath))).Returns("false");
+
+            //act
+            var response = _webCamCaptureWebService.SaveSnapshotInSql(actualImage);
+
+            //assert
+            actualImage.ShouldNotBeNull();
+            result.ShouldNotBe(response);
+            _webCamCaptureAdapterServiceMock.VerifyAll();
+        }
+
     }
 }

@@ -48,7 +48,7 @@ namespace DevTrack.Foundation.Services
         public void SyncWebCamImages()
         {
             var images = _WebCamCaptureUnitOfWork.WebCamCaptureRepository.GetAll();
-            if (images.Count > 0)
+            if (images != null && images.Count > 0)
             {
                 foreach (var image in images)
                 {
@@ -59,8 +59,15 @@ namespace DevTrack.Foundation.Services
                     };
 
                     var result = _webCamCaptureWebService.SaveSnapshotInSql(imageEntity);
-                    _webCamCaptureLocalService.RemoveImageFromSqLite(result, image.Id);
-                    _webCamCaptureLocalService.RemoveImageFromFolder(imageEntity.WebCamImagePath);
+                    if(result != "true")
+                    {
+                        throw new ArgumentException("Return response is not true");
+                    }
+                    else
+                    {
+                        _webCamCaptureLocalService.RemoveImageFromSqLite(result, image.Id);
+                        _webCamCaptureLocalService.RemoveImageFromFolder(imageEntity.WebCamImagePath);
+                    }
                 }
             }
         }
