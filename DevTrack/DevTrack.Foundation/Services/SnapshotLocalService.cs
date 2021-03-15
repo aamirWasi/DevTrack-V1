@@ -1,15 +1,18 @@
 ﻿using DevTrack.Foundation.UnitOfWorks;
 using System.IO;
+using System;
 
 namespace DevTrack.Foundation.Services
 {
     public class SnapshotLocalService : ISnapshotLocalService
     {
-        private ISnapshotUnitOfWork _snapshotUnitOfWork;
+        private readonly ISnapshotUnitOfWork _snapshotUnitOfWork;
+        private readonly IFileManager _fileManager;
 
-        public SnapshotLocalService(ISnapshotUnitOfWork snapshotUnitOfWork)
+        public SnapshotLocalService(ISnapshotUnitOfWork snapshotUnitOfWork, IFileManager fileManager)
         {
             _snapshotUnitOfWork = snapshotUnitOfWork;
+            _fileManager = fileManager;
         }
 
         public void RemoveImageFromSqLite(string returnResult, int id)
@@ -20,11 +23,23 @@ namespace DevTrack.Foundation.Services
                 _snapshotUnitOfWork.SnapshotRepository.Remove(imageRemove);
                 _snapshotUnitOfWork.Save();
             }
+
+            else
+            {
+                throw new InvalidProgramException("Result is false");
+            }
         }
 
         public void RemoveImageFromFolder(string path)
         {
-            File.Delete(path);
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                _fileManager.RemoveFileFromDirectory(path);
+            }
+            else
+            {
+                throw new InvalidOperationException("File path must be provided to remove from local directory");
+            }
         }
     }
 }

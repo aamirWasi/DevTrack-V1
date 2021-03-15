@@ -5,5 +5,6 @@ namespace DevTrack.Foundation.Services
     public interface ISnapShotWebService
     {
         void SaveSnapShotWebDb(SnapshotImage image);
+        string SaveSnapshotInSql(SnapshotImage imageEntity);
     }
 }

@@ -40,9 +40,8 @@ namespace DevTrack.Foundation
             builder.RegisterType<SnapshotWebUnitOfWork>().As<ISnapshotWebUnitOfWork>().InstancePerLifetimeScope();
             builder.RegisterType<SnapShotWebService>().As<ISnapShotWebService>().InstancePerLifetimeScope();
 
-            builder.RegisterType<SnapshotApiService>().As<ISnapshotApiService>().InstancePerLifetimeScope();
             builder.RegisterType<SnapshotLocalService>().As<ISnapshotLocalService>().InstancePerLifetimeScope();
-            builder.RegisterType<Helper>().As<IHelper>().InstancePerLifetimeScope();
+            builder.RegisterType<FileManager>().As<IFileManager>().InstancePerLifetimeScope();
 
             builder.RegisterType<S3FileUploaderService>().As<IS3FileUploaderService>().InstancePerLifetimeScope();
 
@@ -103,6 +102,7 @@ namespace DevTrack.Foundation
 
             builder.RegisterType<ServerTime>().As<IServerTime>().InstancePerLifetimeScope();
             builder.RegisterType<BitMapAdapter>().As<IBitMapAdapter>().InstancePerLifetimeScope();
+            builder.RegisterType<SnapShotWebAdapterService>().As<ISnapShotWebAdapterService>().InstancePerLifetimeScope();
             builder.RegisterType<SnapShotAdapter>().As<ISnapShotAdapter>().InstancePerLifetimeScope();
             builder.RegisterType<ActiveProgramAdapter>().As<IActiveProgramAdapter>().InstancePerLifetimeScope();
 

@@ -1,16 +1,19 @@
 ﻿using DevTrack.Foundation.UnitOfWorks;
 using System;
 using DevTrack.Foundation.Entities;
+using DevTrack.Foundation.Adapters;
 
 namespace DevTrack.Foundation.Services
 {
     public class SnapShotWebService : ISnapShotWebService
     {
         private readonly ISnapshotWebUnitOfWork _snapshotWebUnitOfWork;
+        private readonly ISnapShotWebAdapterService _snapShotWebAdapterService;
 
-        public SnapShotWebService(ISnapshotWebUnitOfWork snapshotWebUnitOfWork)
+        public SnapShotWebService(ISnapshotWebUnitOfWork snapshotWebUnitOfWork, ISnapShotWebAdapterService snapShotWebAdapterService)
         {
             _snapshotWebUnitOfWork = snapshotWebUnitOfWork;
+            _snapShotWebAdapterService = snapShotWebAdapterService;
         }
 
         public void SaveSnapShotWebDb(SnapshotImage image)
@@ -21,14 +24,17 @@ namespace DevTrack.Foundation.Services
             }
             else
             {
-                //var imageEntity = new EO.SnapshotImage
-                //{
-                //    FilePath = image.FilePath,
-                //    CaptureTime = image.CaptureTime
-                //};
                 _snapshotWebUnitOfWork.SnapshotWebRepository.Add(image);
                 _snapshotWebUnitOfWork.Save();
             }
+        }
+
+        public string SaveSnapshotInSql(SnapshotImage imageEntity)
+        {
+            if (imageEntity != null)
+                return _snapShotWebAdapterService.WebHttpResponse(imageEntity);
+            else
+                throw new InvalidOperationException("Image information is invalid");
         }
     }
 }

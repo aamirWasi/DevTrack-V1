@@ -21,17 +21,18 @@ namespace DevTrack.Foundation.Services
     {
         private readonly ISnapshotUnitOfWork _snapshotUnitOfWork;
         private readonly IBitMapAdapter _image;
-        private readonly ISnapshotApiService _snapshotApiService;
+        private readonly ISnapShotWebService _snapShotWebService;
         private readonly ISnapshotLocalService _snapshotLocalService;
-        private readonly IHelper _helper;
+        private readonly IFileManager _fileManager;
 
-        public SnapShotService(ISnapshotUnitOfWork snapshotUnitOfWork, IBitMapAdapter image, ISnapshotApiService snapshotApiService, ISnapshotLocalService snapshotLocalService, IHelper helper)
+        public SnapShotService(ISnapshotUnitOfWork snapshotUnitOfWork,IBitMapAdapter image, ISnapShotWebService snapShotWebService, ISnapshotLocalService snapshotLocalService, IFileManager fileManager)
+
         {
             _snapshotUnitOfWork = snapshotUnitOfWork;
             _image = image;
-            _snapshotApiService = snapshotApiService;
+            _snapShotWebService = snapShotWebService;
             _snapshotLocalService = snapshotLocalService;
-            _helper = helper;
+            _fileManager = fileManager;
         }
 
         public void SnapshotCapturer()
@@ -64,15 +65,15 @@ namespace DevTrack.Foundation.Services
                         FilePath = image.FilePath
                     };
 
-                    var result = _snapshotApiService.SaveSnapshotInSql(imageEntity);
+                    var result = _snapShotWebService.SaveSnapshotInSql(imageEntity);
                     if (result != "true")
                     {
-                        throw new ArgumentException("Result is false");
+                        throw new ArgumentException("Return response is not true");
                     }
                     else
                     {
                         _snapshotLocalService.RemoveImageFromSqLite(result, image.Id);
-                        _snapshotLocalService.RemoveImageFromFolder(_helper.GetFilePath(imageEntity.FilePath));
+                        _snapshotLocalService.RemoveImageFromFolder(_fileManager.GetFilePath(imageEntity.FilePath));
                     }
                 }
             }
