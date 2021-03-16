@@ -95,5 +95,23 @@ namespace DevTrack.Foundation.Tests.Services
 
 
         }
+
+        [Test]
+        public void SyncSnapShotImages_NoImageFound_ReturnNull()
+        {
+            //arrange
+            IList<WebCamCaptureImage> actualImages = null;
+            _webCamCaptureUnitOfWorkMock.Setup(x => x.WebCamCaptureRepository).Returns(_webCamCaptureRepositoryMock.Object);
+            _webCamCaptureRepositoryMock.Setup(x => x.GetAll()).Returns(actualImages).Verifiable();
+
+            //act
+            _webCamCaptureService.SyncWebCamImages();
+
+            //assert
+            this.ShouldSatisfyAllConditions(
+                () => _webCamCaptureUnitOfWorkMock.VerifyAll(),
+                () => _webCamCaptureRepositoryMock.VerifyAll()
+                );
+        }
     }
 }

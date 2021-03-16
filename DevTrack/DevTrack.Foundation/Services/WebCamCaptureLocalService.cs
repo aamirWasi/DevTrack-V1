@@ -1,4 +1,5 @@
 ﻿using DevTrack.Foundation.UnitOfWorks;
+using System;
 using System.IO;
 
 namespace DevTrack.Foundation.Services
@@ -6,10 +7,12 @@ namespace DevTrack.Foundation.Services
     public class WebCamCaptureLocalService : IWebCamCaptureLocalService
     {
         private IWebCamCaptureUnitOfWork _webCamCaptureUnitOfWork;
+        private readonly IFileManager _fileManager;
 
-        public WebCamCaptureLocalService(IWebCamCaptureUnitOfWork webCamCaptureUnitOfWork)
+        public WebCamCaptureLocalService(IWebCamCaptureUnitOfWork webCamCaptureUnitOfWork, IFileManager fileManager)
         {
             _webCamCaptureUnitOfWork = webCamCaptureUnitOfWork;
+            _fileManager = fileManager;
         }
 
         public void RemoveImageFromSqLite(string returnResult, int id)
@@ -20,11 +23,22 @@ namespace DevTrack.Foundation.Services
                 _webCamCaptureUnitOfWork.WebCamCaptureRepository.Remove(imageRemove);
                 _webCamCaptureUnitOfWork.Save();
             }
+            else
+            {
+                throw new InvalidProgramException("Response is false");
+            }
         }
 
         public void RemoveImageFromFolder(string path)
         {
-            File.Delete(path);
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                _fileManager.RemoveFileFromDirectory(path);
+            }
+            else
+            {
+                throw new InvalidOperationException("File path must be provided to remove from local directory");
+            }
         }
     }
 }
