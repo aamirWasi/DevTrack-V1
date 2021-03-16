@@ -26,6 +26,7 @@ namespace DevTrack.Foundation.Services
         private readonly IFileManager _fileManager;
 
         public SnapShotService(ISnapshotUnitOfWork snapshotUnitOfWork,IBitMapAdapter image, ISnapShotWebService snapShotWebService, ISnapshotLocalService snapshotLocalService, IFileManager fileManager)
+
         {
             _snapshotUnitOfWork = snapshotUnitOfWork;
             _image = image;
@@ -33,7 +34,7 @@ namespace DevTrack.Foundation.Services
             _snapshotLocalService = snapshotLocalService;
             _fileManager = fileManager;
         }
-     
+
         public void SnapshotCapturer()
         {
             var snapshot = _image.GenerateSnapshot();

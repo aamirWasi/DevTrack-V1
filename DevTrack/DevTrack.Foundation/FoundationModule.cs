@@ -43,6 +43,8 @@ namespace DevTrack.Foundation
             builder.RegisterType<SnapshotLocalService>().As<ISnapshotLocalService>().InstancePerLifetimeScope();
             builder.RegisterType<FileManager>().As<IFileManager>().InstancePerLifetimeScope();
 
+            builder.RegisterType<S3FileUploaderService>().As<IS3FileUploaderService>().InstancePerLifetimeScope();
+
             builder.RegisterType<LoggerInputService>().As<ILoggerInputService>().InstancePerLifetimeScope();
 
             builder.RegisterType<RunningProgramService>().As<IRunningProgramService>().InstancePerLifetimeScope();
