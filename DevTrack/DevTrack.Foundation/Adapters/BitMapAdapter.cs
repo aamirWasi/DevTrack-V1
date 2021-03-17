@@ -7,14 +7,17 @@ namespace DevTrack.Foundation.Services.Adapters
     public class BitMapAdapter : IBitMapAdapter
     {
         public int Width { get; set; }
-        public IServerTime ServerTime { get; set; }
         public string FilePath { get; set; }
         public int Height { get; set; }
         public Image Image { get; set; }
 
+        private IServerTime _serverTime { get; set; }
+        private IFileManager _fileManager { get; set; }
+
         public BitMapAdapter()
         {
-            ServerTime = new ServerTime();
+            _serverTime = new ServerTime();
+            _fileManager = new FileManager();
         }
 
         public (ISnapShotAdapter image, string fileLoaction) GenerateSnapshot()
@@ -30,30 +33,28 @@ namespace DevTrack.Foundation.Services.Adapters
 
             Width = (int)Math.Round(dpiX);
             Height = (int)Math.Round(dpiY);
-            string newPath = GetDirectoryPath();
+            string newPath = _fileManager.GetFilePath();
             bool exists = Directory.Exists(newPath);
-            string imgName = ServerTime.GetTime();
+            string imgName = _serverTime.GetTime();
+
             if (!exists)
             {
                 Directory.CreateDirectory(newPath);
             }
-            FilePath = newPath +
-                      @"\Snapshot" + "_" + imgName
-                      + ".jpeg";
+
+            const string folderName = @"\Snapshot" + "_";
+            const string extensions = @".jpeg";
+
+            FilePath = $"{newPath}{folderName}{imgName}{extensions}";
             _image = new SnapShotAdapter(Width, Height);
+
             var s = new Size(Width, Height);
+
             var imageGraphics = Graphics.FromImage(_image.Image);
             imageGraphics.CopyFromScreen(0, 0, 0, 0, s);
 
             _image.SaveImage(FilePath);
             return (_image, FilePath);
-        }
-
-        private static string GetDirectoryPath()
-        {
-            var path = Environment.CurrentDirectory;
-            const string imageDirectory = "ScreenShotReceiver";
-            return Path.Combine(path, imageDirectory);
         }
     }
 }
