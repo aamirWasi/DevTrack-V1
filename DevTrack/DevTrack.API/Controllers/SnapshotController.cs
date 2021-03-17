@@ -20,16 +20,13 @@ namespace DevTrack.API.Controllers
         [HttpPost]
         public bool Post([FromForm]SnapshotModel model)
         {
-            try
+            if (model.FilePath != null)
             {
                 model.SaveSnapshot();
                 return true;
             }
-            catch (Exception ex)
-            {
-                var message = ex.Message;
+            else
                 return false;
-            }
         }
     }
 }
