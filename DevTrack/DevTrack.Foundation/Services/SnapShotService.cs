@@ -3,7 +3,7 @@ using EO = DevTrack.Foundation.Entities;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-using DevTrack.Foundation.Services.Adapters;
+using DevTrack.Foundation.Adapters;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net;

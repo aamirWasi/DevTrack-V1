@@ -1,11 +1,10 @@
 ﻿using DevTrack.Foundation.Entities;
-using DevTrack.Foundation.Services.Adapters;
+using DevTrack.Foundation.Adapters;
 using DevTrack.Foundation.UnitOfWorks;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
-using DevTrack.Foundation.Adapters;
 using EO = DevTrack.Foundation.Entities;
 using BO = DevTrack.Foundation.BusinessObjects;
 using System.Net;

@@ -1,8 +1,9 @@
-﻿using System;
+﻿using DevTrack.Foundation.Services;
+using System;
 using System.Drawing;
 using System.IO;
 
-namespace DevTrack.Foundation.Services.Adapters
+namespace DevTrack.Foundation.Adapters
 {
     public class BitMapAdapter : IBitMapAdapter
     {
