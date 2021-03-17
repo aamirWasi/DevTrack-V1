@@ -16,10 +16,12 @@ namespace DevTrack.API.Models
         public DateTimeOffset CaptureTime { get; set; }
 
         private ISnapShotWebService _snapShotWebService;
+        private readonly IS3FileUploaderService _s3FileUploaderService;
 
         public SnapshotModel()
         {
             _snapShotWebService = Startup.AutofacContainer.Resolve<ISnapShotWebService>();
+            _s3FileUploaderService = Startup.AutofacContainer.Resolve<IS3FileUploaderService>();
         }
 
         public void SaveSnapshot()
@@ -30,9 +32,11 @@ namespace DevTrack.API.Models
 
                 _snapShotWebService.SaveSnapShotWebDb(new SnapshotImage
                 {
-                    FilePath = filePath,
+                    FilePath = fileName,
                     CaptureTime = CaptureTime
                 });
+
+                _s3FileUploaderService.UploadFile(fileName, filePath);
             }
         }
     }

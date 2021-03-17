@@ -1,13 +1,13 @@
-﻿using DevTrack.Foundation.Entities;
-using System;
-using System.IO;
+﻿using System;
+using DevTrack.Foundation.Entities;
 using System.Net.Http;
+using System.IO;
 
-namespace DevTrack.Foundation.Services
+namespace DevTrack.Foundation.Adapters
 {
-    public class SnapshotApiService : ISnapshotApiService
+    public class SnapShotWebAdapterService : ISnapShotWebAdapterService
     {
-        public string SaveSnapshotInSql(SnapshotImage imageEntity)
+        public string WebHttpResponse(SnapshotImage imageEntity)
         {
             var finalResult = string.Empty;
             using (var httpClient = new HttpClient())
@@ -29,6 +29,7 @@ namespace DevTrack.Foundation.Services
                     }
                 }
             }
+
             return finalResult;
         }
     }
