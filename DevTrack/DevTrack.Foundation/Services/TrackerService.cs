@@ -37,15 +37,12 @@
 
         public void Sync()
         {
+            _webCamCaptureService.SyncWebCamImages();
+            _snapShotService.SyncSnapShotImages();
             //_keyboardTrackService.SyncKeyboardDataFromLocal();
             //_mouseTrackService.SyncMouseDataFromLocal();
-            //_snapShotService.SyncSnapShotImages();
-            //_snapShotService.SnapshotCapturer();
             //_activeProgramService.SyncActivePrograms();
-            //_runningProgramService.AddRunningProgramsLocalDb();
-            //_activeProgramService.SaveActiveProgramLocalDb();
             //_runningProgramService.SyncRunningPrograms();
-            //_webCamCaptureService.SyncWebCamImages();
         }
     }
 }
