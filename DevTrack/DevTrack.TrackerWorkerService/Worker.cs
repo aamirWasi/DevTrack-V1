@@ -37,7 +37,7 @@ namespace DevTrack.TrackerWorkerService
             while (!stoppingToken.IsCancellationRequested)
             {
                 //_trackerService.Track();
-                _trackerService.Sync();
+                //_trackerService.Sync();
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 //await Task.Delay(60000, stoppingToken);
                 await Task.Delay(10000, stoppingToken);
