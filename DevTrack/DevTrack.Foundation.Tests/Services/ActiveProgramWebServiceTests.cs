@@ -47,6 +47,22 @@ namespace DevTrack.Foundation.Tests.Services
             _activeProgramWebUnitMock?.Reset();
         }
 
+        [Test]
+        public void SaveActiveProgramIntoWeb_NoProgramProvided_ThrowsInvalidOperationException()
+        {
+            //arrange
+            var program = new ActiveProgram { ProgramName = "Slack", ProgramTime = DateTime.Now };
+            ActiveProgram activeProgram = null;
+
+            //act
+            Should.Throw<InvalidOperationException>(
+                () => _activeProgramWebService.SaveActiveProgramWebDb(activeProgram)
+                );
+
+            //assert
+            activeProgram.ShouldNotBe(program);
+        }
+
 
         [Test]
         public void SaveActiveProgramIntoWeb_ProgramProvide_SaveIntoSqlServer()
