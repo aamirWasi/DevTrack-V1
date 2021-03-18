@@ -64,9 +64,7 @@ namespace DevTrack.Foundation.Tests.Services
                 );
 
             //assert
-            this.ShouldSatisfyAllConditions(
-                () => _activeProgramAdpaterMock.VerifyAll()
-                );
+            _activeProgramAdpaterMock.VerifyAll();
         }
 
 
