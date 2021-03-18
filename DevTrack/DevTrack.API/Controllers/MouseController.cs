@@ -10,15 +10,16 @@ namespace DevTrack.API.Controllers
     public class MouseController : ControllerBase
     {
         [HttpPost]
-        public void Post([FromBody] MouseModel model)
+        public bool Post([FromBody] MouseModel model)
         {
             try
             {
                 model.SaveMouseIntoWeb(model);
+                return true;
             }
             catch (Exception ex)
             {
-                throw;
+                return false;
             }
         }
     }
