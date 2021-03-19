@@ -6,6 +6,7 @@ using DevTrack.Foundation.Repositories;
 using DevTrack.Foundation.Repositories.Interfaces;
 using DevTrack.Foundation.Services;
 using DevTrack.Foundation.UnitOfWorks;
+using DevTrack.Foundation.UnitOfWorks.Interfaces;
 
 namespace DevTrack.Foundation
 {

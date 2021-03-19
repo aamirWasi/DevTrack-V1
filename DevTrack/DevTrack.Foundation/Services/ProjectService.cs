@@ -4,6 +4,7 @@ using System.Text;
 using EO = DevTrack.Foundation.Entities;
 using BO = DevTrack.Foundation.BusinessObjects;
 using DevTrack.Foundation.UnitOfWorks;
+using DevTrack.Foundation.UnitOfWorks.Interfaces;
 using System.Linq;
 
 namespace DevTrack.Foundation.Services

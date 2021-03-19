@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using BO = DevTrack.Foundation.BusinessObjects;
+using DevTrack.Foundation.UnitOfWorks.Interfaces;
 
 namespace DevTrack.Foundation.Services
 {

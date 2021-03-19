@@ -3,7 +3,7 @@ using DevTrack.Foundation.Repositories;
 using DevTrack.Foundation.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevTrack.Foundation.UnitOfWorks
+namespace DevTrack.Foundation.UnitOfWorks.Interfaces
 {
     public interface IMouseWebUnitOfWork : IUnitOfWork
     {

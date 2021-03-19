@@ -1,6 +1,7 @@
 ﻿using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.Adapters;
 using DevTrack.Foundation.UnitOfWorks;
+using DevTrack.Foundation.UnitOfWorks.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;

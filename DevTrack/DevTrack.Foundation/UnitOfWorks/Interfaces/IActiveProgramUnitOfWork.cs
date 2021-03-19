@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DevTrack.Foundation.UnitOfWorks
+namespace DevTrack.Foundation.UnitOfWorks.Interfaces
 {
     public interface IActiveProgramUnitOfWork : IUnitOfWork
     {

@@ -1,4 +1,5 @@
 ﻿using DevTrack.Foundation.UnitOfWorks;
+using DevTrack.Foundation.UnitOfWorks.Interfaces;
 using EO = DevTrack.Foundation.Entities;
 using System;
 using System.Drawing;

@@ -1,5 +1,6 @@
 ﻿using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.UnitOfWorks;
+using DevTrack.Foundation.UnitOfWorks.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;

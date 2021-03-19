@@ -7,6 +7,7 @@ using System.Text;
 using DevTrack.Foundation.BusinessObjects;
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.UnitOfWorks;
+using DevTrack.Foundation.UnitOfWorks.Interfaces;
 using Newtonsoft.Json;
 
 namespace DevTrack.Foundation.Services

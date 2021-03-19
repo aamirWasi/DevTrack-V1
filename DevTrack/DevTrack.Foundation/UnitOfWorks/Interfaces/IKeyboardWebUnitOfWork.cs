@@ -2,7 +2,7 @@
 using DevTrack.Foundation.Repositories;
 using DevTrack.Foundation.Repositories.Interfaces;
 
-namespace DevTrack.Foundation.UnitOfWorks
+namespace DevTrack.Foundation.UnitOfWorks.Interfaces
 {
     public interface IKeyboardWebUnitOfWork : IUnitOfWork
     {
