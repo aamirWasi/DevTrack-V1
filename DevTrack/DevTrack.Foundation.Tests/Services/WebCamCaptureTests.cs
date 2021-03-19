@@ -5,6 +5,7 @@ using Autofac.Extras.Moq;
 using NUnit.Framework;
 using DevTrack.Foundation.UnitOfWorks;
 using DevTrack.Foundation.Repositories;
+using DevTrack.Foundation.Repositories.Interfaces;
 using DevTrack.Foundation.Adapters;
 using Shouldly;
 using Moq;

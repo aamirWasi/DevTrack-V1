@@ -3,6 +3,7 @@ using DevTrack.Foundation.Adapters;
 using DevTrack.Foundation.BusinessObjects;
 using DevTrack.Foundation.Contexts;
 using DevTrack.Foundation.Repositories;
+using DevTrack.Foundation.Repositories.Interfaces;
 using DevTrack.Foundation.Services;
 using DevTrack.Foundation.UnitOfWorks;
 

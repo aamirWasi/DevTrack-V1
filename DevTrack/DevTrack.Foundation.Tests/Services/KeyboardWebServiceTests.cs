@@ -1,6 +1,7 @@
 ﻿using Autofac.Extras.Moq;
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.Repositories;
+using DevTrack.Foundation.Repositories.Interfaces;
 using DevTrack.Foundation.Services;
 using DevTrack.Foundation.UnitOfWorks;
 using Moq;

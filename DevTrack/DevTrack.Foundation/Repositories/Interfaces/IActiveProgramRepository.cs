@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DevTrack.Foundation.Repositories
+namespace DevTrack.Foundation.Repositories.Interfaces
 {
     public interface IActiveProgramRepository : IRepository<ActiveProgram, int, DevTrackContext>
     {
