@@ -12,7 +12,7 @@ namespace DevTrack.API.Controllers
         [HttpPost]
         public bool Post([FromForm]WebCamCaptureModel model)
         {
-            if (model.FilePath != null)
+            if (model != null)
             {
                 model.SaveWebCamCapture();
                 return true;

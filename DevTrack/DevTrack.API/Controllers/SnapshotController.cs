@@ -20,7 +20,7 @@ namespace DevTrack.API.Controllers
         [HttpPost]
         public bool Post([FromForm]SnapshotModel model)
         {
-            if (model.FilePath != null)
+            if (model != null)
             {
                 model.SaveSnapshot();
                 return true;
