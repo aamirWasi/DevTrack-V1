@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DevTrack.Foundation.Services
+namespace DevTrack.Foundation.Services.Interfaces
 {
     public interface IProjectService
     {

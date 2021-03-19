@@ -7,6 +7,7 @@ using DevTrack.Foundation.UnitOfWorks;
 using DevTrack.Foundation.UnitOfWorks.Interfaces;
 using DevTrack.Foundation.Repositories;
 using DevTrack.Foundation.Repositories.Interfaces;
+using DevTrack.Foundation.Services.Interfaces;
 using DevTrack.Foundation.Adapters;
 using Shouldly;
 using Moq;

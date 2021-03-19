@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.Services;
+using DevTrack.Foundation.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;

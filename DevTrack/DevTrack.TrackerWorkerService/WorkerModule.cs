@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using DevTrack.Foundation.Services;
+using DevTrack.Foundation.Services.Interfaces;
 
 namespace DevTrack.TrackerWorkerService
 {

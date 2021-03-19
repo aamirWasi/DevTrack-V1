@@ -1,4 +1,5 @@
 using DevTrack.Foundation.Services;
+using DevTrack.Foundation.Services.Interfaces;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;

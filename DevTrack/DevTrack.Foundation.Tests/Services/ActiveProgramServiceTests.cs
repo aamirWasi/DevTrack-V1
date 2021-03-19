@@ -5,6 +5,7 @@ using DevTrack.Foundation.Services;
 using DevTrack.Foundation.Adapters;
 using DevTrack.Foundation.UnitOfWorks;
 using DevTrack.Foundation.UnitOfWorks.Interfaces;
+using DevTrack.Foundation.Services.Interfaces;
 using Moq;
 using NUnit.Framework;
 using Shouldly;

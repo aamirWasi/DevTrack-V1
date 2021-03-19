@@ -2,6 +2,7 @@
 using Amazon.S3.Model;
 using System;
 using System.Threading.Tasks;
+using DevTrack.Foundation.Services.Interfaces;
 
 namespace DevTrack.Foundation.Services
 {

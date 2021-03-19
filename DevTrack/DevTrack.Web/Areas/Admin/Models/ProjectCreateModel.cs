@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using DevTrack.Foundation.Services;
+using DevTrack.Foundation.Services.Interfaces;
 using Autofac;
 
 namespace DevTrack.Web.Areas.Admin.Models

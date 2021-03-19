@@ -5,6 +5,7 @@ using DevTrack.Foundation.BusinessObjects;
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.UnitOfWorks;
 using DevTrack.Foundation.UnitOfWorks.Interfaces;
+using DevTrack.Foundation.Services.Interfaces;
 
 namespace DevTrack.Foundation.Services
 {

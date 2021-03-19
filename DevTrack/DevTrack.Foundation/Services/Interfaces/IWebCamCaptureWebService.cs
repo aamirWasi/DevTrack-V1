@@ -1,6 +1,6 @@
 ﻿using DevTrack.Foundation.Entities;
 
-namespace DevTrack.Foundation.Services
+namespace DevTrack.Foundation.Services.Interfaces
 {
     public interface IWebCamCaptureWebService
     {

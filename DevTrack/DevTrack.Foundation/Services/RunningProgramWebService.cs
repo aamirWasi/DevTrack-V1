@@ -1,6 +1,7 @@
 ﻿using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.UnitOfWorks;
 using DevTrack.Foundation.UnitOfWorks.Interfaces;
+using DevTrack.Foundation.Services.Interfaces;
 using System;
 
 namespace DevTrack.Foundation.Services

@@ -1,4 +1,6 @@
-﻿namespace DevTrack.Foundation.Services
+﻿using DevTrack.Foundation.Services.Interfaces;
+
+namespace DevTrack.Foundation.Services
 {
     public class TrackerService : ITrackerService
     {
