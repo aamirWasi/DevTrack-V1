@@ -24,6 +24,23 @@ namespace DevTrack.Web.Areas.Admin.Controllers
 
             return View(model);
         }
+        public ActionResult Report()
+        {
+            return View();
+        }
+
+        public ActionResult MyActivities()
+        {
+            return View();
+        }
+        public ActionResult WebTracker()
+        {
+            return View();
+        }
+        public ActionResult Invoices()
+        {
+            return View();
+        }
 
         public ActionResult AddProject()
         {

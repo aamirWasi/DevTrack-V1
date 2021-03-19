@@ -137,7 +137,7 @@ namespace DevTrack.Web.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    return RedirectToRoute(new {Area= "Admin", Controller="Project", Action="Index"});
                 }
                 if (result.RequiresTwoFactor)
                 {
