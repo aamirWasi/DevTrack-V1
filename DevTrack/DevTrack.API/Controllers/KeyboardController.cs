@@ -12,15 +12,16 @@ namespace DevTrack.API.Controllers
     public class KeyboardController : ControllerBase
     {
         [HttpPost]
-        public void Post([FromBody] KeyboardModel model)
+        public bool Post([FromBody] KeyboardModel model)
         {
             try
             {
                 model.SaveKeyboardIntoWeb(model);
+                return true;
             }
             catch (Exception ex)
             {
-                throw;
+                return false;
             }
         }
     }

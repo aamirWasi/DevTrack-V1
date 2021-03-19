@@ -66,14 +66,12 @@ namespace DevTrack.Foundation.Tests.Services
                 );
 
             //assert
-            this.ShouldSatisfyAllConditions(
-                () => _activeProgramAdpaterMock.VerifyAll()
-                );
+            _activeProgramAdpaterMock.VerifyAll();
         }
 
 
         [Test]
-        public void SaveActiveProgram_Save()
+        public void SaveActiveProgram_NoProgramFound_SaveLocalDB()
         {
             //arrange
             string programName = "Slack";
