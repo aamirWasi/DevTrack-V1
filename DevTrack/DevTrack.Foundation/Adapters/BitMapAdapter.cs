@@ -49,10 +49,10 @@ namespace DevTrack.Foundation.Adapters
             FilePath = $"{newPath}{folderName}{imgName}{extensions}";
             _image = new SnapShotAdapter(Width, Height);
 
-            var s = new Size(Width, Height);
+            var size = new Size(Width, Height);
 
             var imageGraphics = Graphics.FromImage(_image.Image);
-            imageGraphics.CopyFromScreen(0, 0, 0, 0, s);
+            imageGraphics.CopyFromScreen(0, 0, 0, 0, size);
 
             _image.SaveImage(FilePath);
             return (_image, FilePath);
