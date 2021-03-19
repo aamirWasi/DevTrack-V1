@@ -12,15 +12,13 @@ namespace DevTrack.API.Controllers
         [HttpPost]
         public bool Post([FromBody] MouseModel model)
         {
-            try
+            if (model != null)
             {
                 model.SaveMouseIntoWeb(model);
                 return true;
             }
-            catch (Exception ex)
-            {
+            else
                 return false;
-            }
         }
     }
 }

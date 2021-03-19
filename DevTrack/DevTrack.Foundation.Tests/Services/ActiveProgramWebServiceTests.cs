@@ -1,8 +1,11 @@
 ﻿using Autofac.Extras.Moq;
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.Repositories;
+using DevTrack.Foundation.Repositories.Interfaces;
 using DevTrack.Foundation.Services;
+using DevTrack.Foundation.Services.Interfaces;
 using DevTrack.Foundation.UnitOfWorks;
+using DevTrack.Foundation.UnitOfWorks.Interfaces;
 using Moq;
 using NUnit.Framework;
 using Shouldly;

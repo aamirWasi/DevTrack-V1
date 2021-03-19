@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.Services;
+using DevTrack.Foundation.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -10,18 +11,23 @@ using System.Threading.Tasks;
 
 namespace DevTrack.API.Models
 {
-    public class SnapshotModel : BaseModel
+    public class SnapshotModel : SnapshotSaveModel
     {
         public IFormFile FilePath { get; set; }
         public DateTimeOffset CaptureTime { get; set; }
 
-        private ISnapShotWebService _snapShotWebService;
+        private const string IMAGE_PATH = @"images/snapshots";
+        private readonly ISnapShotWebService _snapShotWebService;
         private readonly IS3FileUploaderService _s3FileUploaderService;
 
-        public SnapshotModel()
+        public SnapshotModel() : base(IMAGE_PATH)
         {
             _snapShotWebService = Startup.AutofacContainer.Resolve<ISnapShotWebService>();
             _s3FileUploaderService = Startup.AutofacContainer.Resolve<IS3FileUploaderService>();
+        }
+
+        public SnapshotModel(string IMAGE_PATH) : base(IMAGE_PATH)
+        {
         }
 
         public void SaveSnapshot()

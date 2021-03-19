@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace DevTrack.Foundation.Services.Adapters
+namespace DevTrack.Foundation.Adapters
 {
     public class SnapShotAdapter : ISnapShotAdapter
     {

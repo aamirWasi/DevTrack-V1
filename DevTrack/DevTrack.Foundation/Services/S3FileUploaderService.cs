@@ -2,12 +2,13 @@
 using Amazon.S3.Model;
 using System;
 using System.Threading.Tasks;
+using DevTrack.Foundation.Services.Interfaces;
 
 namespace DevTrack.Foundation.Services
 {
     public class S3FileUploaderService : IS3FileUploaderService
     {
-        private readonly string bucketName = "aspnet-b4team2";
+        const string bucketName = "aspnet-b4team2";
 
         public async Task UploadFile(string keyName, string filePath)
         {

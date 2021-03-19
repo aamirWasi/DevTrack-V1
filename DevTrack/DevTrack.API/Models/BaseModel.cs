@@ -3,32 +3,30 @@ using DevTrack.Membership.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using System;
 using System.IO;
 
 namespace DevTrack.API.Models
 {
-    public class BaseModel
+    public abstract class BaseModel
     {
         protected readonly UserManager<ApplicationUser> _userService;
         private readonly IWebHostEnvironment _webHostEnvironment;
         protected readonly IHttpContextAccessor _httpContextAccessor;
-        private const string IMAGE_PATH = "temp";
+        private readonly string IMAGE_PATH;
 
-        public BaseModel()
+        public BaseModel(string imagePath)
         {
             _webHostEnvironment = Startup.AutofacContainer.Resolve<IWebHostEnvironment>();
             _httpContextAccessor = Startup.AutofacContainer.Resolve<IHttpContextAccessor>();
             _userService = Startup.AutofacContainer.Resolve<UserManager<ApplicationUser>>();
+            IMAGE_PATH = imagePath;
         }
 
         public virtual (string fileName, string filePath) StoreFile(IFormFile file)
         {
-            var randomName = Path.GetRandomFileName().Replace(".", string.Empty);
-            var newFileName = $"{randomName}{Path.GetExtension(file.FileName)}";
-
             var rootPath = _webHostEnvironment.WebRootPath;
-            //var temp = _pathService.TempFolder;
-
+            var newFileName = String.Format(Guid.NewGuid().ToString() + ".jpg");
             var fullPath = Path.Combine(rootPath, IMAGE_PATH);
 
             if (!Directory.Exists(fullPath))
@@ -44,12 +42,8 @@ namespace DevTrack.API.Models
                 using var uploadFile = file.OpenReadStream();
                 uploadFile.CopyTo(profileImage);
             }
-            return (newFileName, path);
-        }
 
-        public string FormatImageUrl(string imageName)
-        {
-            return $"/{IMAGE_PATH}/{imageName}";
+            return (newFileName, path);
         }
     }
 }

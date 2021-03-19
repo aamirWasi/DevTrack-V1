@@ -16,17 +16,18 @@ namespace DevTrack.Foundation.Adapters
 
                 var file_bytes = File.ReadAllBytes(imageEntity.WebCamImagePath);
 
-                var form = new MultipartFormDataContent();
-                form.Add(new StringContent(imageEntity.WebCamImageDateTime.ToString("yyyy-MM-dd h:mm tt")), "CaptureTime");
-                form.Add(new ByteArrayContent(file_bytes, 0, file_bytes.Length), "FilePath", "file.jpeg");
-                using (var response = httpClient.PostAsync("api/WebCamCapture", form).Result)
+                var form = new MultipartFormDataContent
                 {
-                    if (response.IsSuccessStatusCode)
-                    {
-                        using var content = response.Content;
-                        var result = content.ReadAsStringAsync();
-                        finalResult = result.Result;
-                    }
+                    { new StringContent(imageEntity.WebCamImageDateTime.ToString("yyyy-MM-dd h:mm tt")), "CaptureTime" },
+                    { new ByteArrayContent(file_bytes, 0, file_bytes.Length), "FilePath", "file.jpeg" }
+                };
+
+                using var response = httpClient.PostAsync("api/WebCamCapture", form).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    using var content = response.Content;
+                    var result = content.ReadAsStringAsync();
+                    finalResult = result.Result;
                 }
             }
 

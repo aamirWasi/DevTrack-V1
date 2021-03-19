@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using DevTrack.Foundation.Adapters;
 
-namespace DevTrack.Foundation.Services.Adapters
+namespace DevTrack.Foundation.Adapters
 {
     public class ActiveProgramAdapter : IActiveProgramAdapter
     {

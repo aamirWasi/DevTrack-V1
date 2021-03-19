@@ -1,4 +1,5 @@
 ﻿using System;
+using DevTrack.Foundation.Services.Interfaces;
 
 namespace DevTrack.Foundation.Services
 {

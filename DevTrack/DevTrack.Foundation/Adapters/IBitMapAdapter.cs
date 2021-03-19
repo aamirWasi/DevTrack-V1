@@ -1,4 +1,4 @@
-﻿namespace DevTrack.Foundation.Services.Adapters
+﻿namespace DevTrack.Foundation.Adapters
 {
     public interface IBitMapAdapter
     {

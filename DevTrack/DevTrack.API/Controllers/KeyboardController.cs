@@ -14,15 +14,13 @@ namespace DevTrack.API.Controllers
         [HttpPost]
         public bool Post([FromBody] KeyboardModel model)
         {
-            try
+            if (model != null)
             {
                 model.SaveKeyboardIntoWeb(model);
                 return true;
             }
-            catch (Exception ex)
-            {
+            else
                 return false;
-            }
         }
     }
 }

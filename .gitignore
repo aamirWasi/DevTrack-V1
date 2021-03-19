@@ -11,11 +11,10 @@
 /DevTrack/DevTrack.Web/appsettings.json
 /*.db
 /DevTrack/DevTrack.API/wwwroot/images
-/DevTrack/DevTrack.API/wwwroot/temp
 /DevTrack/DevTrack.API/wwwroot/images/WebCamCapture
 /DevTrack/DevTrack.TrackerWorkerService/WebCamCapture
+/DevTrack/DevTrack.TrackerWorkerService/ScreenShotReceiver
 /DevTrack/DevTrack.API/wwwroot/temp
-/DevTrack/DevTrack.API/wwwroot/images
 /DevTrack/DevTrack.API/appsettings.json
 /DevTrack/DevTrack.TrackerWorkerService/appsettings.json
 /DevTrack/DevTrack.SyncWokerService/appsettings.json

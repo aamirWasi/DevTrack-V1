@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using DevTrack.Foundation.Services;
+using DevTrack.Foundation.Services.Interfaces;
 using Autofac;
 
 namespace DevTrack.Web.Areas.Admin.Models
@@ -63,16 +64,17 @@ namespace DevTrack.Web.Areas.Admin.Models
                 IsAdmin = tempProject.IsAdmin;
                 CreationTime = tempProject.CreationTime;
 
-                Setting = new BO.Settings();
-
-                Setting.Id = tempProject.Settings.Id;
-                Setting.AllowTracking = tempProject.Settings.AllowTracking;
-                Setting.TrackActiveProgram = tempProject.Settings.TrackActiveProgram;
-                Setting.TakeScreenShot = tempProject.Settings.TakeScreenShot;
-                Setting.TrackKeyboardHits = tempProject.Settings.TrackKeyboardHits;
-                Setting.TrackMouseHits = tempProject.Settings.TrackMouseHits;
-                Setting.TrackRunningProgram = tempProject.Settings.TrackRunningProgram;
-                Setting.WebCamCapture = tempProject.Settings.WebCamCapture;
+                Setting = new BO.Settings
+                {
+                    Id = tempProject.Settings.Id,
+                    AllowTracking = tempProject.Settings.AllowTracking,
+                    TrackActiveProgram = tempProject.Settings.TrackActiveProgram,
+                    TakeScreenShot = tempProject.Settings.TakeScreenShot,
+                    TrackKeyboardHits = tempProject.Settings.TrackKeyboardHits,
+                    TrackMouseHits = tempProject.Settings.TrackMouseHits,
+                    TrackRunningProgram = tempProject.Settings.TrackRunningProgram,
+                    WebCamCapture = tempProject.Settings.WebCamCapture
+                };
             }
 
         }

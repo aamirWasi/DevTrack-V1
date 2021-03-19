@@ -4,6 +4,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using DevTrack.Foundation.Services;
+using DevTrack.Foundation.Services.Interfaces;
 
 namespace DevTrack.SyncWokerService
 {

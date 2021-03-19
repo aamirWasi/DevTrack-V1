@@ -1,4 +1,6 @@
-﻿namespace DevTrack.Foundation.Services
+﻿using DevTrack.Foundation.Services.Interfaces;
+
+namespace DevTrack.Foundation.Services
 {
     public class TrackerService : ITrackerService
     {
@@ -27,22 +29,22 @@
 
         public void Track()
         {
-            //_snapShotService.SnapshotCapturer();
-            //_activeProgramService.SaveActiveProgramLocalDb();
+            _snapShotService.SnapshotCapturer();
+            _webCamCaptureService.WebCamCaptureImageSave();
             //_keyboardTrackService.KeyboardTrackSaveToLocal();
             //_mouseTrackService.MouseTrackSaveToLocal();
-            //_webCamCaptureService.WebCamCaptureImageSave();
             //_runningProgramService.AddRunningProgramsLocalDb();
+            //_activeProgramService.SaveActiveProgramLocalDb();
         }
 
         public void Sync()
         {
+            _webCamCaptureService.SyncWebCamImages();
+            _snapShotService.SyncSnapShotImages();
             //_keyboardTrackService.SyncKeyboardDataFromLocal();
             //_mouseTrackService.SyncMouseDataFromLocal();
-            //_snapShotService.SyncSnapShotImages();
             //_activeProgramService.SyncActivePrograms();
-            _runningProgramService.SyncRunningPrograms();
-            //_webCamCaptureService.SyncWebCamImages();
+            //_runningProgramService.SyncRunningPrograms();
         }
     }
 }

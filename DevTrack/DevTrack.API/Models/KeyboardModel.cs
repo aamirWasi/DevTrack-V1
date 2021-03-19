@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using DevTrack.Foundation.BusinessObjects;
 using DevTrack.Foundation.Services;
+using DevTrack.Foundation.Services.Interfaces;
 
 namespace DevTrack.API.Models
 {

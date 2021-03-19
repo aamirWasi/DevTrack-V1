@@ -1,11 +1,11 @@
 ﻿using DevTrack.Foundation.Entities;
-using DevTrack.Foundation.Services.Adapters;
+using DevTrack.Foundation.Adapters;
 using DevTrack.Foundation.UnitOfWorks;
+using DevTrack.Foundation.UnitOfWorks.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
-using DevTrack.Foundation.Adapters;
 using EO = DevTrack.Foundation.Entities;
 using BO = DevTrack.Foundation.BusinessObjects;
 using System.Net;
@@ -14,6 +14,7 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using DevTrack.Foundation.Services.Interfaces;
 
 namespace DevTrack.Foundation.Services
 {

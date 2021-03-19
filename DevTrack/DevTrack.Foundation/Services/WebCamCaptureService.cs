@@ -1,5 +1,7 @@
 ﻿using System;
 using DevTrack.Foundation.UnitOfWorks;
+using DevTrack.Foundation.UnitOfWorks.Interfaces;
+using DevTrack.Foundation.Services.Interfaces;
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.Adapters;
 

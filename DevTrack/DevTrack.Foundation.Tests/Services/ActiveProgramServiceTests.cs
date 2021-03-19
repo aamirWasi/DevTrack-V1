@@ -2,15 +2,17 @@
 using DevTrack.Foundation.Entities;
 using DevTrack.Foundation.Repositories;
 using DevTrack.Foundation.Services;
-using DevTrack.Foundation.Services.Adapters;
+using DevTrack.Foundation.Adapters;
 using DevTrack.Foundation.UnitOfWorks;
+using DevTrack.Foundation.UnitOfWorks.Interfaces;
+using DevTrack.Foundation.Services.Interfaces;
 using Moq;
 using NUnit.Framework;
 using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using DevTrack.Foundation.Adapters;
+using DevTrack.Foundation.Repositories.Interfaces;
 
 namespace DevTrack.Foundation.Tests.Services
 {

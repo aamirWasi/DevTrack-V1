@@ -1,5 +1,7 @@
 ﻿using DevTrack.DataAccessLayer;
 using DevTrack.Foundation.Contexts;
+using DevTrack.Foundation.Repositories.Interfaces;
+using DevTrack.Foundation.UnitOfWorks.Interfaces;
 using DevTrack.Foundation.Repositories;
 
 namespace DevTrack.Foundation.UnitOfWorks
