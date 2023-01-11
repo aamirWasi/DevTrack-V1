@@ -57,7 +57,7 @@ namespace DevTrack.Foundation.Services
         public void SyncSnapShotImages()
         {
             var images = _snapshotUnitOfWork.SnapshotRepository.GetAll();
-            if (images!=null && images.Count>0)
+            if (images != null && images.Count > 0)
             {
                 foreach (var image in images)
                 {
